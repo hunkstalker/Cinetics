@@ -3,28 +3,39 @@
         if(count($_POST)==3){
             $userPOST = filter_input(INPUT_POST, 'user');
             $passPOST = filter_input(INPUT_POST, 'pass');
-    
-            $usuari['nom'] = $userPOST;
-            $usuari['pass'] = $passPOST;
-    
-            echo var_dump($usuari);
+            $usuarioLogin['nom'] = $userPOST;
+            $usuarioLogin['pass'] = $passPOST;
+
+            require_once('./lib/connecta_db_persistent.php');
+            $sql = 'SELECT * FROM `users`';
+            $usuaris = $db->query($sql);
+
+            if(password_verify($passPOST, $usuaris['passHash'])){
+                echo 'Usuario verificado!';
+            }
+
         }else if(count($_POST)==4){
             $userPOST = filter_input(INPUT_POST, 'user');
             $passSignUpOnePOST = filter_input(INPUT_POST, 'passSignUpOne');
             $passSignUpRepPOST = filter_input(INPUT_POST, 'passSignUpRep');
             $emailPOST = filter_input(INPUT_POST, 'email');
-    
-            $usuari['nom'] = $userPOST;
-            $usuari['passSignUpOne'] = $passSignUpOnePOST;
-            $usuari['passSignUpRep'] = $passSignUpRepPOST;
-            $usuari['email'] = $emailPOST;
-    
-            echo var_dump($usuari);
+            
+            if($passSignUpOnePOST==$passSignUpRepPOST){
+                $hashPass=password_hash($passSignUpOnePOST, PASSWORD_DEFAULT);
+                $passSignUpRepPOST='';
+                $passSignUpOnePOST='';
+                require_once('./lib/transaction.php');
+
+            }else{
+                $passSignUpRepPOST='';
+                $passSignUpOnePOST='';
+                echo 'Las contraseñas no coinciden';
+            }
         }else{
-            echo 'nothing to do $_POST';
+            echo 'Error en el POST';
         }
     }else{
-        echo 'nothing to do $_SERVER';
+        echo 'Error en el SERVER';
     }
 ?>
 
