@@ -1,41 +1,37 @@
 <?php
+    require_once('./lib/login.php');
+    require_once('./lib/transaction.php');
+
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         if(count($_POST)==3){
-            $userPOST = filter_input(INPUT_POST, 'user');
-            $passPOST = filter_input(INPUT_POST, 'pass');
-            $usuarioLogin['nom'] = $userPOST;
-            $usuarioLogin['pass'] = $passPOST;
+            if(isset($_POST['user']) && isset($_POST['pass'])){
+                $userPOST = strtolower(filter_input(INPUT_POST, 'user'));
+                $passPOST = filter_input(INPUT_POST, 'pass');
 
-            require_once('./lib/connecta_db_persistent.php');
-            $sql = 'SELECT * FROM `users`';
-            $usuaris = $db->query($sql);
-
-            if(password_verify($passPOST, $usuaris['passHash'])){
-                echo 'Usuario verificado!';
+                verificarUsuario($userPOST, $passPOST);
+            }else{
+                echo 'Error isset';
             }
-
         }else if(count($_POST)==4){
-            $userPOST = filter_input(INPUT_POST, 'user');
+            $userPOST = strtolower(filter_input(INPUT_POST, 'user'));
+            $emailPOST = strtolower(filter_input(INPUT_POST, 'email'));
             $passSignUpOnePOST = filter_input(INPUT_POST, 'passSignUpOne');
             $passSignUpRepPOST = filter_input(INPUT_POST, 'passSignUpRep');
-            $emailPOST = filter_input(INPUT_POST, 'email');
             
             if($passSignUpOnePOST==$passSignUpRepPOST){
                 $hashPass=password_hash($passSignUpOnePOST, PASSWORD_DEFAULT);
                 $passSignUpRepPOST='';
                 $passSignUpOnePOST='';
-                require_once('./lib/transaction.php');
-
+                
+                transaction($emailPOST, $userPOST, $hashPass);
             }else{
                 $passSignUpRepPOST='';
                 $passSignUpOnePOST='';
                 echo 'Las contraseñas no coinciden';
             }
         }else{
-            echo 'Error en el POST';
+            echo 'Faltan campos que rellenar';
         }
-    }else{
-        echo 'Error en el SERVER';
     }
 ?>
 
