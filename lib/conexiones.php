@@ -4,7 +4,6 @@
         $usuari = 'cinetics';
         $passwd = 'cinetics';
         try{
-            // Creamos la conexión a BBDD
             $dbCinetics = new PDO($cadena_connexio, $usuari, $passwd, 
                             array(PDO::ATTR_PERSISTENT => true));
         }catch(PDOException $e){
@@ -22,6 +21,8 @@
                 if($userPOST==$element['username'] && password_verify($passPOST, $element['passHash'])){
                     echo 'login OK';
                     break;
+                }else{
+                    echo 'Error en el nombre o contraseña introducidos';
                 }
             }
         }catch(PDOException $e){
