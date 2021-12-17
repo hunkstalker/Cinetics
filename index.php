@@ -1,6 +1,5 @@
 <?php
-    require_once('./lib/login.php');
-    require_once('./lib/transaction.php');
+    require_once('./lib/conexiones.php');
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         if(count($_POST)==3){
@@ -22,7 +21,7 @@
                 $hashPass=password_hash($passSignUpOnePOST, PASSWORD_DEFAULT);
                 $passSignUpRepPOST='';
                 $passSignUpOnePOST='';
-                
+
                 transaction($emailPOST, $userPOST, $hashPass);
             }else{
                 $passSignUpRepPOST='';
