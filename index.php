@@ -1,6 +1,6 @@
 <?php
     session_start();
-    require_once('./lib/conexiones.php');
+    require_once('./lib/transacciones.php');
 
     define("LANGUAGE", "es");
     
@@ -30,20 +30,20 @@
         }else if(count($_POST)==4){
             $userPOST = filter_input(INPUT_POST, 'user');
             $emailPOST = filter_input(INPUT_POST, 'email');
-            $passSignUpOnePOST = filter_input(INPUT_POST, 'passSignUpOne');
-            $passSignUpRepPOST = filter_input(INPUT_POST, 'passSignUpRep');
+            $passPOST = filter_input(INPUT_POST, 'password');
+            $vrfyPOST = filter_input(INPUT_POST, 'vrfypass');
             
-            //Comparación de contraseñas a la hora de registrarse
+            // Comparación de contraseñas a la hora de registrarse
             if($passSignUpOnePOST==$passSignUpRepPOST){
-                //Creando hash de la contraseña
+                // Creando hash de la contraseña
                 $hashPass=password_hash($passSignUpOnePOST, PASSWORD_DEFAULT);
-                //Guardado de email, nombre de usuario y password hash en la bbdd
-                transaction($emailPOST, $userPOST, $hashPass);
+                // Guardado de email, nombre de usuario y password hash en la bbdd
+                registrarUsuario($emailPOST, $userPOST, $hashPass);
             }else{
                 echo 'Las contraseñas no coinciden';
                 $err = TRUE;
             }
-            //Limpieza de contraseña
+            // Limpieza de contraseña
             $passSignUpRepPOST='';
             $passSignUpOnePOST='';
         }else{
@@ -65,9 +65,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cinetics</title>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!-- Bootstrap 5 && jQuery -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="./js/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="./css/style.css">
 </head>
 
@@ -130,3 +130,5 @@
 </body>
 
 </html>
+
+<script src="./js/index.js"></script>
