@@ -1,25 +1,30 @@
 <?php
-    function conexionBBDD(){       
-        $cadena_connexio = 'mysql:dbname=cineticsdb;host=localhost:3306';
-        $usuari = 'cinetics';
+    function conexionDB(){       
+        // Credenciales totalmente seguras y originales
+        $conexion='mysql:dbname=cineticsdb;host=localhost:3306';
+        $usuario = 'cinetics';
         $passwd = 'cinetics';
         try{
-            $dbCinetics = new PDO($cadena_connexio, $usuari, $passwd, 
-                            array(PDO::ATTR_PERSISTENT => true));
+            $con = new PDO($conexion, $usuario, $passwd,
+                array(PDO::ATTR_PERSISTENT => true));
         }catch(PDOException $e){
-            echo 'Error amb la BDs: ' . $e->getMessage();
+            print "Error!: " . $e->getMessage() . "<br/>";
         }
-        return $dbCinetics;
-    }   
+        return $con;
+    }
 
     function verificarUsuario($userPOST, $passPOST){
-        $dbCinetics=conexionBBDD();
+        session_start();
+        $con = conexionDB();
         try{
-            $sql = 'SELECT * FROM `users`';
-            $usuaris = $dbCinetics->query($sql);
-            foreach ($usuaris as $element) {
-                if($userPOST==$element['username'] && password_verify($passPOST, $element['passHash'])){
-                    echo 'login OK';
+            $sql='SELECT * FROM `users`';
+            $usuarios = $con->query($sql);
+            foreach ($usuarios as $element) {
+                if(strtolower($userPOST) == strtolower($element['username']) && password_verify($passPOST, $element['passHash']) && $element['active']==1){
+                    $_SESSION['authorized']=TRUE;
+                    $_SESSION['username']=$element['username'];
+                    $_SESSION['mail']=$element['mail'];
+                    session_regenerate_id();
                     break;
                 }else{
                     echo 'Error en el nombre o contraseña introducidos';
@@ -28,23 +33,26 @@
         }catch(PDOException $e){
             echo 'Error amb la BDs: ' . $e->getMessage();
         }
+        $usuarios=null;
+        $con=null;
     }
 
     function transaction($emailPOST, $userPOST, $hashPass){
-        $dbCinetics=conexionBBDD();
+        $con=conexionDB();
         try{
-            $dbCinetics->beginTransaction();
+            $con->beginTransaction();
             $sql = "INSERT INTO `users` (mail, username, passHash, userFirstName, userLastName, creationDate, active) 
                     VALUES('$emailPOST', '$userPOST', '$hashPass', 'John', 'Doe', NOW(), 1)";
-            $insert = $dbCinetics->query($sql);
+            $insert = $con->query($sql);
             if($insert){
-                $dbCinetics->commit();
+                $con->commit();
                 echo 'Usuario guardado correctamente';
             }
         }catch(PDOException $e){
             echo 'Error amb la BDs: ' . $e->getMessage();
-            $dbCinetics->rollback();
+            $con->rollback();
             echo 'Transacción abortada';
         }
+        $con=null;
     }
 ?>
