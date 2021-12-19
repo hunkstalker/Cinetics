@@ -1,21 +1,6 @@
 <?php
-    function conexionDB(){       
-        // Credenciales totalmente seguras y originales
-        $conexion='mysql:dbname=cineticsdb;host=localhost:3306';
-        $usuario = 'cinetics';
-        $passwd = 'cinetics';
-        try{
-            $con = new PDO($conexion, $usuario, $passwd,
-                array(PDO::ATTR_PERSISTENT => true));
-        }catch(PDOException $e){
-            print "Error!: " . $e->getMessage() . "<br/>";
-        }
-        return $con;
-    }
-
     function verificarUsuario($userPOST, $passPOST){
-        session_start();
-        $con = conexionDB();
+        require_once('conexionDB.php');
         try{
             $sql='SELECT * FROM `users`';
             $usuarios = $con->query($sql);
@@ -37,8 +22,8 @@
         $con=null;
     }
 
-    function transaction($emailPOST, $userPOST, $hashPass){
-        $con=conexionDB();
+    function registrarUsuario($emailPOST, $userPOST, $hashPass){
+        require_once('conexionDB.php');
         try{
             $con->beginTransaction();
             $sql = "INSERT INTO `users` (mail, username, passHash, userFirstName, userLastName, creationDate, active) 
