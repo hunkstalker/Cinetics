@@ -1,35 +1,59 @@
 <?php
+    session_start();
     require_once('./lib/conexiones.php');
 
+    define("LANGUAGE", "es");
+    
     if($_SERVER["REQUEST_METHOD"] == "POST"){
-        if(count($_POST)==3){
+        if(count($_POST)==2){
             if(isset($_POST['user']) && isset($_POST['pass'])){
-                $userPOST = strtolower(filter_input(INPUT_POST, 'user'));
+                $userPOST = filter_input(INPUT_POST, 'user');
                 $passPOST = filter_input(INPUT_POST, 'pass');
+                $idiomaPOST = 'es';
 
                 verificarUsuario($userPOST, $passPOST);
+
+                if(isset($_SESSION['username'])){
+                    $nombreCookie = LANGUAGE . hash("sha512", $_SESSION['mail']);
+                    $idioma[]=$idiomaPOST;
+                    setcookie($nombreCookie, json_encode($idioma), time()+(3600*24*365));
+                    header("Location: mainPage.php");
+                    exit();
+                }else{
+                    $err = TRUE;
+                    $user = $userPOST;
+                }
             }else{
-                echo 'Error isset';
+                echo 'Error en el nombre y contraseña introducidos';
+                $err = TRUE;
             }
         }else if(count($_POST)==4){
-            $userPOST = strtolower(filter_input(INPUT_POST, 'user'));
-            $emailPOST = strtolower(filter_input(INPUT_POST, 'email'));
+            $userPOST = filter_input(INPUT_POST, 'user');
+            $emailPOST = filter_input(INPUT_POST, 'email');
             $passSignUpOnePOST = filter_input(INPUT_POST, 'passSignUpOne');
             $passSignUpRepPOST = filter_input(INPUT_POST, 'passSignUpRep');
             
+            //Comparación de contraseñas a la hora de registrarse
             if($passSignUpOnePOST==$passSignUpRepPOST){
+                //Creando hash de la contraseña
                 $hashPass=password_hash($passSignUpOnePOST, PASSWORD_DEFAULT);
-                $passSignUpRepPOST='';
-                $passSignUpOnePOST='';
-
+                //Guardado de email, nombre de usuario y password hash en la bbdd
                 transaction($emailPOST, $userPOST, $hashPass);
             }else{
-                $passSignUpRepPOST='';
-                $passSignUpOnePOST='';
                 echo 'Las contraseñas no coinciden';
+                $err = TRUE;
             }
+            //Limpieza de contraseña
+            $passSignUpRepPOST='';
+            $passSignUpOnePOST='';
         }else{
             echo 'Faltan campos que rellenar';
+            $err = TRUE;
+        }
+    }else{
+        if(isset($_SESSION['authorized'])){
+            header("Location: mainPage.php");
+            exit;
         }
     }
 ?>
@@ -40,7 +64,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cinematics</title>
+    <title>Cinetics</title>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
@@ -61,10 +85,7 @@
                                 <div class="group">
                                     <label for="pass" class="label">Password</label>
                                     <input name="pass" type="password" id="pass" class="input" data-type="password" placeholder="Enter your password"> </div>
-                                <div class="group">
-                                    <input name="check" type="checkbox" id="check" class="check" checked>
-                                    <label for="check"><span class="icon"></span> Keep me Signed in</label></div>
-                                
+                               
                                 <div class="group"><a type="submit" name="action" class="btn" onclick="document.getElementById('login').submit();">
                                     <svg width="358" height="62">
                                         <defs><linearGradient id="grad1"><stop offset="0%" stop-color="#FF8282"/><stop offset="100%" stop-color="#E178ED" /></linearGradient></defs>
