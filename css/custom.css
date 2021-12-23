@@ -1,0 +1,424 @@
+@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
+
+html, body {
+    margin: 0;
+    height: 100%;
+}
+
+a
+{
+    text-decoration: none;
+}
+
+a:link
+{
+    text-decoration: none;
+    color: white;
+}
+
+a:visited
+{
+    text-decoration: none;
+    color: white;
+}
+
+a:hover
+{
+    font-weight: bold;
+}
+
+.flex-container
+{
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex-container-signup
+{
+    display: flex;
+    justify-content: space-around;
+}
+
+#div-left,#div-right
+{
+    flex-grow: 1;
+    margin: 5%;
+}
+
+
+.lateral-panel
+{
+    height: 85%;
+    margin-left: 1vw;
+    background-color: rgba(47, 48, 47, 0.753);
+    padding: 3%;
+    border-bottom: dashed white 15px;
+    border-top: dashed white 15px;
+}
+
+.lateral-panel h4
+{
+    margin-bottom: 5%;
+    text-align: center;
+}
+
+.lateral-panel input[type="text"],
+.lateral-panel input[type="email"],
+.lateral-panel input[type="password"]
+{
+    background-color: rgba(47, 48, 47, 0);
+    border-radius: 0;
+    border-width: 0px 0px 2px 0px;
+    color: white;
+    
+}
+
+.central-panel input[type="text"],
+.central-panel input[type="email"],
+.central-panel input[type="password"]
+{
+    background-color: rgba(47, 48, 47, 0);
+    border-radius: 0;
+    border-width: 0px 0px 2px 0px;
+    color: white;
+    
+}
+
+.lateral-panel input[type="text"]:focus,
+.lateral-panel input[type="email"]:focus,
+.lateral-panel input[type="password"]:focus
+{
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 0;
+    border-width: 0px 0px 4px 0px;
+    border-color: white;
+    font-weight: bold;
+    color: white;
+    outline:0px !important;
+    -webkit-appearance:none;
+    box-shadow: none !important;
+}
+
+.central-panel input[type="text"]:focus,
+.central-panel input[type="email"]:focus,
+.central-panel input[type="password"]:focus
+{
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 0;
+    border-width: 0px 0px 4px 0px;
+    border-color: white;
+    font-weight: bold;
+    color: white;
+    outline:0px !important;
+    -webkit-appearance:none;
+    box-shadow: none !important;
+}
+
+.central-panel
+{
+    height: 85%;
+    margin-left: 1vw;
+    background-color: rgba(47, 48, 47, 0.753);
+    padding: 2%;
+    border-bottom: dashed white 15px;
+    border-top: dashed white 15px;
+}
+
+.logo
+{
+    font-family: "Satisfy";
+    color: white;
+    font-size: 6em;
+    text-align: center;
+}
+
+#login-form
+{
+    color: white;
+    padding-top: 10%;
+}
+
+#signup-form
+{
+    color: white;
+}
+
+#backVideo {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+  }
+
+.is-done
+{
+    text-align: center;
+    color: white;
+    margin-top: 5%;
+}
+
+#recover-button
+{
+    margin: 5% 0%;
+}
+
+.submit-button
+{
+    width: 100%;
+    background-color: rgba(47, 48, 47, 0.753);
+    border: solid 3px white;
+    color: white;
+    font-weight: bold;
+    border-radius: 30px;
+    font-size: 1.2em;
+}
+
+.submit-button:hover
+{
+    background-color: rgba(162, 180, 84, 0.747);
+    color: white;
+}
+
+.signup-body
+{
+    padding-top: 2vw;
+    padding-left: 15%;
+    height: 100%;
+}
+
+.signup-button
+{
+    width: 50%;
+    margin-left: 25%;
+    background-color: rgba(47, 48, 47, 0.753);
+    border: solid 3px white;
+    color: white;
+    font-weight: bold;
+    border-radius: 30px;
+    font-size: 1.2em;
+}
+
+.signup-button:hover
+{
+    background-color: rgba(162, 180, 84, 0.747);
+    color: white;
+}
+
+.sign-up-help
+{
+    color: white;
+    text-align: center;
+    padding-top: 10%
+}
+
+.sign-up-help a
+{
+    font-size: 1.2em;
+}
+
+@media (min-width:320px)  
+{ /* smartphones, iPhone, portrait 480x320 phones */ 
+    
+    .signup-body
+    {
+        padding: 0;
+    }
+    
+    .central-panel
+    {
+        height: 100%;
+        width: 100%;
+        margin-left: 0;
+        background-color: rgba(47, 48, 47, 0.952);
+        padding: 2%;
+        border-bottom: dashed white 15px;
+        border-top: dashed white 15px;
+    }
+
+    .central-panel h1
+    {
+        font-size: 2.8em;
+        margin-top: 5%;
+    }
+
+    .flex-container-signup
+    {
+        flex-wrap: wrap;
+    }
+}
+@media (min-width:481px)  
+{ /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ 
+}
+@media (min-width:641px)  
+{ /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */ 
+    .central-panel
+    {
+        height: 70%;
+        width: 80%;
+        margin-left: 1vw;
+        background-color: rgba(47, 48, 47, 0.753);
+        padding: 2%;
+        border-bottom: dashed white 15px;
+        border-top: dashed white 15px;
+    }
+
+    .lateral-panel
+    {
+        height: 100%;
+        width: 50%;
+        background-color: rgba(47, 48, 47, 0.753);
+        padding: 3%;
+        border-bottom: dashed white 15px;
+        border-top: dashed white 15px;
+        margin: 0;
+    }
+
+    .lateral-panel form
+    {
+        margin-top: 5%;
+        padding: 5% 0%;
+    }
+
+    .lateral-panel h1
+    {
+        margin-top: 5%;
+    }
+
+    .submit-button
+    {
+        margin-top: 10%;
+    }
+
+    .signup-body
+    {
+        padding-top: 10vw;
+        padding-left: 10%;
+        height: 100%;
+    }
+}
+@media (min-width:961px)  
+{ /* tablet, landscape iPad, lo-res laptops ands desktops */ 
+
+    .central-panel
+    {
+        height: 85%;
+        margin-left: 1vw;
+        background-color: rgba(47, 48, 47, 0.753);
+        padding: 2%;
+        border-bottom: dashed white 15px;
+        border-top: dashed white 15px;
+    }
+
+    .central-panel h1
+    {
+        font-size: 6em;
+        margin-top: 5%;
+    }
+
+    .lateral-panel
+    {
+        width: 50%;
+    }
+
+    .lateral-panel form
+    {
+        margin-top: 5%;
+        padding: 5% 0%;
+    }
+
+    .lateral-panel h1
+    {
+        margin-top: 5%;
+    }
+
+    .signup-body
+    {
+        padding-top: 2vw;
+        padding-left: 15%;
+        height: 100%;
+    }
+}
+@media (min-width:1025px) 
+{ /* big landscape tablets, laptops, and desktops */ 
+    .central-panel
+    {
+        height: 95%;
+        margin-left: 1vw;
+        background-color: rgba(47, 48, 47, 0.753);
+        padding: 2%;
+        border-bottom: dashed white 15px;
+        border-top: dashed white 15px;
+    }
+    
+    .lateral-panel
+    {
+        height: 85%;
+        width: 30%;
+        margin-left: 1vw;
+        background-color: rgba(47, 48, 47, 0.753);
+        padding: 3%;
+        border-bottom: dashed white 15px;
+        border-top: dashed white 15px;
+    }
+
+    .lateral-panel h4
+    {
+        margin-bottom: 5%;
+        text-align: center;
+    }
+
+    .signup-body
+    {
+        padding-top: 2vw;
+        padding-left: 15%;
+        height: 100%;
+    }
+}
+@media (min-width:1281px) 
+{ /* hi-res laptops and desktops */
+    .lateral-panel
+    {
+        height: 90%;
+        margin-left: 1vw;
+        background-color: rgba(47, 48, 47, 0.753);
+        padding: 3%;
+        border-bottom: dashed white 15px;
+        border-top: dashed white 15px;
+    }
+
+    .lateral-panel h4
+    {
+        margin-bottom: 5%;
+        text-align: center;
+    } 
+
+    .submit-button
+    {
+        width: 100%;
+        background-color: rgba(47, 48, 47, 0.753);
+        border: solid 3px white;
+        color: white;
+        font-weight: bold;
+        border-radius: 30px;
+        font-size: 1.2em;
+        margin-top: 5%;
+    }
+
+    .lateral-panel h4
+    {
+        margin-bottom: 0%;
+        text-align: center;
+    }
+
+    .sign-up-help
+    {
+        color: white;
+        text-align: center;
+        padding-top: 5%
+    }
+}
