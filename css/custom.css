@@ -221,12 +221,42 @@ a:hover
     font-size: 1.2em;
 }
 
+/*Aquí tot lo de media*/
+
 @media (min-width:320px)  
 { /* smartphones, iPhone, portrait 480x320 phones */ 
     
+    body
+    {
+        background-image: url(../index_ph.jpg);
+        background-size: cover;
+        background-position-x: center;
+    }
+
+    #backVideo {
+        visibility: hidden;
+      }
+    
+    .lateral-panel
+    {
+        height: 85%;
+        width: 90%;
+        margin-left: 5%;
+        margin-top: 10%;
+        background-color: rgba(47, 48, 47, 0.753);
+        padding: 3%;
+        border-bottom: dashed white 15px;
+        border-top: dashed white 15px;
+    }
+
     .signup-body
     {
         padding: 0;
+    }
+
+    .congrats-body
+    {
+        margin-top: 25%;
     }
     
     .central-panel
@@ -251,11 +281,18 @@ a:hover
         flex-wrap: wrap;
     }
 }
-@media (min-width:481px)  
-{ /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ 
-}
+
 @media (min-width:641px)  
 { /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */ 
+    body
+    {
+        background-image: none;
+    }
+
+    #backVideo {
+        visibility: visible;
+      }
+    
     .central-panel
     {
         height: 70%;
@@ -303,6 +340,10 @@ a:hover
 }
 @media (min-width:961px)  
 { /* tablet, landscape iPad, lo-res laptops ands desktops */ 
+
+    #backVideo {
+        visibility: visible;
+      }
 
     .central-panel
     {
