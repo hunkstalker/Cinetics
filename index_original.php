@@ -1,30 +1,60 @@
 <?php
+    session_start();
+    require_once('./lib/transacciones.php');
+
+    define("LANGUAGE", "es");
+    
     if($_SERVER["REQUEST_METHOD"] == "POST"){
-        if(count($_POST)==3){
-            $userPOST = filter_input(INPUT_POST, 'user');
-            $passPOST = filter_input(INPUT_POST, 'pass');
-    
-            $usuari['nom'] = $userPOST;
-            $usuari['pass'] = $passPOST;
-    
-            echo var_dump($usuari);
+        if(count($_POST)==2){
+            if(isset($_POST['user']) && isset($_POST['pass'])){
+                $userPOST = filter_input(INPUT_POST, 'user');
+                $passPOST = filter_input(INPUT_POST, 'pass');
+                $idiomaPOST = 'es';
+
+                verificarUsuario($userPOST, $passPOST);
+
+                if(isset($_SESSION['username'])){
+                    $nombreCookie = LANGUAGE . hash("sha512", $_SESSION['mail']);
+                    $idioma[]=$idiomaPOST;
+                    setcookie($nombreCookie, json_encode($idioma), time()+(3600*24*365));
+                    header("Location: mainPage.php");
+                    exit();
+                }else{
+                    $err = TRUE;
+                    $user = $userPOST;
+                }
+            }else{
+                echo 'Error en el nombre y contraseña introducidos';
+                $err = TRUE;
+            }
         }else if(count($_POST)==4){
             $userPOST = filter_input(INPUT_POST, 'user');
-            $passSignUpOnePOST = filter_input(INPUT_POST, 'passSignUpOne');
-            $passSignUpRepPOST = filter_input(INPUT_POST, 'passSignUpRep');
             $emailPOST = filter_input(INPUT_POST, 'email');
-    
-            $usuari['nom'] = $userPOST;
-            $usuari['passSignUpOne'] = $passSignUpOnePOST;
-            $usuari['passSignUpRep'] = $passSignUpRepPOST;
-            $usuari['email'] = $emailPOST;
-    
-            echo var_dump($usuari);
+            $passPOST = filter_input(INPUT_POST, 'password');
+            $vrfyPOST = filter_input(INPUT_POST, 'vrfypass');
+            
+            // Comparación de contraseñas a la hora de registrarse
+            if($passSignUpOnePOST==$passSignUpRepPOST){
+                // Creando hash de la contraseña
+                $hashPass=password_hash($passSignUpOnePOST, PASSWORD_DEFAULT);
+                // Guardado de email, nombre de usuario y password hash en la bbdd
+                registrarUsuario($emailPOST, $userPOST, $hashPass);
+            }else{
+                echo 'Las contraseñas no coinciden';
+                $err = TRUE;
+            }
+            // Limpieza de contraseña
+            $passSignUpRepPOST='';
+            $passSignUpOnePOST='';
         }else{
-            echo 'nothing to do $_POST';
+            echo 'Faltan campos que rellenar';
+            $err = TRUE;
         }
     }else{
-        echo 'nothing to do $_SERVER';
+        if(isset($_SESSION['authorized'])){
+            header("Location: mainPage.php");
+            exit;
+        }
     }
 ?>
 
@@ -34,10 +64,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cinematics</title>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <title>Cinetics</title>
+    <!-- Bootstrap 5 && jQuery -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="./js/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="./css/style.css">
 </head>
 
@@ -55,10 +85,7 @@
                                 <div class="group">
                                     <label for="pass" class="label">Password</label>
                                     <input name="pass" type="password" id="pass" class="input" data-type="password" placeholder="Enter your password"> </div>
-                                <div class="group">
-                                    <input name="check" type="checkbox" id="check" class="check" checked>
-                                    <label for="check"><span class="icon"></span> Keep me Signed in</label></div>
-                                
+                               
                                 <div class="group"><a type="submit" name="action" class="btn" onclick="document.getElementById('login').submit();">
                                     <svg width="358" height="62">
                                         <defs><linearGradient id="grad1"><stop offset="0%" stop-color="#FF8282"/><stop offset="100%" stop-color="#E178ED" /></linearGradient></defs>
@@ -103,3 +130,5 @@
 </body>
 
 </html>
+
+<script src="./js/index.js"></script>
