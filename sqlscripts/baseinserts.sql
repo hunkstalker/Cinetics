@@ -1,0 +1,3 @@
+USE cineticsdb;
+INSERT INTO `users`(`mail`, `username`, `passHash`, `userFirstName`, `userLastName`) VALUES ('pepita34@cinetics.com','pepita34','$2y$10$WGq2Uj12jQqSonpKFoEsEewdhPJ5UsO.sLtBHty/EwqvRxW4P/aoO','Josefa','Molino');
+INSERT INTO `users`(`mail`, `username`, `passHash`, `userFirstName`, `userLastName`) VALUES ('manolotorres@cinetics.com','manolito','$2y$10$xffBKXu2BNpd7pAvjfwOtehXbXzdRFHw.7c478gxAkDYl7/FkyWUC','Manuel','Sánchez');

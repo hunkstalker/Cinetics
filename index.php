@@ -10,9 +10,19 @@
             $usuari['nom'] = $userPOST;
             $usuari['pass'] = $passPOST;
 
-            verificaUsuari($usuari);
-    
-            echo var_dump($usuari);
+            
+
+          if(!verificaUsuari($usuari)){
+              $err = TRUE;
+              //això és per posarho al primer input
+              $user = $userPOST;
+          }else{
+              session_start();
+              $_SESSION['usuari'] = $usuari['nom'];
+              //TODO: tema de la cookie permanent si està clickada
+              //Redirecció a la pràgina principal
+              header("Location:mainpage.php");
+              exit;
 
         }else{
             echo 'nothing to do $_POST';
