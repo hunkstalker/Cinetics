@@ -1,35 +1,37 @@
 <?php
-    if($_SERVER["REQUEST_METHOD"] == "POST"){
+  require "./lib/login.php";
+  if($_SERVER["REQUEST_METHOD"] == "POST"){
+      
+    if(isset($_POST['user']) && isset($_POST['psw'])){
+      $userPOST = filter_input(INPUT_POST, 'user');
+      $passPOST = filter_input(INPUT_POST, 'psw');
 
-      require "./lib/controlLogin.php";
+      if($_POST['user']!='' && $_POST['psw']!=''){
+        $usuari['user'] = $userPOST;
+        $usuari['pass'] = $passPOST;
 
-        if(count($_POST)==3){
-            $userPOST = filter_input(INPUT_POST, 'user');
-            $passPOST = filter_input(INPUT_POST, 'pass');
-    
-            $usuari['nom'] = $userPOST;
-            $usuari['pass'] = $passPOST;
-
-            
-
-          if(!verificaUsuari($usuari)){
-              $err = TRUE;
-              //això és per posarho al primer input
-              $user = $userPOST;
-          }else{
-              session_start();
-              $_SESSION['usuari'] = $usuari['nom'];
-              //TODO: tema de la cookie permanent si està clickada
-              //Redirecció a la pràgina principal
-              header("Location:mainpage.php");
-              exit;
-
+        if(!verificarUsuario($usuari)){
+          $err = TRUE;
+          //això és per posarho al primer input
+          $user = $userPOST;
         }else{
-            echo 'nothing to do $_POST';
+            session_start();
+            $_SESSION['usuari'] = $usuari['nom'];
+            //TODO: tema de la cookie permanent si està clickada
+            //Redirecció a la pràgina principal
+            header("Location:mainpage.php");
+            exit;
         }
-    }else{
-        echo 'nothing to do $_SERVER';
+      }else{
+        if(empty($_POST['user'])){
+          echo 'El campo user no puede estar vacío <br>';
+        }
+        if(empty($_POST['psw'])){
+          echo 'El campo password no puede estar vacío';
+        }
+      }
     }
+  }
 ?>
 <!DOCTYPE html>
 <head>
@@ -39,6 +41,7 @@
     <title>Cinetics</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="./css/custom.css">
+    <script type="text/javascript" src="./js/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="app.js"></script>  
 </head>
 <body>
@@ -47,10 +50,10 @@
   </video>
   <div class="col-4 lateral-panel">
     <h1 class="logo">Cinetics</h1>
-      <form id="login-form" autocomplete="off">
+      <form id="login-form" autocomplete="off" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
           <div class="mb-3">
-            <label for="iemail" class="form-label">Email</label>
-            <input type="email" class="form-control" id="iemail" name="user" aria-describedby="emailHelp">
+            <label for="iemail" class="form-label">User or Email</label>
+            <input type="text" class="form-control" id="iemail" name="user" aria-describedby="emailHelp">
           </div>
           <div class="mb-3">
             <label for="ipassword" class="form-label">Password</label>
