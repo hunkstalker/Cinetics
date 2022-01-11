@@ -10,16 +10,17 @@
         $usuari['user'] = $userPOST;
         $usuari['pass'] = $passPOST;
 
-        if(!verificarUsuario($usuari)){
+        if(!verificaUsuari($usuari)){
           $err = TRUE;
           //això és per posarho al primer input
           $user = $userPOST;
         }else{
             session_start();
-            $_SESSION['usuari'] = $usuari['nom'];
+            $_SESSION['user'] = $usuari['user'];
+            $_SESSION['authorized']=TRUE;
             //TODO: tema de la cookie permanent si està clickada
             //Redirecció a la pràgina principal
-            header("Location:mainpage.php");
+            header("Location: ./mainPage.php");
             exit;
         }
       }else{

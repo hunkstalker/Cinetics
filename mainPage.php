@@ -6,24 +6,32 @@
     }
 ?>
 <!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <title>Document</title>
+    <title>Cinetics</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="./css/custom.css">
+    <script type="text/javascript" src="./js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>  
 </head>
 <body>
-    <?php
-        echo
-        '<div class="container">
-            <h1>Acceso permitido</h1>
-            <p>La sesión del usuario ' . $_SESSION['username'] . ' está iniciada</p>
-            <a class="btn btn-outline-primary " href="./lib/logout.php" role="button">Cerrar Sesión</a>
-        </div>';
-    ?>
+  <video autoplay muted loop id="backVideo">
+    <source src="friends.mp4" type="video/mp4">
+  </video>
+  <div class="col-4 lateral-panel">
+    <h1 class="logo">Cinetics</h1>
+          <h4 style="color: white;">Acceso permitido</h4>
+          <?php
+          echo
+           '<div class="container">
+                <br>
+                <p class="text-center" style="color: white;">La sesión del usuario ' . $_SESSION['user'] . ' está iniciada</p>
+                <a class="btn submit-button" href="./lib/logout.php" role="button">Logout</a>
+           </div>';
+          ?>
+          
+      </form>
+  </div>
 </body>
-</html>
