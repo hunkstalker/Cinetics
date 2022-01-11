@@ -52,7 +52,7 @@ a:hover
     margin-left: 1vw;
     background-color: rgba(47, 48, 47, 0.753);
     padding: 3%;
-    border-bottom: dashed white 15px;
+    border-bottom: dashed rgb(255, 255, 255) 15px;
     border-top: dashed white 15px;
 }
 
@@ -66,12 +66,16 @@ a:hover
 .lateral-panel input[type="email"],
 .lateral-panel input[type="password"]
 {
-    background-color: rgba(47, 48, 47, 0);
+    background-color: rgba(26, 223, 26, 0);
     border-radius: 0;
     border-width: 0px 0px 2px 0px;
-    color: white;
-    
+    color: rgb(255, 255, 255);
+
 }
+
+.mystyle {
+    border-color: red;
+  }
 
 .central-panel input[type="text"],
 .central-panel input[type="email"],
@@ -91,9 +95,9 @@ a:hover
     background-color: rgba(255, 255, 255, 0);
     border-radius: 0;
     border-width: 0px 0px 4px 0px;
-    border-color: white;
+    border-color: rgb(255, 255, 255);
     font-weight: bold;
-    color: white;
+    color: rgb(255, 255, 255);
     outline:0px !important;
     -webkit-appearance:none;
     box-shadow: none !important;
@@ -106,9 +110,9 @@ a:hover
     background-color: rgba(255, 255, 255, 0);
     border-radius: 0;
     border-width: 0px 0px 4px 0px;
-    border-color: white;
+    border-color: rgb(255, 255, 255);
     font-weight: bold;
-    color: white;
+    color: rgb(255, 255, 255);
     outline:0px !important;
     -webkit-appearance:none;
     box-shadow: none !important;
@@ -135,7 +139,7 @@ a:hover
 #login-form
 {
     color: white;
-    padding-top: 10%;
+    padding-top: 5%;
 }
 
 #signup-form
@@ -193,11 +197,11 @@ a:hover
 
 .signup-button
 {
-    width: 50%;
-    margin-left: 25%;
+    width: 100%;
+    margin-top: 5%;
     background-color: rgba(47, 48, 47, 0.753);
     border: solid 3px white;
-    color: white;
+    color: rgb(255, 255, 255);
     font-weight: bold;
     border-radius: 30px;
     font-size: 1.2em;
@@ -223,7 +227,7 @@ a:hover
 
 /*Aquí tot lo de media*/
 
-@media (min-width:320px)  
+@media (max-width:320px)  
 { /* smartphones, iPhone, portrait 480x320 phones */ 
     
     body
@@ -424,7 +428,7 @@ a:hover
 { /* hi-res laptops and desktops */
     .lateral-panel
     {
-        height: 90%;
+        height: 95%;
         margin-left: 1vw;
         background-color: rgba(47, 48, 47, 0.753);
         padding: 3%;

@@ -5,7 +5,7 @@
     $passwd = 'cinetics';
     try{
         // Conexión persistente
-        $db = new PDO($conexion, $usuario, $passwd,
+        $bbdd = new PDO($conexion, $usuario, $passwd,
             array(PDO::ATTR_PERSISTENT => true));
     }catch(PDOException $e){
         print "Error!: " . $e->getMessage() . "<br/>";
