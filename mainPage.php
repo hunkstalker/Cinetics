@@ -22,12 +22,12 @@
   </video>
   <div class="col-4 lateral-panel">
     <h1 class="logo">Cinetics</h1>
-          <h4 style="color: white;">Acceso permitido</h4>
           <?php
           echo
-           '<div class="container">
+           '<h4 style="color: white;">Welcome ' . $_SESSION['user'] . '!</h4>
+           <div class="container">
                 <br>
-                <p class="text-center" style="color: white;">La sesión del usuario ' . $_SESSION['user'] . ' está iniciada</p>
+
                 <a class="btn submit-button" href="./lib/logout.php" role="button">Logout</a>
            </div>';
           ?>
