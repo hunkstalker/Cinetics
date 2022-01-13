@@ -128,12 +128,18 @@ a:hover
     border-top: dashed white 15px;
 }
 
+.link{
+    text-decoration: none;
+}
+
 .logo
 {
+    text-decoration: none;
     font-family: "Satisfy";
     color: white;
     font-size: 6em;
     text-align: center;
+    font-weight: bold;
 }
 
 #login-form
@@ -197,7 +203,7 @@ a:hover
 
 .signup-button
 {
-    width: 100%;
+    width: 25%;
     margin-top: 5%;
     background-color: rgba(47, 48, 47, 0.753);
     border: solid 3px white;
