@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input type="text" class="form-control" name="username" id="username" required>
                     <?php
                     if (isset($usuariDuplicat) && $usuariDuplicat) {
-                        echo '<p class="text-warning bg-dark" style="color:red"> This username is already in use</p>';
+                        echo '<p class="text-warning bg-dark" style="color:red">&nbsp This username is already in use</p>';
                     }
                     ?>
                   </div>
@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input type="email" class="form-control" id="semail" name="email" aria-describedby="emailHelp" required>
                     <?php
                     if (isset($emailDuplicat) && $emailDuplicat) {
-                        echo '<p class="text-warning bg-dark" style="color:red"> This email is already in use</p>';
+                        echo '<p class="text-warning bg-dark" style="color:red">&nbsp This email is already in use</p>';
                     }
                     ?>
                   </div>
