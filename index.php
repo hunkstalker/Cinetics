@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <?php
     if ($err) {
-        echo '<p class="text-warning bg-dark text-center" style="font-weight: bold;">Incorrect username or password</p>';
+        echo '<p class="text-warning bg-dark text-center" style="font-weight: bold;">Incorrect username, email or password</p>';
     } else if (isset($_SESSION['registered']) && $_SESSION['registered']) {
     // SÓLO ES UNA PRUEBA, ESTO LO ELIMINAREMOS CUANDO EN VEZ DE LLEVAR AL INDEX NOS LLEVE A /web/newmember.html
     echo '<p class="text-success bg-dark text-center" style="font-weight: bold;">Successfully registered</p>';
