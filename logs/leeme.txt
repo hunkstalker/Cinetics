@@ -1,0 +1,3 @@
+Pongo este archivo para que la carpeta se suba a git... porque si está vacía no se sube ¯\_(ツ)_/¯
+El fopen está configurado en "append" por lo que debería de generar los archivos log auqnue no se te bajen de la repo.
+Los archivos log los mantendremos en local, pero los añado a GitIgnore para que no incordien subiéndose.
