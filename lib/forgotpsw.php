@@ -1,3 +1,25 @@
+<?php
+require_once "newUser.php";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['email'])) {
+        $userPOST = filter_input(INPUT_POST, 'user');
+
+        if ($_POST['email'] != '') {
+            $usuari['email'] = $userPOST;
+
+            if (!emailVerification($usuari)) {
+                $err = true;
+                $user = $userPOST;
+            } else {
+                sendEmailResetPsw($usuari);
+                header("Location: ../web/recoverpsw.hmtl");
+                exit;
+            }
+        }
+    }
+}
+?>
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
@@ -15,13 +37,13 @@
       <a href="../index.php" class="link">
         <h1 class="logo">Cinetics</h1>
       </a>
-      <form id="login-form" autocomplete="off">
+      <form id="login-form" autocomplete="off" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
         <h4>We can save you from your bad memory</h4>
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Introduce your email</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" name="user" aria-describedby="emailHelp">
+            <input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp">
           </div>
-          
+
           <button type="submit" id="recover-button" class="btn submit-button">Save me</button>
       </form>
 

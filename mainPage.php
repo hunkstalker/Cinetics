@@ -1,8 +1,10 @@
 <?php
-session_start();
-if (!isset($_SESSION['authorized'])) {
-    header("Location: index.php");
-    exit;
+// userStatus: 0 (sin sesión) | 1 (sesión iniciada) | 2 (mail verificado)
+if (isset($_COOKIE[session_name()])) {
+    session_start();
+    if ($_SESSION['userStatusCode'] == 0) {
+        header("Location: ./index.php");
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -22,17 +24,18 @@ if (!isset($_SESSION['authorized'])) {
   </video>
   <div class="col-4 lateral-panel">
     <h1 class="logo">Cinetics</h1>
-          <?php
+            <?php
+            if (!isset($_COOKIE[session_name()])) {
+                session_start();
+            }
             echo
-                '<h4 style="color: white;">Welcome ' . $_SESSION['user'] . '!</h4>
-                        <p class="text-success mt-3 bg-dark text-center" style="font-weight: bold;">Connection success</p>
-                        <div class="container">
-                            <br>
-
-                            <a class="btn submit-button" href="./lib/logout.php" role="button">Logout</a>
-                        </div>';
+                '<h4 style="color: white;">Welcome ' . $_SESSION['username'] . '!</h4>
+                <p class="text-success mt-3 bg-dark text-center" style="font-weight: bold;">Connection success</p>
+                <div class="container">
+                    <br>
+                    <a class="btn submit-button" href="./lib/logout.php" role="button">Logout</a>
+                </div>';
             ?>
-
       </form>
   </div>
 </body>

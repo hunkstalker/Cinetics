@@ -3,14 +3,13 @@
     require_once 'updates.php';
     require_once 'logs.php';
     
-    function verificaUsuari($usuari){
-
+    function login(&$usuari){
         try
         {
             $db=conexionBBDD();
-            $sql = 'SELECT `passHash`, `active` FROM `users` WHERE `username` = :username OR `mail` = :mail';
+            $sql = 'SELECT `passHash`, `active`, `username` FROM `users` WHERE `username` = :username OR `mail` = :mail';
             $preparada = $db->prepare($sql);
-            $preparada->execute(array(':username' => $usuari['user'], ':mail' => $usuari['user']));
+            $preparada->execute(array(':username' => $usuari['username'], ':mail' => $usuari['username']));
 
             // HAY QUE TESTEAR ESTO, QUERÍA EVITAR EL USO DE FOREACH AHORA ES MÁS PRO
             if($preparada && $preparada->rowCount()>0){
@@ -18,19 +17,10 @@
                 if($result['active']==1){
                     updateLastSignIn($usuari);
                     userLogVerifySuccess($usuari);
+                    $usuari['username']=$result['username'];
                     return password_verify($usuari['pass'], $result['passHash']);
                 }
             }
-            
-            // CÓDIGO ANTIGUO
-            // foreach ($preparada as $element) {
-            //     if($element['active']==1){
-            //         updateLastSignIn();
-            //         return password_verify($usuari['pass'], $element['passHash']);
-            //     }
-            //     break;
-            // }
-
         }catch(PDOException $e)
         {
             userLogVerifyError($usuari, $e->getMessage());
