@@ -26,4 +26,16 @@
             userLogVerifyError($usuari, $e->getMessage());
         }   
     }
+
+    function searchEmail($usuari){
+        try{
+            $db=conexionBBDD();
+            $sql = 'SELECT `passHash`, `active`, `username` FROM `users` WHERE `mail` = :mail';
+            $preparada = $db->prepare($sql);
+            $preparada->execute(array(':mail' => $usuari['username']));
+        }catch(PDOException $e)
+        {
+            userLogVerifyError($usuari, $e->getMessage());
+        }  
+    }
 ?>

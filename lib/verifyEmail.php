@@ -1,7 +1,7 @@
 <?php
 require_once 'updates.php';
 
-// userStatus: 0 (sesión no iniciada) | 1 (sesión iniciada) | 2 (pendiente de verificar) | 3 (mail verificado)
+// userStatus: 0 (sesión no iniciada) | 1 (sesión iniciada) | 2 (email verificado) | 3 (mail sin verificar)
 if (isset($_COOKIE[session_name()]) && isset($_GET)) {
     session_start();
     if($_SESSION['userStatusCode']==3){
