@@ -1,13 +1,16 @@
 <?php
-require_once "./lib/login.php";
+require_once "./lib/verifyUser.php";
 
 $err = null;
 $errUser = false;
 $errPass = false;
-session_start();
 
-if (isset($_SESSION['authorized'])) {
-    header("Location: ./mainPage.php");
+// userStatus: 0 (sesión no iniciada) | 1 (sesión iniciada) | 2 (mail verificado) | 3 (email sin verificar)
+if (isset($_COOKIE[session_name()])) {
+    session_start();
+    if($_SESSION['userStatusCode']==1){
+        header("Location: ./mainPage.php");
+    }
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -17,19 +20,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $passPOST = filter_input(INPUT_POST, 'psw');
 
         if ($_POST['user'] != '' && $_POST['psw'] != '') {
-            $usuari['user'] = $userPOST;
+            $usuari['username'] = $userPOST;
             $usuari['pass'] = $passPOST;
 
-            if (!verificaUsuari($usuari)) {
+            if (!login($usuari)) {
                 $err = true;
                 //això és per posarho al primer input
                 $user = $userPOST;
             } else {
-                $_SESSION['user'] = $usuari['user'];
-                $_SESSION['authorized'] = true;
-                //NO SÉ QUÉ SERÍA LO MEJOR, PERO ESTOY GUARDANDO TODO EN $_SESSION (EN SERVIDOR) EVITANDO GUARDAR NADA EN LOCAL MEDIANTE COOKIES
-                //setcookie("User", json_encode($usuari['user']) ,time()+3600*24*365);
-                //TODO: tema de la cookie permanent si està clickada
+                if (!isset($_COOKIE[session_name()])) {
+                    session_start();
+                }
+                $_SESSION['userStatusCode'] = 1;
+                $_SESSION['username'] = $usuari['username'];
                 //Redirecció a la pràgina principal
                 header("Location: mainPage.php");
                 exit;
@@ -62,10 +65,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php
     if ($err) {
         echo '<p class="text-warning bg-dark text-center" style="font-weight: bold;">Incorrect username, email or password</p>';
-    } else if (isset($_SESSION['registered']) && $_SESSION['registered']) {
-    // SÓLO ES UNA PRUEBA, ESTO LO ELIMINAREMOS CUANDO EN VEZ DE LLEVAR AL INDEX NOS LLEVE A /web/newmember.html
-    echo '<p class="text-success bg-dark text-center" style="font-weight: bold;">Successfully registered</p>';
-    $_SESSION['registered'] = false;
+    }else if(isset($_COOKIE[session_name()])) {
+        if($_SESSION['userStatusCode']==2){
+            echo '<p class="text-success bg-dark text-center" style="font-weight: bold;">The email has been verified, Welcome!</p>';
+            $_SESSION['userStatusCode']=0;
+        }
     }
     ?>
       <form id="login-form" autocomplete="off" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
@@ -82,10 +86,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <div class="flex-container" >
             <div class="mb-3 form-check">
               <input type="checkbox" class="form-check-input" id="remember-me">
-              <label class="form-check-label" for="remember-me">Remember me</label>
+              <label for="remember-me" class="form-check-label">Remember me</label>
             </div>
             <div class="check-forgot">
-              <a href="./web/forgotpsw.html">Forgot password?</a>
+              <a href="./lib/forgotpsw.php">Forgot password?</a>
             </div>
           </div>
           <button type="submit" class="btn submit-button" id="login-submit">Log in</button>

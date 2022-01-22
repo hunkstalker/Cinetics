@@ -1,9 +1,13 @@
 <?php
-session_start();
-require_once "./lib/controlNewUser.php";
+require_once "./lib/newUser.php";
 
-if (isset($_SESSION['authorized'])) {
-    header("Location: mainPage.php");
+// userStatus: 0 (sin sesión) | 1 (sesión iniciada) | 2 (mail verificado)
+if (isset($_COOKIE[session_name()])) {
+    session_start();
+    if ($_SESSION['userStatus'] == 0) {
+        header("Location: ./mainPage.php");
+        exit;
+    }
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -22,9 +26,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $usuari['sname'] = $snamePOST;
         $usuari['pss'] = $passPOST;
 
-        if (nouUsuari($usuari, $emailDuplicat, $usuariDuplicat)) {
-            $_SESSION['registered'] = true;
-            header("Location: ./index.php");
+        if (registroUsuario($usuari, $emailDuplicat, $usuariDuplicat)) {
+            header("Location: ./web/newmember.html");
         }
     }
 }
@@ -57,10 +60,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <label for="username" class="form-label">Username (required)</label>
                     <input type="text" class="form-control" name="username" id="username" required>
                     <?php
-                    if (isset($usuariDuplicat) && $usuariDuplicat) {
-                        echo '<p class="text-warning bg-dark" style="color:red">&nbsp This username is already in use</p>';
-                    }
-                    ?>
+                        if (isset($usuariDuplicat) && $usuariDuplicat) {
+                            echo '<p class="text-warning bg-dark" style="color:red">&nbsp This username is already in use</p>';
+                        }
+                        ?>
                   </div>
                   <div class="mb-3">
                     <label for="firstname" class="form-label">First Name</label>
@@ -77,10 +80,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <label for="semail" class="form-label">Email (required)</label>
                     <input type="email" class="form-control" id="semail" name="email" aria-describedby="emailHelp" required>
                     <?php
-                    if (isset($emailDuplicat) && $emailDuplicat) {
-                        echo '<p class="text-warning bg-dark" style="color:red">&nbsp This email is already in use</p>';
-                    }
-                    ?>
+                        if (isset($emailDuplicat) && $emailDuplicat) {
+                            echo '<p class="text-warning bg-dark" style="color:red">&nbsp This email is already in use</p>';
+                        }
+                        ?>
                   </div>
                   <div class="mb-3">
                     <label for="spsw" class="form-label">Password (required)</label>
