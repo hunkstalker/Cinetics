@@ -10,7 +10,7 @@ function sendEmailNewUser($email, $urlActivationCode)
     $mailbody = '<h1 style="font-family: Brush Script MT, Brush Script Std, cursive;">Cinetics</h1>
             <h3>Thank you very much for joining our community!</h3>
             <h4>Click on the link below to verify your email address and finish the registration process:</h4>
-            <a href="localhost/php-gon/Ejercicios/Cinetics/lib/verifyEmail.php'.$urlActivationCode.
+            <a href="http://localhost/Cinetics/lib/verifyEmail.php'.createGetValues($email,$urlActivationCode).
             '">Click here</a>';
 
     // Denis: <a href="localhost/php-gon/Ejercicios/Cinetics/lib/verifyEmail.php'.$urlActivationCode.
@@ -54,13 +54,13 @@ function sendEmailResetPsw($email, $urlActivationCode)
     $mail->IsSMTP();
 
     $mailbody = '<h1 style="font-family: Brush Script MT, Brush Script Std, cursive;">Cinetics</h1>
-            <h3>Thank you very much for joining our community!</h3>
-            <h4>Click on the link below to verify your email address and finish the registration process:</h4>
-            <a href="localhost/php-gon/Ejercicios/Cinetics/lib/verifyEmail.php'.$urlActivationCode.
+            <h3>Amo a cambiar el password</h3>
+            <h4>Haz click en el enlace de abajo para cambiar la contraseña:</h4>
+            <a href="http://localhost/Cinetics/lib/newPsw.php'.createGetValues($email,$urlActivationCode).
             '">Click here</a>';
 
-    // Denis: <a href="localhost/php-gon/Ejercicios/Cinetics/lib/verifyEmail.php'.$urlActivationCode.
-    // Aina:  <a href="http://localhost/Cinetics/lib/verifyEmail.php'.createGetValues($email,$urlActivationCode).
+    // Denis: <a href="localhost/php-gon/Ejercicios/Cinetics/lib/newPsw.php'.$urlActivationCode.
+    // Aina:  <a href="http://localhost/Cinetics/lib/newPsw.php'.createGetValues($email,$urlActivationCode).
 
     //Configuració del servidor de Correu
     //Modificar a 0 per eliminar msg error

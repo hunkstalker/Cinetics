@@ -20,6 +20,13 @@ function userActivationSuccess($usuari){
     fclose($file);
 }
 
+function passResetSuccess($usuari){
+    $data = strftime("%a %b %d %Y %H:%M").": ".$usuari['mail']." :: ResetPass/Send SUCCESS";
+    $file = fopen("../logs/users.log","a");
+    fwrite($file,$data.PHP_EOL);
+    fclose($file);
+}
+
 function userLogVerifyError($usuari, $ex){
     $data = strftime("%a %b %d %Y %H:%M").": ".$usuari['username']." :: Verify/Connection FAIL\nERROR MESSAGE :: ".$ex;
     $file = fopen("../logs/users.log","a");

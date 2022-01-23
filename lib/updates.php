@@ -30,4 +30,21 @@ function activateAccount($usuari)
         return false;
     }
 }
+
+function updatePass($usuari)
+{
+    try{
+        $passHash = password_hash($usuari['pass'], PASSWORD_BCRYPT);
+        $db = conexionBBDD();
+        $sqlinsert = 'UPDATE `users` SET `passHash` = :passHash WHERE `mail` = :mail AND `activationCode` = :activationCode';
+        $preparada = $db->prepare($sqlinsert);
+        $preparada->execute(array(':passHash' => $passHash, ':mail' => $usuari['mail'], ':activationCode' => $usuari['activateCode']));
+        userActivationSuccess($usuari);
+        return true;
+    }catch(PDOException $e)
+    {
+        fatalError("Activ. Account", $e->getMessage());
+        return false;
+    }
+}
 ?>

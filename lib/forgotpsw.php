@@ -9,16 +9,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($_POST['email'] != '') {
             $usuari['email'] = $userPOST;
             // Generar un Token
-            $urlActivationCode = createGetValues($usuari['email'], $activationCode);
+            $urlActivationCode = createGetValues($usuari['email'], $resetPassCode);
             // Verificar que existe una cuenta asociada al mail (BBDD)
             // Guardar Token en BBDD junto una fecha de caducidad
-            searchEmail($usuari['email'], $activationCode);
+            searchEmail($usuari['email'], $resetPassCode);
             // Enviar el mail con un urlResetCode
             sendEmailResetPsw($usuari['email'], $urlActivationCode);
-            // Verificar con GET el mail y ResetCode
-
-            // UPDATE en la bbdd con nueva psw (BBDD)
-
         }
     }
 }

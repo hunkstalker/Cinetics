@@ -17,6 +17,7 @@ function registroUsuario($usuari, &$emailDuplicat, &$usuariDuplicat)
 
         $db = conexionBBDD();
 
+        //----- Esto lo podemos hacer todo en 1 consulta, ¿no?
         $sql = 'SELECT mail FROM `users` WHERE `mail` = :mail';
         try {
             $preparada1 = $db->prepare($sql);
@@ -40,6 +41,7 @@ function registroUsuario($usuari, &$emailDuplicat, &$usuariDuplicat)
         if ($preparada2->rowCount() == 0) {
             $usuariDuplicat = false;
         }
+        //-----
 
         if ($emailDuplicat === false && $usuariDuplicat === false) {
 
@@ -81,35 +83,35 @@ function searchEmail($email, $resetPassCode)
         if ($preparada1->rowCount()>0) {
             try {
                 // Si existe guardaremos el token del reset para el pass
-                $sqlinsert = 'UPDATE `users` SET `resetPassCode` = :resetPassCode, `resetPassExpiry` = (NOW() + interval 1 hour) WHERE `mail` = :mail';
+                $expireDate = date("Y-m-d H:i:s", time() + 1*60*60);
+                $sqlinsert = 'UPDATE `users` SET `resetPassCode` = :resetPassCode, `resetPassExpiry` = :resetPassExpiry WHERE `mail` = :mail';
                 $preparada = $db->prepare($sqlinsert);
-                $preparada->execute(array(':resetPassCode' => $resetPassCode, ':mail' => $email));
+                $preparada->execute(array(':resetPassCode' => $resetPassCode, ':resetPassExpiry' => $expireDate, ':mail' => $email));
             } catch (PDOException $e) {
-                fatalError("preparada1", $e->getMessage());
+                fatalError("updateResetPassCode", $e->getMessage());
             }
         }
     } catch (PDOException $e) {
-        fatalError("preparada1", $e->getMessage());
+        fatalError("searchEmail", $e->getMessage());
     }
 }
 
-// PENDIENTE VERIFICAR EMAIL Y RESETPASSCODE
-function searchAccount($usuari){
+function searchAccount($urlData){
     try {
         $db = conexionBBDD();
-        // Miramos si existe la cuenta
-        $sql = 'SELECT resetPassExpiry FROM `users` WHERE `mail` = :mail AND `resetPassCode` = :resetPassCode';
+        // Miramos si existe la cuenta verificando el email y el resetPassCode obtenidos por GET
+        // Hay que verificar si la el resetPassDate ha expirado
+        $sql = 'SELECT mail FROM `users` WHERE `mail` = :mail AND `resetPassCode` = :resetPassCode AND `resetPassExpiry` <= :resetPassExpiry';
         $preparada = $db->prepare($sql);
-        $preparada->execute(array(':mail' => $usuari['email'], ':resetPassCode' => $usuari['resetPassCode']));
-        $result=$preparada->fetch(PDO::FETCH_ASSOC);
-        if($result['resetPassExpiry']==1){
-            updateLastSignIn($usuari);
-            userLogVerifySuccess($usuari);
-            $usuari['username']=$result['username'];
-            return password_verify($usuari['pass'], $result['passHash']);
+        $preparada->execute(array(':mail' => $urlData['email'], ':resetPassCode' => $urlData['resetPassCode'], ':resetPassExpiry' => date("Y-m-d H:i:s", time())));
+        // Si resetPassExpiry es inferior a la fecha y hora actuales todo OK
+        // En ese caso el execute nos habrá devuelto un row
+        if($preparada->rowCount()>0){
+            return true;
         }
     } catch (PDOException $e) {
-        fatalError("preparada1", $e->getMessage());
+        fatalError("searchAccount", $e->getMessage());
+        return false;
     }
 }
 ?>
