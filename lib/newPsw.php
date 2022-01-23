@@ -6,10 +6,10 @@ if (isset($_GET)) {
     $usuari['mail']=$_GET['mail'];
     $usuari['resetPassCode']=$_GET['code'];
     if(!searchAccount($usuari)){
-        header("Location: ../../../index.php");
+        header("Location: ../index.php");
     }
 }else{
-    header("Location: ../../../index.php");
+    header("Location: ../index.php");
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
