@@ -1,5 +1,6 @@
 <?php
-require_once "newUser.php";
+    require_once 'phpmailer.php';
+    require_once 'updates.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['email'])) {
@@ -7,15 +8,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($_POST['email'] != '') {
             $usuari['email'] = $userPOST;
-
-            if (!emailVerification($usuari)) {
-                $err = true;
-                $user = $userPOST;
-            } else {
-                sendEmailResetPsw($usuari);
-                header("Location: ../web/recoverpsw.hmtl");
-                exit;
-            }
+            // Generar un Token
+            $urlActivationCode = createGetValues($usuari['email'], $resetPassCode);
+            // Verificar que existe una cuenta asociada al mail (BBDD)
+            // Guardar Token en BBDD junto una fecha de caducidad
+            searchEmail($usuari['email'], $resetPassCode);
+            // Enviar el mail con un urlResetCode
+            sendEmailResetPsw($usuari['email'], $urlActivationCode);
         }
     }
 }
@@ -40,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <form id="login-form" autocomplete="off" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
         <h4>We can save you from your bad memory</h4>
           <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Introduce your email</label>
+            <label for="exampleInputEmail1" class="form-label">Enter your email</label>
             <input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp">
           </div>
 

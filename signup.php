@@ -1,7 +1,7 @@
 <?php
-require_once "./lib/newUser.php";
+require_once "./lib/users.php";
 
-// userStatus: 0 (sin sesión) | 1 (sesión iniciada) | 2 (mail verificado)
+// userStatus: 0 (sesión no iniciada) | 1 (sesión iniciada) | 2 (mail verificado) | 3 (email sin verificar)
 if (isset($_COOKIE[session_name()])) {
     session_start();
     if ($_SESSION['userStatus'] == 0) {

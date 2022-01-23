@@ -1,7 +1,38 @@
 <?php
+require_once 'users.php';
+require_once 'logs.php';
 
+if (isset($_GET)) {
+    $usuari['mail']=$_GET['mail'];
+    $usuari['resetPassCode']=$_GET['code'];
+    if(!searchAccount($usuari)){
+        header("Location: ../../../index.php");
+    }
+}else{
+    header("Location: ../../../index.php");
+}
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
+    if (count($_POST) == 6) {
+        $passPOST = filter_input(INPUT_POST, 'psw');
+        $confirmPassPOST = filter_input(INPUT_POST, 'confirm_password');
+
+        $usuari['pass'] = $passPOST;
+        $usuari['confirmPass'] = $confirmPassPOST;
+
+        // Hay que mandar un mensaje de error al usuario si las contraseñas no coinciden
+        if($usuari['pass'] == $usuari['confirmPass']){
+            try{
+                if(updatePass($usuari)){
+                    header("Location: ../../../index.php");
+                }
+            } catch (PDOException $e) {
+                fatalError("errorUpdateNewPass", $e->getMessage());
+            }
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <head>
