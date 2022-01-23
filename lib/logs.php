@@ -20,8 +20,8 @@ function userActivationSuccess($usuari){
     fclose($file);
 }
 
-function passResetSuccess($usuari){
-    $data = strftime("%a %b %d %Y %H:%M").": ".$usuari['mail']." :: ResetPass/Send SUCCESS";
+function passResetSuccess($email){
+    $data = strftime("%a %b %d %Y %H:%M").": ".$email." :: ResetPass/Send SUCCESS";
     $file = fopen("../logs/users.log","a");
     fwrite($file,$data.PHP_EOL);
     fclose($file);

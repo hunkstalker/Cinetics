@@ -1,12 +1,14 @@
 <?php
-    require_once 'phpmailer.php';
-    require_once 'updates.php';
+require_once 'phpmailer.php';
+require_once 'verifyUser.php';
+require_once 'updates.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['email'])) {
-        $userPOST = filter_input(INPUT_POST, 'user');
+        $userPOST = filter_input(INPUT_POST, 'email');
 
-        if ($_POST['email'] != '') {
+        try {
+            $_POST['email'] != '';
             $usuari['email'] = $userPOST;
             // Generar un Token
             $urlActivationCode = createGetValues($usuari['email'], $resetPassCode);
@@ -15,6 +17,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             searchEmail($usuari['email'], $resetPassCode);
             // Enviar el mail con un urlResetCode
             sendEmailResetPsw($usuari['email'], $urlActivationCode);
+        } catch (PDOException $e) {
+            fatalError("Activ. Account", $e->getMessage());
         }
     }
 }

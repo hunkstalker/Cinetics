@@ -36,7 +36,6 @@
             if($preparada->rowCount()>0){
                 try{
                     // Le daremos al usuario 1 hora de tiempo para poder cambiar el pass.
-                    $db = conexionBBDD();
                     $sqlinsert = 'UPDATE `users` SET `resetPassCode` = :resetPassCode, `resetPassExpiry` = DATEADD(HOUR, 1, NOW()) +  WHERE `mail` = :mail';
                     $preparada = $db->prepare($sqlinsert);
                     $preparada->execute(array(':resetPassCode' => $resetPassCode, ':mail' => $email));
