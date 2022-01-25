@@ -96,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </form>
       <div class="sign-up-help">
         <h4 class="mb-3">Not yet a memeber? No worry!</h4>
-        <a href="signup.php">Sign up</a>
+        <a href="./lib/signup.php">Sign up</a>
       </div>
 
   </div>

@@ -5,6 +5,8 @@ require_once 'logs.php';
 if (isset($_GET)) {
     $usuari['mail']=$_GET['mail'];
     $usuari['resetPassCode']=$_GET['code'];
+    //falla aquí i se va al index
+    //o no le llega por GET bien
     if(!searchAccount($usuari)){
         header("Location: ../index.php");
     }
