@@ -1,31 +1,39 @@
 <?php
 require_once 'users.php';
 require_once 'logs.php';
+require_once 'updates.php';
 
-if (isset($_GET)) {
-    $usuari['mail']=$_GET['mail'];
-    $usuari['resetPassCode']=$_GET['code'];
+
+if (isset($_GET) && !empty($_GET) && count($_GET)==2) {
+    $mail = filter_input(INPUT_GET,'mail');
+    $usuari['mail']= $mail;
+    $code = filter_input(INPUT_GET,'code');
+    $usuari['resetPassCode']= $code;
     if(!searchAccount($usuari)){
         header("Location: ../index.php");
     }
-}else{
-    header("Location: ../index.php");
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    if (count($_POST) == 6) {
+    if (count($_POST) == 4) {
         $passPOST = filter_input(INPUT_POST, 'psw');
         $confirmPassPOST = filter_input(INPUT_POST, 'confirm_password');
+        $mailSubmit = filter_input(INPUT_POST, 'mail');
+        $codeSubmit = filter_input(INPUT_POST, 'code');
 
         $usuari['pass'] = $passPOST;
         $usuari['confirmPass'] = $confirmPassPOST;
+        $usuari['mail'] = $mailSubmit;
+        $usuari['resetPassCode'] = $codeSubmit;
 
+        //TODO: mensaje por si no coindicen las contraseñas
         // Hay que mandar un mensaje de error al usuario si las contraseñas no coinciden
         if($usuari['pass'] == $usuari['confirmPass']){
             try{
                 if(updatePass($usuari)){
-                    header("Location: ../../../index.php");
+                    //header("Location: ../../../index.php");
+                    header("Location: ../index.php");
                 }
             } catch (PDOException $e) {
                 fatalError("errorUpdateNewPass", $e->getMessage());
@@ -66,6 +74,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <label for="psw2" class="form-label">Repeat password (required)</label>
                     <input type="password" class="form-control" name="confirm_password" id="psw2" required>
                   </div>
+                  <input type="hidden" id="mail" name="mail" value="<?php echo (isset($mail))?$mail:'';?>">
+                  <input type="hidden" id="code" name="code" value="<?php echo (isset($code))?$code:'';?>">
                 </div>
 
               </div>

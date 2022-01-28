@@ -83,7 +83,8 @@ function searchEmail($email, $resetPassCode)
         if ($preparada1->rowCount()>0) {
             try {
                 // Si existe guardaremos el token del reset para el pass
-                $expireDate = date("Y-m-d H:i:s", time() + 1*60*60);
+                //$expireDate = date("Y-m-d H:i:s", time() + 1*60*60);
+                $expireDate = date("Y-m-d H:i:s", strtotime("+1 hours"));
                 $sqlinsert = 'UPDATE `users` SET `resetPassCode` = :resetPassCode, `resetPassExpiry` = :resetPassExpiry WHERE `mail` = :mail';
                 $preparada = $db->prepare($sqlinsert);
                 $preparada->execute(array(':resetPassCode' => $resetPassCode, ':resetPassExpiry' => $expireDate, ':mail' => $email));
@@ -101,9 +102,10 @@ function searchAccount($urlData){
         $db = conexionBBDD();
         // Miramos si existe la cuenta verificando el email y el resetPassCode obtenidos por GET
         // Hay que verificar si la el resetPassDate ha expirado
-        $sql = 'SELECT mail FROM `users` WHERE `mail` = :mail AND `resetPassCode` = :resetPassCode AND `resetPassExpiry` <= :resetPassExpiry';
+        //TODO: fix time
+        $sql = 'SELECT mail FROM `users` WHERE `mail` = :mail AND `resetPassCode` = :resetPassCode AND `resetPassExpiry` > current_timestamp()';
         $preparada = $db->prepare($sql);
-        $preparada->execute(array(':mail' => $urlData['email'], ':resetPassCode' => $urlData['resetPassCode'], ':resetPassExpiry' => date("Y-m-d H:i:s", time())));
+        $preparada->execute(array(':mail' => $urlData['mail'], ':resetPassCode' => $urlData['resetPassCode']));
         // Si resetPassExpiry es inferior a la fecha y hora actuales todo OK
         // En ese caso el execute nos habrá devuelto un row
         if($preparada->rowCount()>0){

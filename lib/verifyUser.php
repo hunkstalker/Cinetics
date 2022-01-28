@@ -36,7 +36,7 @@
             if($preparada->rowCount()>0){
                 try{
                     // Le daremos al usuario 1 hora de tiempo para poder cambiar el pass.
-                    $sqlinsert = 'UPDATE `users` SET `resetPassCode` = :resetPassCode, `resetPassExpiry` = DATEADD(HOUR, 1, NOW()) +  WHERE `mail` = :mail';
+                    $sqlinsert = 'UPDATE `users` SET `resetPassCode` = :resetPassCode, `resetPassExpiry` = DATE_ADD(NOW(), INTERVAL 1 HOUR)  WHERE `mail` = :mail';
                     $preparada = $db->prepare($sqlinsert);
                     $preparada->execute(array(':resetPassCode' => $resetPassCode, ':mail' => $email));
                     passResetSuccess($email);
