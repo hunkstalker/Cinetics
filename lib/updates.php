@@ -36,9 +36,9 @@ function updatePass($usuari)
     try{
         $passHash = password_hash($usuari['pass'], PASSWORD_BCRYPT);
         $db = conexionBBDD();
-        $sqlinsert = 'UPDATE `users` SET `passHash` = :passHash WHERE `mail` = :mail AND `activationCode` = :activationCode';
+        $sqlinsert = 'UPDATE `users` SET `passHash` = :passHash WHERE `mail` = :mail AND `resetPassCode` = :resetPassCode';
         $preparada = $db->prepare($sqlinsert);
-        $preparada->execute(array(':passHash' => $passHash, ':mail' => $usuari['mail'], ':activationCode' => $usuari['activateCode']));
+        $preparada->execute(array(':passHash' => $passHash, ':mail' => $usuari['mail'], ':resetPassCode' => $usuari['resetPassCode']));
         userActivationSuccess($usuari);
         return true;
     }catch(PDOException $e)
