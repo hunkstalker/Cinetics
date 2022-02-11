@@ -11,6 +11,7 @@ if (isset($_GET) && !empty($_GET) && count($_GET)==2) {
     $usuari['resetPassCode']= $code;
     if(!searchAccount($usuari)){
         header("Location: ../index.php");
+        exit;
     }
 }
 
@@ -32,8 +33,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if($usuari['pass'] == $usuari['confirmPass']){
             try{
                 if(updatePass($usuari)){
-                    //header("Location: ../../../index.php");
                     header("Location: ../index.php");
+                    exit;
                 }
             } catch (PDOException $e) {
                 fatalError("errorUpdateNewPass", $e->getMessage());
