@@ -7,7 +7,6 @@ CREATE TABLE IF NOT EXISTS `videos`
   `publicationDate` DATETIME DEFAULT NOW(),
   `likes` INT DEFAULT 0,
   `dislikes` INT DEFAULT 0,
-  `score` INT DEFAULT 0,
   `fileName` CHAR(64) NOT NULL,
   `iduser` INT NOT NULL,
   PRIMARY KEY (`idvideo`),
