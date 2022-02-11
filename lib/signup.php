@@ -28,6 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if (registroUsuario($usuari, $emailDuplicat, $usuariDuplicat)) {
             header("Location: ../web/newmember.html");
+            exit;
         }
     }
 }

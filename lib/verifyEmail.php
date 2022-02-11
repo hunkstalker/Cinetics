@@ -12,5 +12,6 @@ if (isset($_COOKIE[session_name()]) && isset($_GET)) {
         }
     }
     header("Location: ../index.php");
+    exit;
 }
 ?>

@@ -4,6 +4,7 @@ if (isset($_COOKIE[session_name()])) {
     session_start();
     if ($_SESSION['userStatusCode'] == 0) {
         header("Location: ./index.php");
+        exit;
     }
 }
 ?>

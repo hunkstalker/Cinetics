@@ -18,6 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Enviar el mail con un urlResetCode
             sendEmailResetPsw($usuari['email'], $urlActivationCode);
             header("Location: ../web/recoverpsw.html");
+            exit;
         } catch (PDOException $e) {
             fatalError("Activ. Account", $e->getMessage());
         }

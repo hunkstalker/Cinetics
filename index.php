@@ -10,6 +10,7 @@ if (isset($_COOKIE[session_name()])) {
     session_start();
     if($_SESSION['userStatusCode']==1){
         header("Location: ./mainPage.php");
+        exit;
     }
 }
 
