@@ -5,7 +5,7 @@ $err = null;
 $errUser = false;
 $errPass = false;
 
-// userStatus: 0 (sesión no iniciada) | 1 (sesión iniciada) | 2 (mail verificado) | 3 (email sin verificar)
+// userStatus: 0 (sin estado) | 1 (sesión iniciada) | 2 (mail verificado) | 3 (email sin verificar)
 if (isset($_COOKIE[session_name()])) {
     session_start();
     if($_SESSION['userStatusCode']==1){
@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Cinetics</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="./css/custom.css">
-    <!-- <script type="text/javascript" src="app.js"></script> -->
+    <!--<script type="text/javascript" src="app.js"></script>-->
 </head>
 <body>
   <video autoplay muted loop id="backVideo">
@@ -67,9 +67,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($err) {
         echo '<p class="text-warning bg-dark text-center" style="font-weight: bold;">Incorrect username, email or password</p>';
     }else if(isset($_COOKIE[session_name()])) {
-        if($_SESSION['userStatusCode']==2){
-            echo '<p class="text-success bg-dark text-center" style="font-weight: bold;">The email has been verified, Welcome!</p>';
-            $_SESSION['userStatusCode']=0;
+        if($_SESSION['userStatusCode']==3){
+          echo '<p class="text-warning bg-dark text-center" style="font-weight: bold;">Account not verified, check your mailbox</p>';
+        }else if($_SESSION['userStatusCode']==2){
+          echo '<p class="text-success bg-dark text-center" style="font-weight: bold;">The email has been verified, Welcome!</p>';
+          $_SESSION['userStatusCode']=0;
         }
     }
     ?>

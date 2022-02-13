@@ -4,8 +4,8 @@ require_once "./libdb/userRegister.php";
 // userStatus: 0 (sesión no iniciada) | 1 (sesión iniciada) | 2 (mail verificado) | 3 (email sin verificar)
 if (isset($_COOKIE[session_name()])) {
     session_start();
-    if ($_SESSION['userStatus'] == 0) {
-        header("Location: mainPage.php");
+    if ($_SESSION['userStatusCode'] == 1) {
+        header("Location: index.php");
         exit;
     }
 }
@@ -106,5 +106,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   </div>
 </body>
-
-<!-- <script type="text/javascript" src="./js/index.js"></script> -->
