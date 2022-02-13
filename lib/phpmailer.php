@@ -1,52 +1,46 @@
 <?php
 use PHPMailer\PHPMailer\PHPMailer;
-require_once '../vendor/autoload.php';
+require_once './vendor/autoload.php';
 require_once 'config.php';
 
 function sendEmailNewUser($email, $urlActivationCode)
 {
-    $mailbody = file_get_contents('../web/mailbodyVerify.html');
-    $mailbody = str_replace("{{PATH}}", PATH, $mailbody);
-    $mailbody = str_replace("{{URLCODE}", $urlActivationCode, $mailbody);
-
-    $mail = createMail();
+    try{
+        $mailbody = file_get_contents('./web/mailbodyVerify.html');
+        $mailbody = str_replace("{{PATH}}", PATH, $mailbody);
+        $mailbody = str_replace("{{URLCODE}}", $urlActivationCode, $mailbody);
     
-    sendMail($mailbody, $mail);
-    $address = $email;
-    $mail->AddAddress($address, 'Verify your email');
-
-    // Enviament
-    $mail->Send();
-
-    // Capturar el error en el log
-    // $result = $mail->Send();
-    //if ($result) {
-    //    echo '<script>alert("Correu enviat")</script>';
-    //}
-    //echo '<script>alert("Error: ' . $mail->ErrorInfo . '")</script>';
+        $mail = createMail();
+        
+        sendMail($mailbody, $mail);
+        $address = $email;
+        $mail->AddAddress($address, 'Verify your email');
+    
+        // Enviament
+        $mail->Send();
+    }catch(PDOException $e){
+        fatalError("Error sendEmailNewUser", $e->getMessage());
+    }
 }
 
 function sendEmailResetPsw($email, $urlActivationCode)
 {
-    $mailbody = file_get_contents('../web/mailbodyRecover.html');
-    $mailbody = str_replace("{{PATH}}", PATH, $mailbody);
-    $mailbody = str_replace("{{URLCODE}", $urlActivationCode, $mailbody);
-
-    $mail = createMail();
-
-    sendMail($mailbody, $mail);
-    $address = $email;
-    $mail->AddAddress($address, 'Verify your email');
-
-    // Enviament
-    $mail->Send();
+    try{
+        $mailbody = file_get_contents('./web/mailbodyRecover.html');
+        $mailbody = str_replace("{{PATH}}", PATH, $mailbody);
+        $mailbody = str_replace("{{URLCODE}}", $urlActivationCode, $mailbody);
     
-    // Capturar el error en el log
-    // $result = $mail->Send();
-    //if ($result) {
-    //    echo '<script>alert("Correu enviat")</script>';
-    //}
-    //echo '<script>alert("Error: ' . $mail->ErrorInfo . '")</script>';
+        $mail = createMail();
+    
+        sendMail($mailbody, $mail);
+        $address = $email;
+        $mail->AddAddress($address, 'Verify your email');
+    
+        // Enviament
+        $mail->Send();
+    }catch(PDOException $e){
+        fatalError("Error sendEmailResetPass", $e->getMessage());
+    }
 }
 
 function createMail(){

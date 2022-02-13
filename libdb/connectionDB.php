@@ -1,6 +1,6 @@
 <?php
-require_once 'logs.php';
-require_once 'config.php';
+require_once (__DIR__.'\..\lib\logs.php');
+require_once (__DIR__.'\..\lib\config.php');
 
 function conexionBBDD()
 {

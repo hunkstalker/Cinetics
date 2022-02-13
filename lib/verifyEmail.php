@@ -1,5 +1,5 @@
 <?php
-require_once 'updates.php';
+require_once '../libdb/updateAccounts.php';
 
 // userStatus: 0 (sesión no iniciada) | 1 (sesión iniciada) | 2 (email verificado) | 3 (mail sin verificar)
 if (isset($_COOKIE[session_name()]) && isset($_GET)) {

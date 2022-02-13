@@ -6,6 +6,9 @@ if (isset($_COOKIE[session_name()])) {
         header("Location: ./index.php");
         exit;
     }
+}else{
+    header("Location: ./index.php");
+    exit;
 }
 ?>
 <!DOCTYPE html>

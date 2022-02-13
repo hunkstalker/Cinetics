@@ -1,5 +1,5 @@
 <?php
-require_once("./pathFunctions.php");
+require_once("pathFunctions.php");
 
 // PHPMAILER
 define("SMTP_HOST","smtp.gmail.com");

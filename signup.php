@@ -1,11 +1,11 @@
 <?php
-require_once "users.php";
+require_once "./libdb/userRegister.php";
 
 // userStatus: 0 (sesión no iniciada) | 1 (sesión iniciada) | 2 (mail verificado) | 3 (email sin verificar)
 if (isset($_COOKIE[session_name()])) {
     session_start();
     if ($_SESSION['userStatus'] == 0) {
-        header("Location: ../mainPage.php");
+        header("Location: mainPage.php");
         exit;
     }
 }
@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $usuari['pss'] = $passPOST;
 
         if (registroUsuario($usuari, $emailDuplicat, $usuariDuplicat)) {
-            header("Location: ../web/newmember.html");
+            header("Location: ./web/newmember.html");
             exit;
         }
     }
@@ -41,12 +41,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cinetics</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="../css/custom.css">
+    <link rel="stylesheet" type="text/css" href="./css/custom.css">
 </head>
 <body >
   <div class="signup-body">
     <video autoplay muted loop id="backVideo">
-      <source src="../media/waiting.mp4" type="video/mp4">
+      <source src="./media/waiting.mp4" type="video/mp4">
     </video>
     <div class="col-10 central-panel">
       <a href="index.php" class="link">
