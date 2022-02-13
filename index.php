@@ -1,5 +1,5 @@
 <?php
-require_once "./lib/verifyUser.php";
+require_once "./libdb/searchAccounts.php";
 
 $err = null;
 $errUser = false;
@@ -9,7 +9,7 @@ $errPass = false;
 if (isset($_COOKIE[session_name()])) {
     session_start();
     if($_SESSION['userStatusCode']==1){
-        header("Location: ./mainPage.php");
+        header("Location: mainPage.php");
         exit;
     }
 }
@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $usuari['username'] = $userPOST;
             $usuari['pass'] = $passPOST;
 
-            if (!login($usuari)) {
+            if (!searchUser($usuari)) {
                 $err = true;
                 //això és per posarho al primer input
                 $user = $userPOST;
@@ -90,14 +90,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <label for="remember-me" class="form-check-label">Remember me</label>
             </div>
             <div class="check-forgot">
-              <a href="./lib/forgotpsw.php">Forgot password?</a>
+              <a href="forgotpsw.php">Forgot password?</a>
             </div>
           </div>
           <button type="submit" class="btn submit-button" id="login-submit">Log in</button>
       </form>
       <div class="sign-up-help">
         <h4 class="mb-3">Not yet a memeber? No worry!</h4>
-        <a href="./lib/signup.php">Sign up</a>
+        <a href="signup.php">Sign up</a>
       </div>
 
   </div>

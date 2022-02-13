@@ -1,7 +1,7 @@
 <?php
 require_once 'connectionDB.php';
-require_once 'phpmailer.php';
-require_once 'logs.php';
+require_once './lib/phpmailer.php';
+require_once './lib/logs.php';
 
 function registroUsuario($usuari, &$emailDuplicat, &$usuariDuplicat)
 {
@@ -17,7 +17,6 @@ function registroUsuario($usuari, &$emailDuplicat, &$usuariDuplicat)
 
         $db = conexionBBDD();
 
-        //----- Esto lo podemos hacer todo en 1 consulta, ¿no?
         $sql = 'SELECT mail FROM `users` WHERE `mail` = :mail';
         try {
             $preparada1 = $db->prepare($sql);
@@ -41,7 +40,6 @@ function registroUsuario($usuari, &$emailDuplicat, &$usuariDuplicat)
         if ($preparada2->rowCount() == 0) {
             $usuariDuplicat = false;
         }
-        //-----
 
         if ($emailDuplicat === false && $usuariDuplicat === false) {
 
@@ -69,51 +67,6 @@ function registroUsuario($usuari, &$emailDuplicat, &$usuariDuplicat)
 
     } catch (PDOException $e) {
         userRegisterError($usuari, $e->getMessage());
-    }
-}
-
-function searchEmail($email, $resetPassCode)
-{
-    try {
-        $db = conexionBBDD();
-        // Miramos si existe la cuenta
-        $sql = 'SELECT mail FROM `users` WHERE `mail` = :mail';
-        $preparada1 = $db->prepare($sql);
-        $preparada1->execute(array(':mail' => $email));
-        if ($preparada1->rowCount()>0) {
-            try {
-                // Si existe guardaremos el token del reset para el pass
-                //$expireDate = date("Y-m-d H:i:s", time() + 1*60*60);
-                $expireDate = date("Y-m-d H:i:s", strtotime("+1 hours"));
-                $sqlinsert = 'UPDATE `users` SET `resetPassCode` = :resetPassCode, `resetPassExpiry` = :resetPassExpiry WHERE `mail` = :mail';
-                $preparada = $db->prepare($sqlinsert);
-                $preparada->execute(array(':resetPassCode' => $resetPassCode, ':resetPassExpiry' => $expireDate, ':mail' => $email));
-            } catch (PDOException $e) {
-                fatalError("updateResetPassCode", $e->getMessage());
-            }
-        }
-    } catch (PDOException $e) {
-        fatalError("searchEmail", $e->getMessage());
-    }
-}
-
-function searchAccount($urlData){
-    try {
-        $db = conexionBBDD();
-        // Miramos si existe la cuenta verificando el email y el resetPassCode obtenidos por GET
-        // Hay que verificar si la el resetPassDate ha expirado
-        //TODO: fix time
-        $sql = 'SELECT mail FROM `users` WHERE `mail` = :mail AND `resetPassCode` = :resetPassCode AND `resetPassExpiry` > current_timestamp()';
-        $preparada = $db->prepare($sql);
-        $preparada->execute(array(':mail' => $urlData['mail'], ':resetPassCode' => $urlData['resetPassCode']));
-        // Si resetPassExpiry es inferior a la fecha y hora actuales todo OK
-        // En ese caso el execute nos habrá devuelto un row
-        if($preparada->rowCount()>0){
-            return true;
-        }
-    } catch (PDOException $e) {
-        fatalError("searchAccount", $e->getMessage());
-        return false;
     }
 }
 ?>

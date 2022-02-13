@@ -1,15 +1,14 @@
 <?php
-require_once 'users.php';
+require_once '../libdb/searchAccounts.php';
+require_once '../libdb/updateAccounts.php';
 require_once 'logs.php';
-require_once 'updates.php';
-
 
 if (isset($_GET) && !empty($_GET) && count($_GET)==2) {
     $mail = filter_input(INPUT_GET,'mail');
     $usuari['mail']= $mail;
     $code = filter_input(INPUT_GET,'code');
     $usuari['resetPassCode']= $code;
-    if(!searchAccount($usuari)){
+    if(!searchAndVerify($usuari)){
         header("Location: ../index.php");
         exit;
     }
