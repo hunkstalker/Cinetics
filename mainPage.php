@@ -1,13 +1,13 @@
 <?php
-// userStatus: 0 (sin sesión) | 1 (sesión iniciada) | 2 (mail verificado)
+// userStatus: 0 (sin estado) | 1 (sesión iniciada) | 2 (mail verificado) | 3 (email sin verificar)
 if (isset($_COOKIE[session_name()])) {
     session_start();
-    if ($_SESSION['userStatusCode'] == 0) {
-        header("Location: ./index.php");
+    if ($_SESSION['userStatusCode'] != 1) {
+        header("Location: index.php");
         exit;
     }
 }else{
-    header("Location: ./index.php");
+    header("Location: index.php");
     exit;
 }
 ?>
