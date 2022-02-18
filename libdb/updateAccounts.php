@@ -3,6 +3,7 @@ require_once 'connectionDB.php';
 
 function updateLastSignIn($usuari)
 {
+    $db;
     try{
         $db = conexionBBDD();
         $sqlinsert = 'UPDATE `users` SET `lastSignIn` = NOW() WHERE `username` = :username OR `mail` = :mail';
@@ -16,6 +17,7 @@ function updateLastSignIn($usuari)
 
 function activateAccount($usuari)
 {
+    $db;
     try{
         $db = conexionBBDD();
         $sqlinsert = 'UPDATE `users` SET `active` = 1, `activationDate` = NOW() WHERE `mail` = :mail AND `activationCode` = :activationCode';
@@ -32,6 +34,7 @@ function activateAccount($usuari)
 
 function updatePass($usuari)
 {
+    $db;
     try{
         $passHash = password_hash($usuari['pass'], PASSWORD_BCRYPT);
         $db = conexionBBDD();
@@ -63,6 +66,7 @@ function updateRecovery($db, $email, $resetPassCode){
 // Search & Update Date
 function searchEmailAndUpdateCode($email, $resetPassCode)
 {
+    $db;
     try {
         $db = conexionBBDD();
         // Miramos si existe la cuenta

@@ -7,6 +7,7 @@ function registroUsuario($usuari, &$emailDuplicat, &$usuariDuplicat)
 {
     $emailDuplicat = true;
     $usuariDuplicat = true;
+    $db;
     try
     {
         $mail = $usuari['email'];
