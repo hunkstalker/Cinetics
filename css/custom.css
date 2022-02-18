@@ -120,7 +120,7 @@ a:hover
 
 .central-panel
 {
-    height: 85%;
+    /*height: 85%;*/
     margin-left: 1vw;
     background-color: rgba(47, 48, 47, 0.753);
     padding: 2%;
@@ -270,7 +270,7 @@ a:hover
     
     .central-panel
     {
-        height: 100%;
+        /*height: 100%;*/
         width: 100%;
         margin-left: 0;
         background-color: rgba(47, 48, 47, 0.952);
@@ -304,7 +304,7 @@ a:hover
     
     .central-panel
     {
-        height: 70%;
+        /*height: 70%;*/
         width: 80%;
         margin-left: 1vw;
         background-color: rgba(47, 48, 47, 0.753);
@@ -356,7 +356,7 @@ a:hover
 
     .central-panel
     {
-        height: 85%;
+        /*height: 85%;*/
         margin-left: 1vw;
         background-color: rgba(47, 48, 47, 0.753);
         padding: 2%;
@@ -397,7 +397,7 @@ a:hover
 { /* big landscape tablets, laptops, and desktops */ 
     .central-panel
     {
-        height: 95%;
+        /*height: 95%;*/
         margin-left: 1vw;
         background-color: rgba(47, 48, 47, 0.753);
         padding: 2%;

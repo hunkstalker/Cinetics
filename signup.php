@@ -87,12 +87,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         ?>
                   </div>
                   <div class="mb-3">
-                    <label for="spsw" class="form-label">Password (required)</label>
-                    <input type="password" class="form-control" name="psw" id="spsw" required>
+                    <label for="psw" class="form-label">Password (required)</label>
+                    <input type="password" class="form-control" name="psw" id="psw" required>
                   </div>
                   <div class="mb-3">
                     <label for="psw2" class="form-label">Repeat password (required)</label>
-                    <input type="password" class="form-control" name="confirm_password" id="psw2" required>
+                    <input type="password" class="form-control" name="confirm_password" id="psw2" onkeyup='check();' required>
+                    <span id='message'></span>
                   </div>
                 </div>
 
@@ -103,6 +104,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
           </form>
     </div>
-
   </div>
+  <script  type = "text/javascript">
+    function check() {
+
+      var valuePsw = document.getElementById('psw').value;
+      var valuePsw2 = document.getElementById('psw2').value;
+
+      if (valuePsw == valuePsw2) {  
+        document.getElementById('message').style.color = 'green';
+        document.getElementById('psw').style.borderColor = 'white';
+        document.getElementById('psw2').style.borderColor = 'white';
+        document.getElementById('message').innerHTML = 'Matching passwords';
+      } else if(valuePsw != valuePsw2) {
+        document.getElementById('message').style.color = 'red';
+        document.getElementById('psw').style.borderColor = 'red';
+        document.getElementById('psw2').style.borderColor = 'red';
+        document.getElementById('message').innerHTML = 'Not matching passwords';
+      }
+    }
+  </script>
+
 </body>
