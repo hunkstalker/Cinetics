@@ -5,6 +5,7 @@ require_once 'updateAccounts.php';
 // Verificación de usuario para realizar el login
 function searchUser(&$usuari)
 {
+    $db;
     try
     {
         $db = conexionBBDD();
@@ -29,6 +30,7 @@ function searchUser(&$usuari)
 // Mira si la cuenta existe para recuperar pass
 function searchUserMail($email, $resetPassCode)
 {
+    $db;
     try {
         $db = conexionBBDD();
         $sql = 'SELECT mail FROM `users` WHERE `mail` = :mail';
@@ -46,6 +48,7 @@ function searchUserMail($email, $resetPassCode)
 // Verifica si caduca el mail de recuperación de pass
 function searchAndVerify($urlData)
 {
+    $db;
     try {
         $db = conexionBBDD();
         // Miramos si existe la cuenta verificando el email y el resetPassCode obtenidos por GET
