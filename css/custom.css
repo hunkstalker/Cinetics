@@ -27,6 +27,10 @@ a:hover
     font-weight: bold;
 }
 
+a {
+    font-family: "Satisfy"; 
+}
+
 .flex-container
 {
     display: flex;
@@ -39,12 +43,11 @@ a:hover
     justify-content: space-around;
 }
 
-#div-left,#div-right
+#div-left, #div-right
 {
     flex-grow: 1;
     margin: 5%;
 }
-
 
 .lateral-panel
 {
@@ -75,7 +78,7 @@ a:hover
 
 .mystyle {
     border-color: red;
-  }
+}
 
 .central-panel input[type="text"],
 .central-panel input[type="email"],
@@ -85,7 +88,6 @@ a:hover
     border-radius: 0;
     border-width: 0px 0px 2px 0px;
     color: white;
-    
 }
 
 .lateral-panel input[type="text"]:focus,
@@ -138,6 +140,16 @@ a:hover
     font-family: "Satisfy";
     color: white;
     font-size: 6em;
+    text-align: center;
+    font-weight: bold;
+}
+
+.upload-text
+{
+    text-decoration: none;
+    font-family: "Satisfy";
+    color: white;
+    font-size: 3em;
     text-align: center;
     font-weight: bold;
 }
@@ -245,7 +257,7 @@ a:hover
 
     #backVideo {
         visibility: hidden;
-      }
+    }
     
     .lateral-panel
     {

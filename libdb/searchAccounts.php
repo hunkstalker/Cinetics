@@ -8,7 +8,7 @@ function searchUser(&$usuari)
     try
     {
         $db = conexionBBDD();
-        $sql = 'SELECT `passHash`, `active`, `username` FROM `users` WHERE `username` = :username OR `mail` = :mail';
+        $sql = 'SELECT `passHash`, `active`, `username`, `iduser` FROM `users` WHERE `username` = :username OR `mail` = :mail';
         $preparada = $db->prepare($sql);
         $preparada->execute(array(':username' => $usuari['username'], ':mail' => $usuari['username']));
 
@@ -18,6 +18,7 @@ function searchUser(&$usuari)
                 updateLastSignIn($usuari);
                 userLogVerifySuccess($usuari);
                 $usuari['username'] = $result['username'];
+                $usuari['iduser'] = $result['iduser'];
                 return password_verify($usuari['pass'], $result['passHash']);
             }
         }

@@ -1,7 +1,7 @@
 <?php
 require_once 'connectionDB.php';
-require_once './lib/phpmailer.php';
-require_once './lib/logs.php';
+require_once '../lib/phpmailer.php';
+require_once '../lib/logs.php';
 
 function registroUsuario($usuari, &$emailDuplicat, &$usuariDuplicat)
 {
