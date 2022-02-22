@@ -1,0 +1,232 @@
+@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
+
+html, body {
+    margin: 0;
+    height: 100%;
+    background-image: url(../media/index_ph.jpg);
+    background-size: cover;
+    background-position-x: center;
+}
+
+a
+{
+    color: white;
+    text-decoration: none;
+    font-family: "Satisfy"; 
+}
+
+h1, h2, h3
+{
+  font-family: "Satisfy";
+  font-size: 2.5rem;
+  color: white;
+  margin: 35px 0px 35px 0px;
+  text-align: center;
+}
+h2 { font-size: 2rem; }
+h3 { font-size: 1.5rem; }
+
+label
+{
+  color: white;
+}
+
+.font-title
+{
+  font-family: "Satisfy"; 
+}
+
+#back-video
+{
+  visibility: hidden;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+}
+
+.central-panel
+{
+  height: 87vh;
+  width: 100%;
+  padding: 10%;
+  margin-top: 5%;
+  border-bottom: dashed white 10px;
+  border-top: dashed white 10px;
+  background-color: rgba(47, 48, 47, 0.753);
+}
+
+.central-panel input[type="text"],
+.central-panel input[type="email"],
+.central-panel input[type="password"],
+.central-panel input[type="file"]
+{
+  background-color: rgba(47, 48, 47, 0);
+  border-radius: 0;
+  border-width: 0px 0px 2px 0px;
+  color: white;
+}
+
+.central-panel input[type="text"]:focus,
+.central-panel input[type="email"]:focus,
+.central-panel input[type="password"]:focus
+{
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 0;
+    border-width: 0px 0px 4px 0px;
+    border-color: rgb(255, 255, 255);
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    outline:0px !important;
+    -webkit-appearance:none;
+    box-shadow: none !important;
+}
+
+.btn
+{
+  width: 300px;
+  background-color: rgba(47, 48, 47, 0.753);
+  border: solid 3px white;
+  color: white;
+  font-weight: bold;
+  font-size: 1.2em;
+  margin: auto;  
+
+  border-radius: 30px;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+input.btn{
+    width: 200px;
+}
+
+/* para web */
+.btn:hover
+{ background-color: rgba(162, 180, 84, 0.747); color: white; }
+/* para móviles */
+.btn:active
+{ animation-name: coloranim; animation-duration: 1s; }
+@keyframes coloranim {
+  0% {background-color: rgba(47, 48, 47, 0.753);}
+  80% {background-color: rgba(162, 180, 84, 0.747);}
+  90% {background-color: rgba(47, 48, 47, 0.753);}
+  100% {background-color: rgba(162, 180, 84, 0.747);}
+}
+
+.btn-nav
+{
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+}
+
+/* MEDIA QUERIES */
+@media only screen and (min-width: 640px) {
+  body {
+    background-image: none;
+  }
+
+  #back-video
+  {
+    visibility: visible;
+  }
+
+  .central-panel
+  {
+    height: 85vh;
+    width: 100%;
+    padding: 2%;
+    margin-top: 5%;
+    border-bottom: dashed white 10px;
+    border-top: dashed white 10px;
+    background-color: rgba(47, 48, 47, 0.753);
+  }
+
+  .central-panel input[type="title"],
+  .central-panel input[type="hashtags"],
+  .central-panel input[type="description"]
+  {
+    background-color: rgba(47, 48, 47, 0);
+    border-radius: 0;
+    border-width: 0px 0px 2px 0px;
+    color: white;
+  }
+
+
+
+}
+
+@media only screen and (min-width: 960px) {
+  body {
+    background-image: none;
+  }
+
+  #back-video
+  {
+    visibility: visible;
+  }
+
+  .central-panel
+  {
+    height: 85vh;
+    background-color: rgba(47, 48, 47, 0.753);
+    padding: 2%;
+    margin-top: 5%;
+    border-bottom: dashed white 10px;
+    border-top: dashed white 10px;
+    background-color: rgba(47, 48, 47, 0.753);
+  }
+
+  .central-panel input[type="title"],
+  .central-panel input[type="hashtags"],
+  .central-panel input[type="description"]
+  {
+    background-color: rgba(47, 48, 47, 0);
+    border-radius: 0;
+    border-width: 0px 0px 2px 0px;
+    color: white;
+  }
+
+  
+}
+
+@media only screen and (min-width: 1280px) {
+  body {
+    background-image: none;
+  }
+
+  #back-video
+  {
+    visibility: visible;
+  }
+
+    .central-panel
+  {
+    height: 85vh;
+    background-color: rgba(47, 48, 47, 0.753);
+    padding: 2%;
+    margin-top: 5%;
+    border-bottom: dashed white 10px;
+    border-top: dashed white 10px;
+    background-color: rgba(47, 48, 47, 0.753);
+  }
+
+  .central-panel input[type="title"],
+  .central-panel input[type="hashtags"],
+  .central-panel input[type="description"] 
+  {
+    background-color: rgba(47, 48, 47, 0);
+    border-radius: 0;
+    border-width: 0px 0px 2px 0px;
+    color: white;
+  }
+
+} 

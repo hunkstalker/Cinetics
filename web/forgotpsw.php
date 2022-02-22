@@ -1,6 +1,6 @@
 <?php
-require_once './libdb/updateAccounts.php';
-require_once './lib/phpmailer.php';
+require_once '../libdb/updateAccounts.php';
+require_once '../lib/phpmailer.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['email'])) {
@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             searchEmailAndUpdateCode($usuari['email'], $resetPassCode);
             // Enviar el mail con un urlResetCode
             sendEmailResetPsw($usuari['email'], $urlActivationCode);
-            header("Location: ./web/recoverpsw.html");
+            header("Location: recoverpsw.html");
             exit;
         } catch (PDOException $e) {
             fatalError("Activ. Account", $e->getMessage());
@@ -24,14 +24,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 <!DOCTYPE html>
-<!-- TODO: cambiar cuando se relocalizen-->
+
 <?php include "./includes/indexHead.php" ?>
+
 <body>
   <video autoplay muted loop id="backVideo">
-    <source src="./media/friends.mp4" type="video/mp4">
+    <source src="../media/friends.mp4" type="video/mp4">
   </video>
   <div class="col-4 lateral-panel">
-      <a href="index.php" class="link">
+      <a href="../index.php" class="link">
         <h1 class="logo">Cinetics</h1>
       </a>
       <form id="login-form" autocomplete="off" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
