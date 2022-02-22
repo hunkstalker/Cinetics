@@ -12,13 +12,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mida = $_FILES["user_file"]["size"];
     // He configurado el límite de php.ini en 100MB
     if ($mida > (1024 * 1024) * 100) {
-      // Falta añadir el error en el log
+      // TODO: Añadir el error en el log
       echo "<br>El fichero es demasiado grande ( >5MB )";
       return;
     }
 
     $video["title"]       = filter_input(INPUT_POST, 'title');
     // Separamos los hashtags por comas y eliminamos duplicados con array_unique
+    // TODO: HAY QUE ARREGLAR LOS ESPACIOS ENTRE LOS HASHTAGS
     $video["hashtags"]    = array_unique(explode(",", filter_input(INPUT_POST, 'hashtags')));
     $video["description"] = filter_input(INPUT_POST, 'description');
 
@@ -29,12 +30,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $randomValue = $_SESSION['username'] . date("YmdHms");
+    // Hash sha256: el filename serán 64 carácteres
     $filename    = hash('sha256', $randomValue);
     $ext         = explode('.', $_FILES["user_file"]["name"]);
     $pathfile    = $filepath . '/' . $filename . '.' . $ext[1];
     $video["filename"] = $filename;
 
-    // Hacer un SELECT y sacar los hashtags para comparar y guardar solo los nuevos
+    // TODO: Hacer un SELECT y sacar los hashtags para comparar y guardar solo los nuevos
     try{
       $res = move_uploaded_file($_FILES["user_file"]["tmp_name"], $pathfile);
       guardarVideo($video, $_SESSION["iduser"]);
@@ -44,9 +46,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }   
 
     if ($res) {
-      // redirigir a la vista de videos y visionar lastvideoPath
+      // TODO: Redirigir a la vista de videos y visionar lastvideoPath
     } else {
-      // devolver error y reportar en el log
+      // TODO: devolver error y reportar en el log
     }
   }
 }

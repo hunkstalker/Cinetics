@@ -1,7 +1,7 @@
 <?php
 require_once 'connectionDB.php';
 
-// Tabla info
+// Tabla info de los vídeos
 function guardarVideo($videoInfo, $id) {
   $db;
   try
@@ -33,3 +33,18 @@ function guardarHashtags($hashtagsArray) {
 }
 
   // Tabla videohashtags
+function guardarVideoHashtags($hashtagsArray) {
+  $db;
+  try
+  {
+    $db = conexionBBDD();
+    // TODO, hacer el insert correcto
+    $sqlinsert = "INSERT INTO `hashtags` (`tag`) VALUES (:tag)";
+    $preparada = $db->prepare($sqlinsert);
+    foreach ($hashtagsArray as $k => $v) {
+      $preparada->execute(array(':tag' => $v));
+    }
+  } catch (PDOException $e) {
+    fatalError("preparada1", $e->getMessage());
+  }
+}
