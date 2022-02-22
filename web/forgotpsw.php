@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 <!DOCTYPE html>
 
-<?php include "./includes/indexHead.php" ?>
+<?php include "../includes/indexHead.php" ?>
 
 <body>
   <video autoplay muted loop id="backVideo">
