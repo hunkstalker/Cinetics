@@ -75,6 +75,7 @@ function sendMail($mailbody, $mail){
 
 function emailVerification($usuari)
 {
+    $bd;
     try{
         $db=conexionBBDD();
         $sql = 'SELECT `active` FROM `users` WHERE `mail` = :mail';

@@ -4,6 +4,7 @@ require_once (__DIR__.'\..\lib\config.php');
 
 function conexionBBDD()
 {
+    $db;
     // Credenciales totalmente seguras y originales
     $conexion = DB_STRING;
     $usuario = DB_USER;
