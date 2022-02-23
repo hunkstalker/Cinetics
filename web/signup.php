@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $usuari['pss'] = $passPOST;
 
     if (registroUsuario($usuari, $emailDuplicat, $usuariDuplicat)) {
-      header("Location: newmember.html");
+      header("Location: newmember.php");
       exit;
     }
   }
