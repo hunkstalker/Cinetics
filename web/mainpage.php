@@ -13,7 +13,7 @@ if (isset($_COOKIE[session_name()])) {
 ?>
 <!DOCTYPE html>
 
-<?php include "../includes/indexHead.php" ?>
+<?php include "../includes/generalHead.php" ?>
 
 <body>
   <video autoplay muted loop id="backVideo">
