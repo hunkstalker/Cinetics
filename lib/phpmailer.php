@@ -6,7 +6,7 @@ require_once 'config.php';
 function sendEmailNewUser($email, $urlActivationCode)
 {
     try{
-        $mailbody = file_get_contents('./web/mailbodyVerify.html');
+        $mailbody = file_get_contents('../web/mailbodyVerify.html');
         $mailbody = str_replace("{{PATH}}", PATH, $mailbody);
         $mailbody = str_replace("{{URLCODE}}", $urlActivationCode, $mailbody);
     
@@ -26,7 +26,7 @@ function sendEmailNewUser($email, $urlActivationCode)
 function sendEmailResetPsw($email, $urlActivationCode)
 {
     try{
-        $mailbody = file_get_contents('./web/mailbodyRecover.html');
+        $mailbody = file_get_contents('../web/mailbodyRecover.html');
         $mailbody = str_replace("{{PATH}}", PATH, $mailbody);
         $mailbody = str_replace("{{URLCODE}}", $urlActivationCode, $mailbody);
     
