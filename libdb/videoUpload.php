@@ -11,6 +11,7 @@ function guardarVideo($videoInfo, $id) {
             VALUES (:title, :description, :filename, :iduser)";
     $preparada = $db->prepare($sqlinsert);
     $preparada->execute(array(':title' => $videoInfo["title"],':description' => $videoInfo["description"], ':filename' => $videoInfo["filename"], ':iduser' => $id));
+    return $db->lastInsertId();
   } catch (PDOException $e) {
     fatalError("guardarVideoError", $e->getMessage());
   }
@@ -25,7 +26,9 @@ function guardarHashtags($hashtagsArray) {
     $preparada = $db->prepare($sqlinsert);
     foreach ($hashtagsArray as $k => $v) {
       $preparada->execute(array(':tag' => $v));
+      $idhashtags[] = $db->lastInsertId();
     }
+    return $idhashtags;
   } catch (PDOException $e) {
     fatalError("guardarHashtagsError", $e->getMessage());
   }
