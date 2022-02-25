@@ -1,5 +1,6 @@
 <?php
 require_once "./libdb/searchAccounts.php";
+require_once "./libdb/searchVideos.php";
 
 $err     = null;
 $errUser = false;
@@ -9,6 +10,10 @@ $errPass = false;
 if (isset($_COOKIE[session_name()])) {
   session_start();
   if ($_SESSION['userStatusCode'] == 1) {
+    if(tieneVideos($_SESSION['iduser'])){
+      header("Location: ./web/videoRoulette.php");
+      exit;
+    }
     header("Location: ./web/videoform.php");
     exit;
   }

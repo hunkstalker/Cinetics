@@ -1,6 +1,7 @@
 <?php
 require_once 'connectionDB.php';
 require_once 'updateAccounts.php';
+require_once './lib/logs.php';
 
 // Verificación de usuario para realizar el login
 function searchUser(&$usuari)

@@ -1,22 +1,21 @@
 <?php
 require_once 'connectionDB.php';
+require_once '../lib/logs.php';
 
-// Tabla info de los vídeos
 function guardarVideo($videoInfo, $id) {
   $db;
   try
   {
     $db = conexionBBDD();
-    $sqlinsert = "INSERT INTO `videos` (`description`, `fileName`, `iduser`)
-            VALUES (:description, :fileName, :iduser)";
+    $sqlinsert = "INSERT INTO `videos` (`title`, `description`, `filename`, `iduser`)
+            VALUES (:title, :description, :filename, :iduser)";
     $preparada = $db->prepare($sqlinsert);
-    $preparada->execute(array(':description' => $videoInfo["description"], ':fileName' => $videoInfo["filename"], ':iduser' => $id));
+    $preparada->execute(array(':title' => $videoInfo["title"],':description' => $videoInfo["description"], ':filename' => $videoInfo["filename"], ':iduser' => $id));
   } catch (PDOException $e) {
-    fatalError("preparada1", $e->getMessage());
+    fatalError("guardarVideoError", $e->getMessage());
   }
 }
 
-// Tabla hashtags
 function guardarHashtags($hashtagsArray) {
   $db;
   try
@@ -28,23 +27,21 @@ function guardarHashtags($hashtagsArray) {
       $preparada->execute(array(':tag' => $v));
     }
   } catch (PDOException $e) {
-    fatalError("preparada1", $e->getMessage());
+    fatalError("guardarHashtagsError", $e->getMessage());
   }
 }
 
-  // Tabla videohashtags
-function guardarVideoHashtags($hashtagsArray) {
+function guardarVideoHashtags($idvideo, $idhashtags) {
   $db;
   try
   {
     $db = conexionBBDD();
-    // TODO, hacer el insert correcto
-    $sqlinsert = "INSERT INTO `hashtags` (`tag`) VALUES (:tag)";
-    $preparada = $db->prepare($sqlinsert);
-    foreach ($hashtagsArray as $k => $v) {
-      $preparada->execute(array(':tag' => $v));
+    $sqlinsert = "INSERT INTO `videohashtags` (`idvideo`, `idhashtag`) VALUES (:idvideo, :idhashtag)";
+    $prepare = $db->prepare($sqlinsert);
+    foreach ($idhashtags as $k => $v) {
+      $prepare->execute(array(':idvideo' => $idvideo, ':idhashtag' => $v));
     }
   } catch (PDOException $e) {
-    fatalError("preparada1", $e->getMessage());
+    fatalError("guardarVideoHashtagsError", $e->getMessage());
   }
 }

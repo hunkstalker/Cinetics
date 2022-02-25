@@ -3,6 +3,7 @@ USE `cineticsdb`;
 CREATE TABLE IF NOT EXISTS `videos`
 (
   `idvideo` INT AUTO_INCREMENT NOT NULL,
+  `title` VARCHAR(120) NOT NULL
   `description` VARCHAR(120) NOT NULL,
   `publicationDate` DATETIME DEFAULT NOW(),
   `likes` INT DEFAULT 0,
