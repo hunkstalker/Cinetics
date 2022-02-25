@@ -2,48 +2,59 @@
 require_once "../lib/auth.php";
 require_once "../lib/pathFunctions.php";
 require_once "../libdb/videoUpload.php";
+require_once "../libdb/searchVideos.php";
 
 auth();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-  if (count($_POST) >= 1) {
+  
+    if (count($_POST) >= 1) {
 
     $mida = $_FILES["user_file"]["size"];
     // He configurado el límite de php.ini en 100MB
     if ($mida > (1024 * 1024) * 100) {
-      // TODO: Añadir el error en el log
-      echo "<br>El fichero es demasiado grande ( >5MB )";
+      $errorFileSize=true;
       return;
     }
 
-    $video["title"]       = filter_input(INPUT_POST, 'title');
-    // Separamos los hashtags por comas y eliminamos duplicados con array_unique
-    // TODO: HAY QUE ARREGLAR LOS ESPACIOS ENTRE LOS HASHTAGS
-    $video["hashtags"]    = array_unique(explode(",", filter_input(INPUT_POST, 'hashtags')));
-    $video["description"] = filter_input(INPUT_POST, 'description');
+    $video['title'] = filter_input(INPUT_POST, 'title');
+    // Limpieza de hashtags
+    $video['hashtags']    = array_unique(array_map('trim', explode(",", filter_input(INPUT_POST, 'hashtags'))));
+    $video['description'] = filter_input(INPUT_POST, 'description');
 
     // Nos aseguramos de que la carpeta de subida de los vídeos existe y sino la crea
-    $filepath = createFilePath($_FILES["user_file"]["tmp_name"]);
+    $filepath = createFilePath($_FILES['user_file']['tmp_name']);
     if (!file_exists($filepath)) {
       mkdir($filepath, 0700);
     }
 
-    $randomValue = $_SESSION['username'] . date("YmdHms");
+    $hashValue = $_SESSION['username'] . date('YmdHms');
     // Hash sha256: el filename serán 64 carácteres
-    $filename    = hash('sha256', $randomValue);
-    $ext         = explode('.', $_FILES["user_file"]["name"]);
-    $pathfile    = $filepath . '/' . $filename . '.' . $ext[1];
-    $video["filename"] = $filename;
+    $filename          = hash('sha256', $hashValue);
+    $ext               = explode('.', $_FILES['user_file']['name']);
+    $pathfile          = $filepath . '/' . $filename . '.' . $ext[1];
+    $video['filename'] = $filename;
 
-    // TODO: Hacer un SELECT y sacar los hashtags para comparar y guardar solo los nuevos
-    try{
-      $res = move_uploaded_file($_FILES["user_file"]["tmp_name"], $pathfile);
-      guardarVideo($video, $_SESSION["iduser"]);
-      guardarHashtags($video["hashtags"]);
+    // Consultamos los hashtags que tenemos en bbdd para filtrar y quedarnos con los nuevos
+    $hashtags = consultadeHashtags();
+    if($hashtags != false AND $hashtags != NULL){
+      $newHashtags = array_diff($video['hashtags'], $hashtags);
+    }else{
+      $newHashtags = $video['hashtags'];
+    }
+
+    try {
+      $res = move_uploaded_file($_FILES['user_file']['tmp_name'], $pathfile);
+      guardarVideo($video, $_SESSION['iduser']);
+      guardarHashtags($newHashtags);
+
+      $idvideo    = consultaVideoId($filename);
+      $idhashtags = consultaHashtagId($video['hashtags']);
+
+      guardarVideoHashtags($idvideo, $idhashtags);
     } catch (PDOException $e) {
-      fatalError("InsertVideoError", $e->getMessage());
-    }   
+      fatalError('InsertVideoError', $e->getMessage());
+    }
 
     if ($res) {
       // TODO: Redirigir a la vista de videos y visionar lastvideoPath
@@ -61,34 +72,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel = 'icon' href = '../media/logo.png' type = 'image/x-icon'>
   <title>Cinetics</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="../css/custom-two.css">
 </head>
 
 <body>
-
-  <nav class="navbar navbar-dark bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand font-title ms-1 fs-1" href="#">Cinetics</a>
-      <div class="d-flex">
-        <a href="videoform.php"><img type="image" class="btn-nav me-3 " src="../media/uploadFile.png"></a>
-        <a href="../lib/logout.php"><img type="image" class="btn-nav me-3" src="../media/user.png"></a>
-      </div>
-    </div>
+  <nav id="navbar" class="navbar d-flex navbar-dark bg-dark justify-content-around">
+    <a href="../index.php"><img type="image" class="btn-nav home flex-grow-1 ms-5" src="../media/home.png">Cinetics</a>
+    <a href="videoform.php"><img type="image" class="btn-nav" src="../media/uploadFile.png"></a>
+    <a href="../lib/logout.php"><img type="image" class="btn-nav" src="../media/user.png"></a>
   </nav>
 
-  <video autoplay muted loop id="back-video">
-    <source src="../media/waiting.mp4" type="video/mp4">
-  </video>
+  <div class="container-fluid p-0">
+    <div class="d-flex align-items-center justify-content-center">
+      
+      <div>
+        <video autoplay muted loop id="back-video">
+          <source src="../media/waiting.mp4" type="video/mp4">
+        </video>
+      </div>
 
-  <div class="col-12 central-panel">
-    <h2 class="upload-text">Upload your first video!</h2>
-
-    <form id="signup-form" autocomplete="off" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" enctype="multipart/form-data">
-      <div class="flex-container-signup">
-
-        <div id="div-left">
+      <div id="central-panel" class="p-4 mt-3">
+        <form id="signup-form" autocomplete="off" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" enctype="multipart/form-data">
+          <div class="head-title mt-5 mb-4">
+            <h2 class="m-0 text-center">Upload your first video!</h2>
+          </div>
           <div class="mb-4">
             <label for="file" class="form-label mb-0"></label>
             <input id="file" name="user_file" class="form-control" type="file" >
@@ -105,14 +115,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label for="description" class="form-label mb-0">Description</label>
             <input type="text" class="form-control" name="description">
           </div>
-        </div>
-      </div>
-      <div class="mb-5">
-        <button type="submit" class="btn mt-4">Send</button>
-      </div>
-    </form>
+          <div class="mt-4 mb-4">
+            <button type="submit" class="btn">Send</button>
+          </div>
+        </form>
 
+      </div>
+    </div>
   </div>
-  </div>
-
+    
+  <script src="../js/style.js"></script>
 </body>
