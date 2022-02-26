@@ -7,10 +7,10 @@ function guardarVideo($videoInfo, $id) {
   try
   {
     $db = conexionBBDD();
-    $sqlinsert = "INSERT INTO `videos` (`title`, `description`, `filename`, `iduser`)
-            VALUES (:title, :description, :filename, :iduser)";
+    $sqlinsert = "INSERT INTO `videos` (`description`, `filename`, `iduser`)
+            VALUES (:description, :filename, :iduser)";
     $preparada = $db->prepare($sqlinsert);
-    $preparada->execute(array(':title' => $videoInfo["title"],':description' => $videoInfo["description"], ':filename' => $videoInfo["filename"], ':iduser' => $id));
+    $preparada->execute(array(':description' => $videoInfo["description"], ':filename' => $videoInfo["filename"], ':iduser' => $id));
     return $db->lastInsertId();
   } catch (PDOException $e) {
     fatalError("guardarVideoError", $e->getMessage());
