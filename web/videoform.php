@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mida = $_FILES["user_file"]["size"];
 
     // CONFIGURADO EL php.ini EN 100MB
-    if ($mida > (1024 * 1024) * 1) {
+    if ($mida > (1024 * 1024) * 100) {
       $errorFileSize = true;
     } else {
       // Sólo se ha eliminado el title del diseño, dejo esto así para que no pete en bbdd
