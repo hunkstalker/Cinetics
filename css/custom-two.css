@@ -27,31 +27,32 @@
 }
 /* Hasta aquí es para el vídeo de fondo */
 
-a.flex-grow-1, a:link, a:visited, div p.text-white
-{
-  text-decoration: none;
+a {
+    text-decoration: none;
+}
+
+.satisfy{
   font-family: "Satisfy";
 }
 
 a.flex-grow-1:hover
 {
   font-weight: bold;
-  color: rgb(255, 255, 206) !important;
   margin-left: 46px !important;
 }
 
-#central-panel {
+#panel {
   height: 85vh;
   width: 100%;
-  border-bottom: dashed white 10px;
-  border-top: dashed white 10px;
+  border-top: dashed white 15px;
+  border-bottom: dashed white 15px;
   background-color: rgba(47, 48, 47, 0.753);
 }
 
-#central-panel input[type="text"],
-#central-panel input[type="email"],
-#central-panel input[type="password"],
-#central-panel input[type="file"]
+#panel input[type="text"],
+#panel input[type="email"],
+#panel input[type="password"],
+#panel input[type="file"]
 {
   background-color: rgba(47, 48, 47, 0);
   border-radius: 0;
@@ -59,9 +60,9 @@ a.flex-grow-1:hover
   color: white;
 }
 
-#central-panel input[type="text"]:focus,
-#central-panel input[type="email"]:focus,
-#central-panel input[type="password"]:focus
+#panel input[type="text"]:focus,
+#panel input[type="email"]:focus,
+#panel input[type="password"]:focus
 {
   background-color: rgba(255, 255, 255, 0);
   border-radius: 0;
@@ -114,40 +115,36 @@ input.custom-btn
     background: none;
   }
 
-  #central-panel {
+  #panel {
     width: 80%;
   }
 
-  .custom-btn {
+  button.custom-btn {
     width: 60%;
   }
 }
 
 @media only screen and (min-width: 768px) {
 
-  #central-panel {
+  #panel {
     width: 65%;
   }
 
-  .custom-btn {
+  button.custom-btn {
     width: 50%;
   }
 }
 
 @media only screen and (min-width: 992px) {
+  #panel {
+    width: 40%;
+  }
 
-  #central-panel {
-    width: 60%;
+  button.custom-btn {
+    width: 50%;
   }
 } 
 
 @media only screen and (min-width: 1200px) {
 
-  #central-panel {
-    width: 50%;
-  }
-
-  .custom-btn {
-    width: 25%;
-  }
 } 

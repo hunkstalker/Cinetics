@@ -92,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <nav id="navbar" class="navbar d-none d-sm-flex navbar-dark bg-dark">
       <div>
-        <a class="ms-5 display-6 text-white flex-grow-1" href="../index.php">Cinetics</a>
+        <a class="satisfy ms-5 display-6 text-white flex-grow-1" href="../index.php">Cinetics</a>
       </div>
       <div>
         <a class="me-5" href="videoform.php"><img type="image" class="btn-nav" src="../media/uploadFile.png"></a>
@@ -104,10 +104,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="container-fluid p-0">
       <div class="d-flex align-items-center justify-content-center">
 
-        <div id="central-panel" class="p-4 p-sm-5 mt-3">
-          <form id="signup-form" autocomplete="off" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" enctype="multipart/form-data">
-            <div class="head-title mt-5 mb-4">
-              <p class="mb-5 text-center display-4 display-md-6 text-white">Upload your first video!</p>
+        <div id="panel" class="p-4 mt-4">
+          <form autocomplete="off" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" enctype="multipart/form-data">
+            <div class="mt-5 mb-4">
+              <p class="satisfy mb-5 text-center display-6 text-white">Upload your first video!</p>
             </div>
             <div class="mb-5">
               <input id="formFile" name="user_file" class="form-control" type="file">
@@ -121,7 +121,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <label for="description" class="form-label mb-0 text-white">Description</label>
               <input type="text" class="form-control" name="description">
             </div>
-            <div class="mt-4 mb-4">
+            <div class="mt-5">
               <button type="submit" class="custom-btn">Send</button>
             </div>
           </form>
