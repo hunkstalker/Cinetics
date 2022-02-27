@@ -9,11 +9,4 @@ function createRootPath() {
   $rootPath = str_replace($badChar, '/', $path);
   return $rootPath;
 }
-
-function createFilePath($userNametmpName) {
-  $pathexplode  = explode("\\tmp", $userNametmpName);
-  $badChar      = "\\";
-  $pathreplaced = str_replace($badChar, '/', $pathexplode);
-  return $pathreplaced[0] . "/videoUploads";
-}
 ?>
