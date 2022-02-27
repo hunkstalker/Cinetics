@@ -10,6 +10,7 @@ function createRootPath() {
   return $rootPath;
 }
 
+// MERGE: Esto irá fuera cuando se haga 
 function createFilePath($userNametmpName) {
   $pathexplode  = explode("\\tmp", $userNametmpName);
   $badChar      = "\\";

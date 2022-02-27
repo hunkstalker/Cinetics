@@ -35,7 +35,8 @@ a {
   font-family: "Satisfy";
 }
 
-a.flex-grow-1:hover
+div a:hover{ font-weight: bold; }
+nav div a .satisfy:hover
 {
   font-weight: bold;
   margin-left: 46px !important;
@@ -127,7 +128,7 @@ input.custom-btn
 @media only screen and (min-width: 768px) {
 
   #panel {
-    width: 65%;
+    width: 60%;
   }
 
   button.custom-btn {
@@ -136,8 +137,9 @@ input.custom-btn
 }
 
 @media only screen and (min-width: 992px) {
+
   #panel {
-    width: 40%;
+    width: 45%;
   }
 
   button.custom-btn {
@@ -147,4 +149,18 @@ input.custom-btn
 
 @media only screen and (min-width: 1200px) {
 
+  #panel {
+    width: 30%;
+  }
+
+  #panel.h-100 {
+    width: 45%;
+  }
+}
+
+@media only screen and (min-width: 1700px) {
+
+  #panel {
+    width: 25%;
+  }
 } 
