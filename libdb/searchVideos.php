@@ -61,21 +61,21 @@ function consultaHashtagId($hashtags) {
   return false;
 }
 
-function tieneVideos($iduser) {
+function lastUserVideo($iduser) {
 
   $db;
-  $first = true;
   try
   {
-    $db      = conexionBBDD();
-    $sql     = 'SELECT `idvideo` FROM `videos` WHERE `iduser` = :iduser';
+    $db = conexionBBDD();
+    $sql = 'SELECT `idvideo` FROM `videos` WHERE `iduser` = :iduser ORDER BY `publicationDate` DESC LIMIT 1';
     $prepare = $db->prepare($sql);
     $prepare->execute(array(':iduser' => $iduser));
 
     if ($prepare && $prepare->rowCount() > 0) {
       $result = $prepare->fetchAll(PDO::FETCH_COLUMN);
-      $_SESSION['idLastVideo'] = max($result);
-      return true;
+      //TODO: no parece seguro asignar un path a una cookie
+      //$_SESSION['idLastVideo'] = max($result);
+      return $result;
     }
   } catch (PDOException $e) {
     fatalError("consultadeHashtagsError", $e->getMessage());
@@ -91,3 +91,22 @@ function randomVideo(){
   // Obtener el path del video resultante
 
 }
+
+function selectVideoById($idVideo) {
+  $db;
+  try
+  {
+    $db = conexionBBDD();
+    $sql = 'SELECT `filename` FROM `videos` WHERE `idvideo` = :idvideo';
+    $prepare = $db->prepare($sql);
+    $prepare->execute(array(':idvideo' => $idVideo));
+
+    if ($prepare && $prepare->rowCount() > 0) {
+      $result = $prepare->fetchAll(PDO::FETCH_COLUMN);
+      return $result;
+    }
+  } catch (PDOException $e) {
+    fatalError("videoNoTrobat", $e->getMessage());
+  }
+  return false;
+ }

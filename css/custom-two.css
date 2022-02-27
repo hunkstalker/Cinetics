@@ -3,9 +3,9 @@
 html, body {
   margin: 0;
   height: 100vh;
-  background-image: url(../media/index_ph.jpg);
+  /*background-image: url(../media/index_ph.jpg);
   background-size: cover;
-  background-position-x: 10%;
+  background-position-x: 10%;*/
 }
 
 a {
@@ -45,6 +45,15 @@ label {
 #central-panel {
   height: 85vh;
   width: 100%;
+  border-bottom: dashed white 10px;
+  border-top: dashed white 10px;
+  background-color: rgba(47, 48, 47, 0.753);
+}
+
+#mainpage-panel {
+  height: 100%;
+  width: 50%;
+  color: white !important;
   border-bottom: dashed white 10px;
   border-top: dashed white 10px;
   background-color: rgba(47, 48, 47, 0.753);
@@ -122,6 +131,22 @@ input.btn{
   90% {background-color: rgba(47, 48, 47, 0.753);}
   100% {background-color: rgba(162, 180, 84, 0.747);}
 }
+
+.thumbs-group
+{
+  font-size: x-large;
+}
+
+.thumbs-up:hover
+{
+  color: greenyellow;
+}
+
+.thumbs-down:hover
+{
+  color: red;
+}
+
 
 /* MEDIA QUERIES */
 @media only screen and (min-width: 576px) {

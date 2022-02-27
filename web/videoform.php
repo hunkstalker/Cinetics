@@ -19,21 +19,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $video['title'] = filter_input(INPUT_POST, 'title');
     // Limpieza de hashtags
-    $video['hashtags']    = array_unique(array_map('trim', explode(",", filter_input(INPUT_POST, 'hashtags'))));
+    $video['hashtags'] = array_unique(array_map('trim', explode(",", filter_input(INPUT_POST, 'hashtags'))));
     $video['description'] = filter_input(INPUT_POST, 'description');
 
     // Nos aseguramos de que la carpeta de subida de los vídeos existe y sino la crea
     $filepath = createFilePath($_FILES['user_file']['tmp_name']);
+    //TODO: el path que retorna no es correcto ya que apunta a: "C:/xampp/videoUploads"
     if (!file_exists($filepath)) {
       mkdir($filepath, 0700);
     }
 
     $hashValue = $_SESSION['username'] . date('YmdHms');
     // Hash sha256: el filename serán 64 carácteres
-    $filename          = hash('sha256', $hashValue);
-    $ext               = explode('.', $_FILES['user_file']['name']);
-    $pathfile          = $filepath . '/' . $filename . '.' . $ext[1];
-    $video['filename'] = $filename;
+    $filename = hash('sha256', $hashValue);
+    $ext = explode('.', $_FILES['user_file']['name']);
+    $pathfile = $filepath . '/' . $filename . '.' . $ext[1];
+    //TODO: añadir la extension del video y meterlo todo como filename
+    //TODO: para añadir la extensión se ha ampliado el filename de la BD hasta 100 char
+    $video['filename'] = $filename . '.' . $ext[1];
 
     // Consultamos los hashtags que tenemos en bbdd para filtrar y quedarnos con los nuevos
     $hashtags = consultadeHashtags();
