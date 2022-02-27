@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $video['description'] = filter_input(INPUT_POST, 'description');
 
       // Nos aseguramos de que la carpeta de subida de los vídeos existe y sino la crea
-      $filepath = createFilePath($_FILES['user_file']['tmp_name']);
+      $filepath = createRootPath() . "/videoUploads";
       if (!file_exists($filepath)) {
         mkdir($filepath, 0700);
       }
