@@ -131,6 +131,11 @@ input.custom-btn
     width: 60%;
   }
 
+  /* redimensión para la pág newmember */
+  #panel.newmember {
+    width: 70%;
+  }
+
   button.custom-btn {
     width: 50%;
   }
@@ -150,10 +155,11 @@ input.custom-btn
 @media only screen and (min-width: 1200px) {
 
   #panel {
-    width: 30%;
+    width: 35%;
   }
 
-  #panel.h-100 {
+  /* redimensión para la pág signup */
+  #panel.signup {
     width: 45%;
   }
 }

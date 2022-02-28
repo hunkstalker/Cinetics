@@ -23,7 +23,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 <!DOCTYPE html>
-
 <?php include "../includes/generalHead.php" ?>
 
 <body>

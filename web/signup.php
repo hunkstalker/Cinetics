@@ -34,7 +34,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <!DOCTYPE html>
-
 <?php include "../includes/generalHead.php"?>
 
 <body>
@@ -46,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="container-fluid p-0">
       <div class="d-flex align-items-center justify-content-center">
 
-        <div id="panel" class="p-4 p-sm-5 mt-4 mt-sm-5 h-100">
+        <div id="panel" class="p-4 p-sm-5 mt-4 mt-sm-5 signup">
           <div class="d-flex justify-content-center">
             <a href="../index.php">
               <h1 class="satisfy mt-2 mt-sm-3 mb-4 mb-sm-3 display-1 display-md-1 text-white">Cinetics</h1>
@@ -89,7 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="text" class="form-control" name="lastname" id="lastname">
               </div>
               <div class="col-12 col-sm-6 mb-3 mb-sm-5">
-                <label for="psw2" class="form-label text-white">Repeat password (required)</label>
+                <label for="psw2" class="form-label text-white">Repeat password (req.)</label>
                 <input type="password" class="form-control" name="confirm_password" id="psw2" onkeyup='check();' required>
                 <span id='message'></span>
               </div>
