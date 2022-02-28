@@ -6,27 +6,30 @@ require_once "../libdb/searchVideos.php";
 
 auth();
 
-//TODO: per a declarar previament el $selectedVideo
-//TODO: es necessari tenir un video predefinit
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  } else {
 
-} else {
-  $selectedVideo = 'C:\xampp\videoUploads\f6c097c14e2fa944feee85dc4eb57d350fe9af303eb809266a18416501940c3b.mp4';
-  $idVideo = lastUserVideo($_SESSION['iduser']);
+    if(firstCineticsVideo()) {
+      $videoInfo = selectVideoById(1);
+    } else {
+      $idVideo = lastUserVideo($_SESSION['iduser']);
+      if($idVideo) {
+        $videoInfo = selectVideoById($idVideo);
+      } else {
+        $randomId = randomVideo();
+        $videoInfo = selectVideoById($randomId);
+      }
+    }
 
-  if($idVideo) {
-
-    //TODO: sha de posar un video de mostra i declarar previament
-    //TODO: aquesta variable de selectedVideo
-    $path = selectVideoById($idVideo[0]);
-    $selectedVideo = $path[0];
+    $description = $videoInfo['description'];
+    $filename = $videoInfo['fileName'];
+    $selectedVideo = "../videoUploads/" . $filename;
+    $hashtagsVideo = getHashtags($videoInfo['idvideo']);
   }
-}
 ?>
 
 <!DOCTYPE html>
-
 <head>
   <html lang="en">
   <meta charset="UTF-8">
@@ -51,9 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div id="mainpage-panel">
         <div class="embed-responsive embed-responsive-21by9">
             <video width="100%" height="auto" controls autoplay loop muted>
-              <?php //echo("<source src='../../../videoUploads/". $selectedVideo . "' type='video/mp4'>") ?> 
-              <source src='../../../videoUploads/f6c097c14e2fa944feee85dc4eb57d350fe9af303eb809266a18416501940c3b.mp4' type='video/mp4'>
-                
+              <?php echo("<source src='". $selectedVideo . "' type='video/mp4'>") ?>                
             </video>
         </div>
         <div class="d-flex flex-column">
@@ -62,8 +63,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <p>1200</p>
                 <i class="bi-hand-thumbs-down thumbs-down"></i>
             </div>
-            <p class="px-3 video-description">Terrific video</p>
-            <p class="px-3 video-hashtag">#hola #patata #byebye</p>
+            <p class="px-3 video-description"><?php echo($description) ?></p>
+            <p class="px-3 video-hashtag"><?php echo($hashtagsVideo) ?></p>
         </div>
     </div>
 

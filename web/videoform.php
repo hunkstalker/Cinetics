@@ -11,6 +11,7 @@ $errorFileSize = false;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (count($_POST) >= 1) {
     $mida = $_FILES["user_file"]["size"];
+
     // CONFIGURADO EL php.ini EN 100MB
     if ($mida > (1024 * 1024) * 100) {
       $errorFileSize = true;
@@ -25,14 +26,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         mkdir($filepath, 0700);
       }
 
+      //TODO: mirar porque no se sube el video
       $hashValue = $_SESSION['username'] . date('YmdHms');
       // Hash sha256: el filename serán 64 carácteres
       $filename = hash('sha256', $hashValue);
       $ext = explode('.', $_FILES['user_file']['name']);
       $pathfile = $filepath . '/' . $filename . '.' . $ext[1];
-      //TODO: añadir la extension del video y meterlo todo como filename
-      //TODO: para añadir la extensión se ha ampliado el filename de la BD hasta 100 char
-      $video['filename'] = $filename . '.' . $ext[1];
+      $video['filename'] = $filename;
+      // $video['filename'] = $filename . '.' . $ext[1];;
 
       // RECORDATORIO: ESTO FUERA, ES PREFERIBLE QUE SALTE ERROR DE INSERT QUE NO CONSULTAR TODOS LOS HASHTAGS Y FILTRAR
       // $hashtags = consultadeHashtags();
@@ -43,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       // }
       $idhashtags;
       try {
-        $res = move_uploaded_file($_FILES['user_file']['tmp_name'], $pathfile);
+        $res             = move_uploaded_file($_FILES['user_file']['tmp_name'], $pathfile);
         $idvideo = guardarVideo($video, $_SESSION['iduser']);
         // Comprobamos si nos viene vacío
         if (!empty(filter_input(INPUT_POST, 'hashtags'))) {
