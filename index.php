@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['username'] = $usuari['username'];
         $_SESSION['iduser'] = $usuari['iduser'];
         //Redirecció a la pràgina principal
-        header("Location: ./web/videoform.php");
+        header("Location: ./web/mainpage.php");
         exit;
       }
     }

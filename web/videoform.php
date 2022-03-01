@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         fatalError('InsertVideoError', $e->getMessage());
       }
       if ($res) {
-        header("Location: videoRoulette.php");
+        header("Location: mainpage.php");
         exit;
       } else {
         fatalError("ErrorMove_Uploaded_File");

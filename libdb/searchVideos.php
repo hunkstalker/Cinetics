@@ -6,8 +6,8 @@ require_once 'updateAccounts.php';
 //   $db;
 //   try
 //   {
-//     $db        = conexionBBDD();
-//     $sql       = 'SELECT `tag` FROM `hashtags`';
+//     $db  = conexionBBDD();
+//     $sql = 'SELECT `tag` FROM `hashtags`';
 //     $prepare = $db->prepare($sql);
 //     $prepare->execute();
 //     if ($prepare && $prepare->rowCount() > 0) {
@@ -21,10 +21,9 @@ require_once 'updateAccounts.php';
 
 // function consultaVideoId($filename){
 //   $db;
-//   try
-//   {
-//     $db        = conexionBBDD();
-//     $sql       = 'SELECT `idvideo` FROM `videos` WHERE `filename` = :videoFilename';
+//   try {
+//     $db = conexionBBDD();
+//     $sql = 'SELECT `idvideo` FROM `videos` WHERE `filename` = :videoFilename';
 //     $prepare = $db->prepare($sql);
 //     $prepare->execute(array(':videoFilename' => $filename));
 //     if ($prepare && $prepare->rowCount() > 0) {
@@ -38,13 +37,11 @@ require_once 'updateAccounts.php';
 // }
 
 // function consultaHashtagId($hashtags) {
-  
 //   $db;
 //   $first = true;
-//   try
-//   {
-//     $db      = conexionBBDD();
-//     $sql     = 'SELECT `idhashtag` FROM `hashtags` WHERE `tag` = :tag';
+//   try {
+//     $db = conexionBBDD();
+//     $sql = 'SELECT `idhashtag` FROM `hashtags` WHERE `tag` = :tag';
 //     $prepare = $db->prepare($sql);
 //     foreach($hashtags as $tag){
 //       $prepare->execute(array(':tag' => $tag));
@@ -57,21 +54,19 @@ require_once 'updateAccounts.php';
 //   return false;
 // }
 
-function tieneVideos($iduser) {
-
+function lastUserVideo($iduser) {
   $db;
-  $first = true;
-  try
-  {
-    $db      = conexionBBDD();
-    $sql     = 'SELECT `idvideo` FROM `videos` WHERE `iduser` = :iduser';
+  try {
+    $db = conexionBBDD();
+    $sql = 'SELECT `idvideo` FROM `videos` WHERE `iduser` = :iduser ORDER BY `publicationDate` DESC LIMIT 1';
     $prepare = $db->prepare($sql);
     $prepare->execute(array(':iduser' => $iduser));
 
     if ($prepare && $prepare->rowCount() > 0) {
       $result = $prepare->fetchAll(PDO::FETCH_COLUMN);
-      $_SESSION['idLastVideo'] = max($result);
-      return true;
+      //TODO: no parece seguro asignar un path a una cookie
+      //$_SESSION['idLastVideo'] = max($result);
+      return $result[0];
     }
   } catch (PDOException $e) {
     fatalError("consultadeHashtagsError", $e->getMessage());
@@ -80,10 +75,113 @@ function tieneVideos($iduser) {
 }
 
 function randomVideo(){
-  rand(5, 15);
+  $db;
+  $randomVideoName;
+  $randomVideoNum;
+  $maxRandom;
+  try {
+    $db = conexionBBDD();
+    $sql = 'SELECT count(*) FROM `videos`';
+    $prepare = $db->prepare($sql);
+    $prepare->execute();
+
+    if ($prepare && $prepare->rowCount() > 0) {
+      $maxRandom = $prepare->rowCount();
+      $randomVideoNum = rand(1, $maxRandom);
+      return $randomVideoNum;   
+    }
+
+  } catch (PDOException $e) {
+    fatalError("noHiHaVideos", $e->getMessage());
+  }
+  return false;
 
   // TODO
   // Obtener el núm máx que haya de vídeos omitiendo $_SESSION['idLastVideo']
   // Obtener el path del video resultante
+  //cuando se envia el post el id del video anterior puede ser un input oculto
 
 }
+
+function selectVideoById($idVideo) {
+  $db;
+  try {
+    $db = conexionBBDD();
+    $sql = 'SELECT * FROM `videos` WHERE `idvideo` = :idvideo';
+    $prepare = $db->prepare($sql);
+    $prepare->execute(array(':idvideo' => $idVideo));
+
+    if ($prepare && $prepare->rowCount() > 0) {
+      $result = $prepare->fetchAll(PDO::FETCH_ASSOC);
+      return $result[0];
+    }
+
+  } catch (PDOException $e) {
+    fatalError("videoNoTrobat", $e->getMessage());
+  }
+  return false;
+ }
+
+ function firstCineticsVideo() {
+  $db;
+  $predefined = false;
+  try {
+    $db = conexionBBDD();
+    $sql = 'SELECT * FROM `videos`';
+    $prepare = $db->prepare($sql);
+    $prepare->execute();
+
+    if ($prepare && $prepare->rowCount() > 0) {
+      if($prepare->rowCount() == 1) {
+        $predefined = true;
+      }
+      return $predefined;
+    }
+    
+  } catch (PDOException $e) {
+    fatalError("videoNoTrobat", $e->getMessage());
+  }
+  return false;
+ }
+
+ function getHashtags($idVideo) {
+  $db;
+  $hashtagCollection = [];
+  try {
+    $db = conexionBBDD();
+    $sql = 'SELECT `idhashtag` FROM `videohashtags` WHERE `idvideo` = :idvideo';
+    $prepare = $db->prepare($sql);
+    $prepare->execute(array(':idvideo' => $idVideo));
+
+    if ($prepare && $prepare->rowCount() > 0) {
+      $result = $prepare->fetchAll(PDO::FETCH_COLUMN);
+      // foreach($row as $result) {
+      //   $hashtagCollection = $row['idhashtag'];
+      // }
+      for($i=0;$i<count($result);$i++) {
+
+        try {
+          $db = conexionBBDD();
+          $sql = 'SELECT `tag` FROM `hashtags` WHERE `idhashtag` = :idhashtag ';
+          $prepare = $db->prepare($sql);
+          $prepare->execute(array(':idhashtag' => $result[$i]));
+      
+          if ($prepare && $prepare->rowCount() > 0) {
+            $resultTag = $prepare->fetchAll(PDO::FETCH_COLUMN);
+            array_push($hashtagCollection, $resultTag[0]);
+          }
+
+        } catch (PDOException $e) {
+          fatalError("videoNoTrobat", $e->getMessage());
+        }
+        
+      }
+      $hashtagString = "#" . implode("#",$hashtagCollection);
+      return $hashtagString;
+    }
+    
+  } catch (PDOException $e) {
+    fatalError("videoNoTrobat", $e->getMessage());
+  }
+  return false;
+ }
