@@ -1,3 +1,7 @@
 USE cineticsdb;
-INSERT INTO `users`(`mail`, `username`, `passHash`, `userFirstName`, `userLastName`) VALUES ('pepita34@cinetics.com','pepita34','$2y$10$WGq2Uj12jQqSonpKFoEsEewdhPJ5UsO.sLtBHty/EwqvRxW4P/aoO','Josefa','Molino');
-INSERT INTO `users`(`mail`, `username`, `passHash`, `userFirstName`, `userLastName`) VALUES ('manolotorres@cinetics.com','manolito','$2y$10$xffBKXu2BNpd7pAvjfwOtehXbXzdRFHw.7c478gxAkDYl7/FkyWUC','Manuel','Sánchez');
+INSERT INTO `users` (mail,username,passHash) VALUES ("cinetics@cinetics.com", "cinetic", "$2y$10$190FEE5F112C73739155671F44A4CCF6462CAD9B09CA1DF5BE9295432B547054");
+INSERT INTO `videos` (description,fileName,iduser) VALUES ('Welcome to Cinetics community!', "welcomecinetics.mp4", 1);
+INSERT INTO `hashtags` (tag) VALUES ("welcome");
+INSERT INTO `hashtags` (tag) VALUES ("cinetics");
+INSERT INTO `videohashtags` VALUES (1, 1);
+INSERT INTO `videohashtags` VALUES (1, 2);

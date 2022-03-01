@@ -10,11 +10,19 @@ $errPass = false;
 if (isset($_COOKIE[session_name()])) {
   session_start();
   if ($_SESSION['userStatusCode'] == 1) {
+
+    //este código es anterior que te redirige al formulario de video 
+    //si no hay videos subidos a la plataforma
+    //
+    /*
     if(tieneVideos($_SESSION['iduser'])){
-      header("Location: ./web/videoRoulette.php");
+      header("Location: ./web/mainpage.php");
       exit;
     }
     header("Location: ./web/videoform.php");
+    */
+    header("Location: ./web/mainpage.php");
+
     exit;
   }
 }
@@ -27,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($_POST['user'] != '' && $_POST['psw'] != '') {
       $usuari['username'] = $userPOST;
-      $usuari['pass']     = $passPOST;
+      $usuari['pass'] = $passPOST;
 
       if (!searchUser($usuari)) {
         $err = true;
@@ -38,10 +46,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           session_start();
         }
         $_SESSION['userStatusCode'] = 1;
-        $_SESSION['username']       = $usuari['username'];
-        $_SESSION['iduser']         = $usuari['iduser'];
+        $_SESSION['username'] = $usuari['username'];
+        $_SESSION['iduser'] = $usuari['iduser'];
         //Redirecció a la pràgina principal
-        header("Location: ./web/videoform.php");
+        header("Location: ./web/mainpage.php");
         exit;
       }
     }

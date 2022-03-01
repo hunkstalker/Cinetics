@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $filename          = hash('sha256', $hashValue);
       $ext               = explode('.', $_FILES['user_file']['name']);
       $pathfile          = $filepath . '/' . $filename . '.' . $ext[1];
-      $video['filename'] = $filename;
+      $video['filename'] = $filename . '.' . $ext[1];
 
       // RECORDATORIO: ESTO FUERA, ES PREFERIBLE QUE SALTE ERROR DE INSERT QUE NO CONSULTAR TODOS LOS HASHTAGS Y FILTRAR
       // $hashtags = consultadeHashtags();
@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       }
 
       if ($res) {
-        header("Location: videoRoulette.php");
+        header("Location: mainpage.php");
         exit;
       } else {
         fatalError("ErrorMove_Uploaded_File");

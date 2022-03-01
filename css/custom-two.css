@@ -3,10 +3,9 @@
 #web-content {
   position: relative;
   height: 100vh;
-  width: 100%;
-  background-image: url(../media/index_ph.jpg);
+  /*background-image: url(../media/index_ph.jpg);
   background-size: cover;
-  background-position-x: 10%;
+  background-position-x: 10%;*/
 }
 
 #web-content video {
@@ -26,6 +25,14 @@
   z-index: 0;
 }
 /* Hasta aquí es para el vídeo de fondo */
+#mainpage-panel {
+  height: 100%;
+  width: 50%;
+  color: white !important;
+  border-bottom: dashed white 10px;
+  border-top: dashed white 10px;
+  background-color: rgba(47, 48, 47, 0.753);
+}
 
 a.flex-grow-1, a:link, a:visited, div p.text-white
 {
@@ -108,7 +115,21 @@ input.custom-btn
   cursor: pointer;
 }
 
-/* MEDIA QUERIES DE BOOTSTRAP */
+.thumbs-group
+{
+  font-size: x-large;
+}
+
+.thumbs-up:hover
+{
+  color: greenyellow;
+}
+
+.thumbs-down:hover
+{
+  color: red;
+}
+
 @media only screen and (min-width: 576px) {
   #web-content {
     background: none;
