@@ -11,24 +11,24 @@ $errorFileSize = false;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (count($_POST) >= 1) {
     $mida = $_FILES["user_file"]["size"];
-    // CONFIGURADO EL php.ini EN 100MB
+    // Configurado el límite en php.ini en 100MB
     if ($mida > (1024 * 1024) * 100) {
       $errorFileSize = true;
     } else {
       $video['description'] = filter_input(INPUT_POST, 'description');
       // Nos aseguramos de que la carpeta de subida de los vídeos existe y sino la crea
-      // MERGE: !!
+      // MERGE: !! OJETE QUE SE HIZO UN CAMBIO DE FUNCIÓN PARA EL PATH
       $filepath = createFilePath($_FILES['user_file']['tmp_name']);
       if (!file_exists($filepath)) {
         mkdir($filepath, 0700);
       }
       $hashValue = $_SESSION['username'] . date('YmdHms');
-      // Hash sha256: el filename serán 64 carácteres
+      // Preparación del campo filename que se guardará en la tabla de vídeos
       $filename = hash('sha256', $hashValue);
       $ext = explode('.', $_FILES['user_file']['name']);
       $pathfile = $filepath . '/' . $filename . '.' . $ext[1];
       $video['filename'] = $filename;
-      // RECORDATORIO: ESTO FUERA, ES PREFERIBLE QUE SALTE ERROR DE INSERT QUE NO CONSULTAR TODOS LOS HASHTAGS Y FILTRAR
+      // TODO: VAMOS A HACER LAS COMPROBACIONES DE HASHTAGS E INSERT BIEN COMO DIOS MANDA.
       // $hashtags = consultadeHashtags();
       // if($hashtags != false AND $hashtags != NULL){
       //   $newHashtags = array_diff($video['hashtags'], $hashtags);
@@ -43,11 +43,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!empty(filter_input(INPUT_POST, 'hashtags'))) {
           // Limpieza de hashtags repetidos
           $video['hashtags'] = array_unique(array_map('trim', explode(",", filter_input(INPUT_POST, 'hashtags'))));
-          // SALTARÁN ERRORES POR INTENTAR INSERTAR VALORES QUE YA ESTÁN. LOS OMITIMOS
+          // SALTARÁN ERRORES POR INTENTAR INSERTAR VALORES QUE YA ESTÁN. HAY QUE HACER ESTO MEJOR
           $idhashtags = guardarHashtags($video['hashtags']);
-          // CONSULTAS INNECESARIAS, NOS LLEVAMOS LAS IDs AL INSERTARLAS
-          // $idvideo    = consultaVideoId($filename);
-          // $idhashtags = consultaHashtagId($video['hashtags']);
           guardarVideoHashtags($idvideo, $idhashtags);
         }
       } catch (PDOException $e) {
