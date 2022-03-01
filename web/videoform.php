@@ -17,8 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
       $video['description'] = filter_input(INPUT_POST, 'description');
       // Nos aseguramos de que la carpeta de subida de los vídeos existe y sino la crea
-      // MERGE: !! OJETE QUE SE HIZO UN CAMBIO DE FUNCIÓN PARA EL PATH
-      $filepath = createFilePath($_FILES['user_file']['tmp_name']);
+      $filepath = createRootPath() . "/videoUploads";
       if (!file_exists($filepath)) {
         mkdir($filepath, 0700);
       }
@@ -28,13 +27,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $ext = explode('.', $_FILES['user_file']['name']);
       $pathfile = $filepath . '/' . $filename . '.' . $ext[1];
       $video['filename'] = $filename;
-      // TODO: VAMOS A HACER LAS COMPROBACIONES DE HASHTAGS E INSERT BIEN COMO DIOS MANDA.
-      // $hashtags = consultadeHashtags();
-      // if($hashtags != false AND $hashtags != NULL){
-      //   $newHashtags = array_diff($video['hashtags'], $hashtags);
-      // } else {
-      //   $newHashtags = $video['hashtags'];
-      // }
       $idhashtags;
       try {
         $res = move_uploaded_file($_FILES['user_file']['tmp_name'], $pathfile);
