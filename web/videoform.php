@@ -16,8 +16,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($mida > (1024 * 1024) * 100) {
       $errorFileSize = true;
     } else {
-      // Sólo se ha eliminado el title del diseño, dejo esto así para que no pete en bbdd
-      $video['title'] = "";
       $video['description'] = filter_input(INPUT_POST, 'description');
 
       // Nos aseguramos de que la carpeta de subida de los vídeos existe y sino la crea
@@ -26,14 +24,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         mkdir($filepath, 0700);
       }
 
-      //TODO: mirar porque no se sube el video
       $hashValue = $_SESSION['username'] . date('YmdHms');
       // Hash sha256: el filename serán 64 carácteres
-      $filename = hash('sha256', $hashValue);
-      $ext = explode('.', $_FILES['user_file']['name']);
-      $pathfile = $filepath . '/' . $filename . '.' . $ext[1];
-      $video['filename'] = $filename;
-      // $video['filename'] = $filename . '.' . $ext[1];;
+      $filename          = hash('sha256', $hashValue);
+      $ext               = explode('.', $_FILES['user_file']['name']);
+      $pathfile          = $filepath . '/' . $filename . '.' . $ext[1];
+      $video['filename'] = $filename . '.' . $ext[1];
 
       // RECORDATORIO: ESTO FUERA, ES PREFERIBLE QUE SALTE ERROR DE INSERT QUE NO CONSULTAR TODOS LOS HASHTAGS Y FILTRAR
       // $hashtags = consultadeHashtags();
@@ -62,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       }
 
       if ($res) {
-        header("Location: videoRoulette.php");
+        header("Location: mainpage.php");
         exit;
       } else {
         fatalError("ErrorMove_Uploaded_File");
