@@ -15,8 +15,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($mida > (1024 * 1024) * 100) {
       $errorFileSize = true;
     } else {
-      // Sólo se ha eliminado el title del diseño, dejo esto así para que no pete en bbdd
-      $video['title'] = "";
       $video['description'] = filter_input(INPUT_POST, 'description');
       // Nos aseguramos de que la carpeta de subida de los vídeos existe y sino la crea
       // MERGE: !!
