@@ -1,475 +1,209 @@
 @import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
 
-html, body {
-    margin: 0;
-    height: 100%;
+/* Vídeo e imagen de fondo */
+#web-content {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  background-image: url(../media/index_ph.jpg);
+  background-size: cover;
+  background-position-x: 10%;
+  /*background-image: url(../media/index_ph.jpg);
+  background-size: cover;
+  background-position-x: 10%;*/
 }
 
-a
-{
+#web-content video {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+}
+
+#web-content .container-fluid {
+  position: relative;
+  z-index: 0;
+}
+
+/* Tipografía y FX */
+a {
     text-decoration: none;
 }
 
-a:link
-{
-    text-decoration: none;
-    color: white;
+.satisfy {
+  font-family: "Satisfy";
 }
 
-a:visited
+div a:hover{ font-weight: bold; }
+nav div a .satisfy:hover
 {
-    text-decoration: none;
-    color: white;
+  font-weight: bold;
+  margin-left: 46px !important;
 }
 
-a:hover
-{
-    font-weight: bold;
+/* PANEL */
+#panel {
+  height: 85vh;
+  width: 100%;
+  border-top: dashed white 15px;
+  border-bottom: dashed white 15px;
+  background-color: rgba(47, 48, 47, 0.753);
 }
 
-.flex-container
+#panel input[type="text"],
+#panel input[type="email"],
+#panel input[type="password"],
+#panel input[type="file"]
 {
-    display: flex;
-    justify-content: space-between;
+  background-color: rgba(47, 48, 47, 0);
+  border-radius: 0;
+  border-width: 0px 0px 2px 0px;
+  color: white;
 }
 
-.flex-container-signup
+#panel input[type="text"]:focus,
+#panel input[type="email"]:focus,
+#panel input[type="password"]:focus
 {
-    display: flex;
-    justify-content: space-around;
+  background-color: rgba(255, 255, 255, 0);
+  border-radius: 0;
+  border-width: 0px 0px 4px 0px;
+  border-color: rgb(255, 255, 255);
+  font-weight: bold;
+  color: rgb(255, 255, 255);
+  outline:0px !important;
+  -webkit-appearance:none;
+  box-shadow: none !important;
 }
 
-#div-left,#div-right
-{
-    flex-grow: 1;
-    margin: 5%;
+#mainpage-panel {
+  height: 100%;
+  width: 50%;
+  color: white !important;
+  border-bottom: dashed white 10px;
+  border-top: dashed white 10px;
+  background-color: rgba(47, 48, 47, 0.753);
 }
 
+/* BOTONES */
+.custom-btn {
+  background-color: rgba(47, 48, 47, 0.753);
+  border: solid 3px white;
+  border-radius: 30px;
+  color: white;
+  font-weight: bold;
+  font-size: 1.2em;
+  margin: auto;
 
-.lateral-panel
-{
-    height: 85%;
-    margin-left: 1vw;
-    background-color: rgba(47, 48, 47, 0.753);
-    padding: 3%;
-    border-bottom: dashed rgb(255, 255, 255) 15px;
-    border-top: dashed white 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 50%;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
-.lateral-panel h4
-{
-    margin-bottom: 5%;
-    text-align: center;
+input.custom-btn {
+    width: 200px;
 }
 
-.lateral-panel input[type="text"],
-.lateral-panel input[type="email"],
-.lateral-panel input[type="password"]
-{
-    background-color: rgba(26, 223, 26, 0);
-    border-radius: 0;
-    border-width: 0px 0px 2px 0px;
-    color: rgb(255, 255, 255);
-
+.custom-btn:hover {
+  background-color: rgba(162, 180, 84, 0.747); color: white;
 }
 
-.mystyle {
-    border-color: red;
+.btn-nav {
+  height: 60px;
+  width: 60px;
+  cursor: pointer;
+}
+
+.thumbs-group {
+  font-size: x-large;
+}
+
+.thumbs-up:hover {
+  color: greenyellow;
+}
+
+.thumbs-down:hover {
+  color: red;
+}
+
+/* MEDIA QUERIES DE BOOTSTRAP ----------------- */
+/* -sm- */
+@media only screen and (min-width: 576px) {
+  #web-content {
+    background: none;
   }
 
-.central-panel input[type="text"],
-.central-panel input[type="email"],
-.central-panel input[type="password"]
-{
-    background-color: rgba(47, 48, 47, 0);
-    border-radius: 0;
-    border-width: 0px 0px 2px 0px;
-    color: white;
-    
-}
-
-.lateral-panel input[type="text"]:focus,
-.lateral-panel input[type="email"]:focus,
-.lateral-panel input[type="password"]:focus
-{
-    background-color: rgba(255, 255, 255, 0);
-    border-radius: 0;
-    border-width: 0px 0px 4px 0px;
-    border-color: rgb(255, 255, 255);
-    font-weight: bold;
-    color: rgb(255, 255, 255);
-    outline:0px !important;
-    -webkit-appearance:none;
-    box-shadow: none !important;
-}
-
-.central-panel input[type="text"]:focus,
-.central-panel input[type="email"]:focus,
-.central-panel input[type="password"]:focus
-{
-    background-color: rgba(255, 255, 255, 0);
-    border-radius: 0;
-    border-width: 0px 0px 4px 0px;
-    border-color: rgb(255, 255, 255);
-    font-weight: bold;
-    color: rgb(255, 255, 255);
-    outline:0px !important;
-    -webkit-appearance:none;
-    box-shadow: none !important;
-}
-
-.central-panel
-{
-    height: 85%;
-    margin-left: 1vw;
-    background-color: rgba(47, 48, 47, 0.753);
-    padding: 2%;
-    border-bottom: dashed white 15px;
-    border-top: dashed white 15px;
-}
-
-.link{
-    text-decoration: none;
-}
-
-.logo
-{
-    text-decoration: none;
-    font-family: "Satisfy";
-    color: white;
-    font-size: 6em;
-    text-align: center;
-    font-weight: bold;
-}
-
-#login-form
-{
-    color: white;
-    padding-top: 5%;
-}
-
-#signup-form
-{
-    color: white;
-}
-
-#backVideo {
-    width: 100vw;
-    height: 100vh;
-    object-fit: cover;
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    z-index: -1;
+  #panel {
+    width: 80%;
   }
 
-.is-done
-{
-    text-align: center;
-    color: white;
-    margin-top: 5%;
+  /* redimensión para las págs newmember & recoverpsw */
+  #panel.newmember, #panel.recoverpsw {
+    width: 85%;
+    height: 60vh;
+  }
+
+  button.custom-btn {
+    width: 60%;
+  }
 }
 
-#recover-button
-{
-    margin: 5% 0%;
+/* -md- */
+@media only screen and (min-width: 768px) {
+
+  #panel {
+    width: 60%;
+  }
+
+  button.custom-btn {
+    width: 50%;
+  }
 }
 
-.submit-button
-{
-    width: 100%;
-    background-color: rgba(47, 48, 47, 0.753);
-    border: solid 3px white;
-    color: white;
-    font-weight: bold;
-    border-radius: 30px;
-    font-size: 1.2em;
+/* -lg- */
+@media only screen and (min-width: 992px) {
+
+  #panel {
+    width: 45%;
+  }
+
+  /* redimensión para las págs newmember & recoverpsw */
+  #panel.newmember, #panel.recoverpsw {
+    width: 60%;
+    height: 60vh;
+  }
+
+  button.custom-btn {
+    width: 50%;
+  }
+} 
+
+/* -xl- */
+@media only screen and (min-width: 1200px) {
+
+  #panel {
+    width: 35%;
+  }
+
+  /* redimensión para la pág signup */
+  #panel.signup {
+    width: 50%;
+  }
 }
 
-.submit-button:hover
-{
-    background-color: rgba(162, 180, 84, 0.747);
-    color: white;
-}
+/* RESOLUCIÓN EXTRA */
+@media only screen and (min-width: 1700px) {
 
-.signup-body
-{
-    padding-top: 2vw;
-    padding-left: 15%;
-    height: 100%;
-}
-
-.signup-button
-{
+  #panel {
     width: 25%;
-    margin-top: 5%;
-    background-color: rgba(47, 48, 47, 0.753);
-    border: solid 3px white;
-    color: rgb(255, 255, 255);
-    font-weight: bold;
-    border-radius: 30px;
-    font-size: 1.2em;
-}
-
-.signup-button:hover
-{
-    background-color: rgba(162, 180, 84, 0.747);
-    color: white;
-}
-
-.sign-up-help
-{
-    color: white;
-    text-align: center;
-    padding-top: 10%
-}
-
-.sign-up-help a
-{
-    font-size: 1.2em;
-}
-
-/*Aquí tot lo de media*/
-
-@media (max-width:320px)  
-{ /* smartphones, iPhone, portrait 480x320 phones */ 
-    
-    body
-    {
-        background-image: url(../media/index_ph.jpg);
-        background-size: cover;
-        background-position-x: center;
-    }
-
-    #backVideo {
-        visibility: hidden;
-      }
-    
-    .lateral-panel
-    {
-        height: 85%;
-        width: 90%;
-        margin-left: 5%;
-        margin-top: 10%;
-        background-color: rgba(47, 48, 47, 0.753);
-        padding: 3%;
-        border-bottom: dashed white 15px;
-        border-top: dashed white 15px;
-    }
-
-    .signup-body
-    {
-        padding: 0;
-    }
-
-    .congrats-body
-    {
-        margin-top: 25%;
-    }
-    
-    .central-panel
-    {
-        height: 100%;
-        width: 100%;
-        margin-left: 0;
-        background-color: rgba(47, 48, 47, 0.952);
-        padding: 2%;
-        border-bottom: dashed white 15px;
-        border-top: dashed white 15px;
-    }
-
-    .central-panel h1
-    {
-        font-size: 2.8em;
-        margin-top: 5%;
-    }
-
-    .flex-container-signup
-    {
-        flex-wrap: wrap;
-    }
-}
-
-@media (min-width:641px)  
-{ /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */ 
-    body
-    {
-        background-image: none;
-    }
-
-    #backVideo {
-        visibility: visible;
-      }
-    
-    .central-panel
-    {
-        height: 70%;
-        width: 80%;
-        margin-left: 1vw;
-        background-color: rgba(47, 48, 47, 0.753);
-        padding: 2%;
-        border-bottom: dashed white 15px;
-        border-top: dashed white 15px;
-    }
-
-    .lateral-panel
-    {
-        height: 100%;
-        width: 50%;
-        background-color: rgba(47, 48, 47, 0.753);
-        padding: 3%;
-        border-bottom: dashed white 15px;
-        border-top: dashed white 15px;
-        margin: 0;
-    }
-
-    .lateral-panel form
-    {
-        margin-top: 5%;
-        padding: 5% 0%;
-    }
-
-    .lateral-panel h1
-    {
-        margin-top: 5%;
-    }
-
-    .submit-button
-    {
-        margin-top: 10%;
-    }
-
-    .signup-body
-    {
-        padding-top: 10vw;
-        padding-left: 10%;
-        height: 100%;
-    }
-}
-@media (min-width:961px)  
-{ /* tablet, landscape iPad, lo-res laptops ands desktops */ 
-
-    #backVideo {
-        visibility: visible;
-      }
-
-    .central-panel
-    {
-        height: 85%;
-        margin-left: 1vw;
-        background-color: rgba(47, 48, 47, 0.753);
-        padding: 2%;
-        border-bottom: dashed white 15px;
-        border-top: dashed white 15px;
-    }
-
-    .central-panel h1
-    {
-        font-size: 6em;
-        margin-top: 5%;
-    }
-
-    .lateral-panel
-    {
-        width: 50%;
-    }
-
-    .lateral-panel form
-    {
-        margin-top: 5%;
-        padding: 5% 0%;
-    }
-
-    .lateral-panel h1
-    {
-        margin-top: 5%;
-    }
-
-    .signup-body
-    {
-        padding-top: 2vw;
-        padding-left: 15%;
-        height: 100%;
-    }
-}
-@media (min-width:1025px) 
-{ /* big landscape tablets, laptops, and desktops */ 
-    .central-panel
-    {
-        height: 95%;
-        margin-left: 1vw;
-        background-color: rgba(47, 48, 47, 0.753);
-        padding: 2%;
-        border-bottom: dashed white 15px;
-        border-top: dashed white 15px;
-    }
-    
-    .lateral-panel
-    {
-        height: 85%;
-        width: 30%;
-        margin-left: 1vw;
-        background-color: rgba(47, 48, 47, 0.753);
-        padding: 3%;
-        border-bottom: dashed white 15px;
-        border-top: dashed white 15px;
-    }
-
-    .lateral-panel h4
-    {
-        margin-bottom: 5%;
-        text-align: center;
-    }
-
-    .signup-body
-    {
-        padding-top: 2vw;
-        padding-left: 15%;
-        height: 100%;
-    }
-}
-@media (min-width:1281px) 
-{ /* hi-res laptops and desktops */
-    .lateral-panel
-    {
-        height: 95%;
-        margin-left: 1vw;
-        background-color: rgba(47, 48, 47, 0.753);
-        padding: 3%;
-        border-bottom: dashed white 15px;
-        border-top: dashed white 15px;
-    }
-
-    .lateral-panel h4
-    {
-        margin-bottom: 5%;
-        text-align: center;
-    } 
-
-    .submit-button
-    {
-        width: 100%;
-        background-color: rgba(47, 48, 47, 0.753);
-        border: solid 3px white;
-        color: white;
-        font-weight: bold;
-        border-radius: 30px;
-        font-size: 1.2em;
-        margin-top: 5%;
-    }
-
-    .lateral-panel h4
-    {
-        margin-bottom: 0%;
-        text-align: center;
-    }
-
-    .sign-up-help
-    {
-        color: white;
-        text-align: center;
-        padding-top: 5%
-    }
-}
+  }
+} 

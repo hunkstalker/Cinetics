@@ -41,7 +41,6 @@ function guardarVideoHashtags($idvideo, $idhashtags) {
     $db = conexionBBDD();
     $sqlinsert = "INSERT INTO `videohashtags` (`idvideo`, `idhashtag`) VALUES (:idvideo, :idhashtag)";
     $prepare = $db->prepare($sqlinsert);
-    //TODO: revisar esto - peta aquí
     foreach ($idhashtags as $k => $v) {
       $prepare->execute(array(':idvideo' => $idvideo, ':idhashtag' => $v));
     }
