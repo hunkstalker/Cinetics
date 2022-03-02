@@ -9,18 +9,23 @@ auth();
 
 $errorFileSize = false;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
   if (count($_POST) >= 1) {
+
     $mida = $_FILES["user_file"]["size"];
     // Configurado el límite en php.ini en 100MB
     if ($mida > (1024 * 1024) * 100) {
+
       $errorFileSize = true;
     } else {
       $video['description'] = filter_input(INPUT_POST, 'description');
       // Nos aseguramos de que la carpeta de subida de los vídeos existe y sino la crea
       $filepath = createRootPath() . "/videoUploads";
+
       if (!file_exists($filepath)) {
         mkdir($filepath, 0700);
       }
+
       $hashValue = $_SESSION['username'] . date('YmdHms');
       // Preparación del campo filename que se guardará en la tabla de vídeos
       $filename = hash('sha256', $hashValue);
@@ -28,10 +33,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $pathfile = $filepath . '/' . $filename . '.' . $ext[1];
       $video['filename'] = $filename;
       $idhashtags;
+
       try {
         $res = move_uploaded_file($_FILES['user_file']['tmp_name'], $pathfile);
         $idvideo = guardarVideo($video, $_SESSION['iduser']);
         // Comprobamos si nos viene vacío
+
         if (!empty(filter_input(INPUT_POST, 'hashtags'))) {
           // Limpieza de hashtags repetidos
           $video['hashtags'] = array_unique(array_map('trim', explode(",", filter_input(INPUT_POST, 'hashtags'))));

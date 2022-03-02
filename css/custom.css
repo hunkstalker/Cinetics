@@ -8,6 +8,9 @@
   background-image: url(../media/index_ph.jpg);
   background-size: cover;
   background-position-x: 10%;
+  /*background-image: url(../media/index_ph.jpg);
+  background-size: cover;
+  background-position-x: 10%;*/
 }
 
 #web-content video {
@@ -32,7 +35,7 @@ a {
     text-decoration: none;
 }
 
-.satisfy{
+.satisfy {
   font-family: "Satisfy";
 }
 
@@ -78,6 +81,15 @@ nav div a .satisfy:hover
   box-shadow: none !important;
 }
 
+#mainpage-panel {
+  height: 100%;
+  width: 50%;
+  color: white !important;
+  border-bottom: dashed white 10px;
+  border-top: dashed white 10px;
+  background-color: rgba(47, 48, 47, 0.753);
+}
+
 /* BOTONES */
 .custom-btn {
   background-color: rgba(47, 48, 47, 0.753);
@@ -97,13 +109,11 @@ nav div a .satisfy:hover
   padding-bottom: 10px;
 }
 
-input.custom-btn
-{
+input.custom-btn {
     width: 200px;
 }
 
-.custom-btn:hover
-{
+.custom-btn:hover {
   background-color: rgba(162, 180, 84, 0.747); color: white;
 }
 
@@ -111,6 +121,18 @@ input.custom-btn
   height: 60px;
   width: 60px;
   cursor: pointer;
+}
+
+.thumbs-group {
+  font-size: x-large;
+}
+
+.thumbs-up:hover {
+  color: greenyellow;
+}
+
+.thumbs-down:hover {
+  color: red;
 }
 
 /* MEDIA QUERIES DE BOOTSTRAP ----------------- */

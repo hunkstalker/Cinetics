@@ -3,8 +3,11 @@ require_once '../libdb/updateAccounts.php';
 require_once '../lib/phpmailer.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
   if (isset($_POST['email'])) {
+
     $userPOST = filter_input(INPUT_POST, 'email');
+    
     try {
       $_POST['email'] != '';
       $usuari['email'] = $userPOST;
