@@ -4,6 +4,6 @@
 
 <p>By Denis Anfruns & Aina Muñoz</p>
 
-Librerías:
-PHP-FFMpeg: https://github.com/PHP-FFMpeg/PHP-FFMpeg
-Descr: Conversor de vídeos
+<p>Librerías:</p>
+<p>PHP-FFMpeg: </p>https://github.com/PHP-FFMpeg/PHP-FFMpeg
+<p>Descr: Conversor de vídeos</p>
