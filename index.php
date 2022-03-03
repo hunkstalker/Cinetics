@@ -1,18 +1,14 @@
 <?php
+require_once "./lib/auth.php";
 require_once "./libdb/searchAccounts.php";
 require_once "./libdb/searchVideos.php";
 
 $err = null;
 $errUser = false;
 $errPass = false;
-// userStatus: 0 (sin estado) | 1 (sesión iniciada) | 2 (mail verificado) | 3 (email sin verificar)
-if (isset($_COOKIE[session_name()])) {
-  session_start();
-  if ($_SESSION['userStatusCode'] == 1) {
-    header("Location: ./web/mainpage.php");
-    exit;
-  }
-}
+
+initialAuth();
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (isset($_POST['user']) && isset($_POST['psw'])) {
     $userPOST = filter_input(INPUT_POST, 'user');
@@ -46,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
   <div id="web-content">
     <video class="d-none d-sm-flex" playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
-      <source src="./media/friends.mp4" type="video/mp4">
+      <source src="./media/friends.webm" type="video/mp4">
     </video>
     <!-- A partir de aquí el contenido de la página -->
     <div class="container-fluid p-0">

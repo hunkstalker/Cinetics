@@ -30,24 +30,17 @@ auth();
 ?>
 
 <!DOCTYPE html>
-<head>
-  <html lang="en">
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel = 'icon' href = '../media/logo.png' type = 'image/x-icon'>
-  <title>Cinetics</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <!-- TODO: cambiar este css al unificado custom.css -->
-  <link rel="stylesheet" type="text/css" href="../css/custom.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-</head>
+<?php include "../includes/generalHead.php"?>
 
 <body>
-  <nav id="navbar" class="navbar navbar-dark bg-dark justify-content-around">
-    <a href="../index.php"><img type="image" class="btn-nav" src="../media/home.png"></a>
-    <a href="./videoform.php"><img type="image" class="btn-nav" src="../media/uploadFile.png"></a>
-    <a href="../lib/logout.php"><img type="image" class="btn-nav" src="../media/user.png"></a>
+  <nav id="navbar" class="navbar d-none d-sm-flex navbar-dark bg-dark">
+    <div>
+      <a href="../index.php"><h1 class="satisfy ms-5 mb-0 display-6 display-md-6 text-white">Cinetics</h1></a>
+    </div>
+    <div>
+      <a class="me-5" href="videoform.php"><img type="image" class="btn-nav" src="../media/uploadFile.webp" alt="Upload button"></a>
+      <a class="me-5" href="../lib/logout.php"><img type="image" class="btn-nav" src="../media/user.webp" alt="Profile button"></a>
+    </div>
   </nav>
 
   <div class="d-flex justify-content-center ">

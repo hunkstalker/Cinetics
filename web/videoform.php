@@ -66,15 +66,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
   <div id="web-content">
     <video class="d-none d-sm-flex" playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
-      <source src="../media/waiting.mp4" type="video/mp4">
+      <source src="../media/waiting.webm" type="video/mp4">
     </video>
     <nav id="navbar" class="navbar d-none d-sm-flex navbar-dark bg-dark">
       <div>
-        <a href="../index.php"><h1 class="satisfy ms-5 mb-0 display-6 display-md-6 text-white">Cinetics</h1></a>
+        <a href="../index.php">
+          <h1 class="satisfy ms-5 mb-0 display-6 display-md-6 text-white">Cinetics</h1>
+        </a>
       </div>
       <div>
-        <a class="me-5" href="videoform.php"><img type="image" class="btn-nav" src="../media/uploadFile.png"></a>
-        <a class="me-5" href="../lib/logout.php"><img type="image" class="btn-nav" src="../media/user.png"></a>
+        <a class="me-5" href="videoform.php"><img type="image" class="btn-nav" src="../media/uploadFile.webp" alt="Upload button"></a>
+        <a class="me-5" href="../lib/logout.php"><img type="image" class="btn-nav" src="../media/user.webp" alt="Profile button"></a>
       </div>
     </nav>
     <!-- Navbar superior tablet/desktop -->
@@ -87,16 +89,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <p class="satisfy mb-5 text-center display-6 text-white">Upload your first video!</p>
             </div>
             <div class="mb-5">
-              <input id="formFile" name="user_file" class="form-control" type="file">
+              <label for="file" class="form-label" style="opacity: 0;">Upload video here</label>
+              <input id="file" name="user_file" class="form-control" type="file">
               <?php if($errorFileSize){ echo '<p class="text-warning bg-dark text-center" style="font-weight: bold;">Archivo demasiado grande (límite 100 MB)</p>'; } ?>
             </div>
             <div class="mb-4">
               <label for="hashtags" class="form-label mb-0 text-white">Hashtags</label>
-              <input type="text" class="form-control" name="hashtags">
+              <input id="hashtags" type="text" class="form-control" name="hashtags">
             </div>
             <div class="mb-4">
               <label for="description" class="form-label mb-0 text-white">Description</label>
-              <input type="text" class="form-control" name="description">
+              <input id="description" type="text" class="form-control" name="description">
             </div>
             <div class="mt-5">
               <button type="submit" class="custom-btn">Send</button>
@@ -107,9 +110,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div> <!-- Container -->
   </div> <!-- Web-Content -->
   <nav id="navbar" class="navbar fixed-bottom d-sm-none navbar-dark bg-dark justify-content-around">
-    <a href="../index.php"><img type="image" class="btn-nav" src="../media/home.png"></a>
-    <a href="videoform.php"><img type="image" class="btn-nav" src="../media/uploadFile.png"></a>
-    <a href="../lib/logout.php"><img type="image" class="btn-nav" src="../media/user.png"></a>
+    <a href="../index.php"><img type="image" class="btn-nav" src="../media/home.webp" alt="Home button"></a>
+    <a href="videoform.php"><img type="image" class="btn-nav" src="../media/uploadFile.webp" alt="Upload button"></a>
+    <a href="../lib/logout.php"><img type="image" class="btn-nav" src="../media/user.webp" alt="Profile button"></a>
   </nav>
   <!-- Navbar inferior móvil -->
 </body>
