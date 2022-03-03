@@ -4,7 +4,6 @@
 
 <p>By Denis Anfruns & Aina Muñoz</p>
 
-Librerías:</br>
+Libraries:</br>
 PurgeCSS: https://github.com/FullHuman/purgecss</br>
 PHP-FFMpeg: https://github.com/PHP-FFMpeg/PHP-FFMpeg</br>
-Descr: Conversor de vídeos
