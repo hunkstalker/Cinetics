@@ -31,6 +31,8 @@ auth();
 
 <!DOCTYPE html>
 <?php include "../includes/generalHead.php"?>
+<!-- Ponemos aquí los iconos de modo temporal porque terminaremos usándolos como archivos locales. -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
 <body>
   <nav id="navbar" class="navbar d-none d-sm-flex navbar-dark bg-dark">
