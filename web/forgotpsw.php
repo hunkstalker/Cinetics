@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
   <div id="web-content">
     <video class="d-none d-sm-flex" playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
-      <source src="../media/friends.mp4" type="video/mp4">
+      <source src="../media/friends.webm" type="video/mp4">
     </video>
     <!-- A partir de aquí el contenido de la página  -->
     <div class="container-fluid p-0">

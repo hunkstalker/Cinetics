@@ -1,0 +1,25 @@
+{
+  "short_name": "Cinetics App",
+  "name": "Cinetics App",
+  "icons": [
+    {
+      "src": "http://localhost/php-gon/Ejercicios/Cinetics/media/icon_x192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "http://localhost/php-gon/Ejercicios/Cinetics/media/media/icon_x512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "",
+  "background_color": "#B7B7B7",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#B7B7B7",
+  "prefer_related_applications": true,
+  "related_applications": [ ]
+}

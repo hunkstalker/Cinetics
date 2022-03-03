@@ -1,0 +1,26 @@
+{
+  "name": "cinetics",
+  "version": "1.0.0",
+  "description": "<p>By Denis Anfruns & Aina Muñoz</p>",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "clean": "purgecss --css ./css/bootstrap.min.css --content ./web/*.php ./index.php --output ./css/clean.bootstrap.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hunkstalker/Cinetics.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hunkstalker/Cinetics/issues"
+  },
+  "homepage": "https://github.com/hunkstalker/Cinetics#readme",
+  "devDependencies": {
+    "purgecss": "^4.1.3"
+  }
+}

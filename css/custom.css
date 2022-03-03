@@ -5,12 +5,9 @@
   position: relative;
   height: 100vh;
   width: 100%;
-  background-image: url(../media/index_ph.jpg);
+  background-image: url(../media/index_ph.webp);
   background-size: cover;
   background-position-x: 10%;
-  /*background-image: url(../media/index_ph.jpg);
-  background-size: cover;
-  background-position-x: 10%;*/
 }
 
 #web-content video {
@@ -48,7 +45,7 @@ nav div a .satisfy:hover
 
 /* PANEL */
 #panel {
-  height: 85vh;
+  height: auto;
   width: 100%;
   border-top: dashed white 15px;
   border-bottom: dashed white 15px;

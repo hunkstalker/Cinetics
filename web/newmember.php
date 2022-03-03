@@ -1,10 +1,26 @@
 <!DOCTYPE html>
-<?php include "../includes/generalHead.php" ?>
+<?php
+include "../includes/generalHead.php";
+
+// userStatus: 0 (sesión no iniciada) | 1 (sesión iniciada) | 2 (mail verificado) | 3 (email sin verificar)
+if (isset($_COOKIE[session_name()])) {
+  $lifetime = 600;
+  session_start();
+  setcookie(session_name(), session_id(), time() + $lifetime);
+  if ($_SESSION['userStatusCode'] != 1) {
+    header("Location: ../index.php");
+    exit;
+  }
+} else {
+  header("Location: ../index.php");
+  exit;
+}
+?>
 
 <body>
   <div id="web-content">
     <video class="d-none d-sm-flex" playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
-      <source src="../media/celebrate.mp4" type="video/mp4">
+      <source src="../media/celebrate.webm" type="video/mp4">
     </video>
     <!-- A partir de aquí el contenido de la página  -->
     <div class="container-fluid p-0">
