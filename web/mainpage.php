@@ -7,6 +7,12 @@ require_once "../libdb/searchVideos.php";
 auth();
 
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $randomId = randomVideo();
+    $videoInfo = selectVideoById($randomId);
+    $description = $videoInfo['description'];
+    $filename = $videoInfo['fileName'];
+    $selectedVideo = "../videoUploads/" . $filename;
+    $hashtagsVideo = getHashtags($videoInfo['idvideo']);
 
   } else {
 
@@ -52,15 +58,23 @@ auth();
               <?php echo("<source src='". $selectedVideo . "' type='video/mp4'>") ?>                
             </video>
         </div>
-        <div class="d-flex flex-column">
-            <div class="d-flex justify-content-around thumbs-group">
-                <i class="bi-hand-thumbs-up thumbs-up"></i>
+        <form autocomplete="off" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" enctype="multipart/form-data">
+          <div class="d-flex flex-column">
+              <div class="d-flex justify-content-around thumbs-group">
+                <label class="checkbox">
+                  <input type="checkbox" value="1" style="display:none;" onChange="this.form.submit()"></inpu>
+                  <i class="bi-hand-thumbs-up thumbs-up"></i>
+                </label>
                 <p>1200</p>
-                <i class="bi-hand-thumbs-down thumbs-down"></i>
-            </div>
-            <p class="px-3 video-description"><?php echo($description) ?></p>
-            <p class="px-3 video-hashtag"><?php echo($hashtagsVideo) ?></p>
-        </div>
+                <label class="checkbox">
+                  <input type="checkbox" value="-1" style="display:none;" onChange="this.form.submit()"></inpu>
+                  <i class="bi-hand-thumbs-down thumbs-down"></i>
+                </label> 
+              </div>
+              <p class="px-3 video-description"><?php echo($description) ?></p>
+              <p class="px-3 video-hashtag"><?php echo($hashtagsVideo) ?></p>
+          </div>
+        </form>
     </div>
 
   </div>
