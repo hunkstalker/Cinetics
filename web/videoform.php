@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $filename = hash('sha256', $hashValue);
       $ext = explode('.', $_FILES['user_file']['name']);
       $pathfile = $filepath . '/' . $filename . '.' . $ext[1];
-      $video['filename'] = $filename;
+      $video['filename'] = $filename . '.' . $ext[1];
       $idhashtags;
 
       try {
