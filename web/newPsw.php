@@ -2,7 +2,7 @@
 require_once '../libdb/searchAccounts.php';
 require_once '../libdb/updateAccounts.php';
 require_once '../lib/phpmailer.php';
-require_once 'logs.php';
+require_once '../lib/logs.php';
 
 if (isset($_GET) && !empty($_GET) && count($_GET) == 2) {
   $mail = filter_input(INPUT_GET, 'mail');
