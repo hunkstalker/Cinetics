@@ -36,7 +36,8 @@ function randomVideo(){
     $prepare->execute();
 
     if ($prepare && $prepare->rowCount() > 0) {
-      $maxRandom = $prepare->rowCount();
+      $result = $prepare->fetchAll(PDO::FETCH_COLUMN);
+      $maxRandom = max($result);
       $randomVideoNum = rand(1, $maxRandom);
       return $randomVideoNum;   
     }
