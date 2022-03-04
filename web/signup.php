@@ -79,7 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               </div>
               <div class="col-12 col-sm-6 mb-3 mb-sm-5">
                 <label for="psw" class="form-label text-white">Password (required)</label>
-                <input type="password" class="form-control" name="psw" id="psw" required>
+                <input type="password" class="form-control" name="psw" id="psw" onkeyup="check();" required>
               </div>
             </div> <!-- 2nd row -->
             <div class="row">
@@ -89,8 +89,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               </div>
               <div class="col-12 col-sm-6 mb-3 mb-sm-5">
                 <label for="psw2" class="form-label text-white">Repeat password (req.)</label>
-                <input type="password" class="form-control" name="confirm_password" id="psw2" onkeyup='check();' required>
-                <span id='message'></span>
+                <input type="password" class="form-control" name="confirm_password" id="psw2" onkeyup="check();" required>
+                <span id="message"></span>
               </div>
             </div> <!-- 3rd row -->
             <div class="row">
@@ -103,22 +103,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </div>
     </div> <!-- Container -->
   </div> <!-- Web-Content -->
-  <script type="text/javascript">
-  function check() {
-    var valuePsw = document.getElementById('psw').value;
-    var valuePsw2 = document.getElementById('psw2').value;
-
-    if (valuePsw == valuePsw2) {
-      document.getElementById('message').style.color = 'green';
-      document.getElementById('psw').style.borderColor = 'white';
-      document.getElementById('psw2').style.borderColor = 'white';
-      document.getElementById('message').innerHTML = 'Matching passwords';
-    } else if (valuePsw != valuePsw2) {
-      document.getElementById('message').style.color = 'red';
-      document.getElementById('psw').style.borderColor = 'red';
-      document.getElementById('psw2').style.borderColor = 'red';
-      document.getElementById('message').innerHTML = 'Not matching passwords';
-    }
-  }
-  </script>
+  <script type="text/javascript" src="../js/passMatching.js"></script>
 </body>

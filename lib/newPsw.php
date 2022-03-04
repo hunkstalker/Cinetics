@@ -60,12 +60,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <div class="flex-container-signup">
                 <div id="div-right">
                   <div class="mb-3">
-                    <label for="spsw" class="form-label text-white">New password (required)</label>
-                    <input type="password" class="form-control" name="psw" id="spsw" required>
+                    <label class="form-label text-white" for="psw" >New password (required)</label>
+                    <input  id="psw" class="form-control" type="password" name="psw" onkeyup="check();" required>
                   </div>
                   <div class="mb-3">
-                    <label for="psw2" class="form-label text-white">Repeat password (required)</label>
-                    <input type="password" class="form-control" name="confirm_password" id="psw2" required>
+                    <label class="form-label text-white" for="psw2" >Repeat password (required)</label>
+                    <input id="psw2" class="form-control" type="password" name="confirm_password" onkeyup="check();" required>
+                    <span id="message"></span>
                   </div>
                   <input type="hidden" id="mail" name="mail" value="<?php echo (isset($mail))?$mail:'';?>">
                   <input type="hidden" id="code" name="code" value="<?php echo (isset($code))?$code:'';?>">
@@ -80,4 +81,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </div>
     </div> <!-- Container -->
   </div> <!-- Web-Content -->
+  <script type="text/javascript" src="../js/passMatching.js"></script>
 </body>
