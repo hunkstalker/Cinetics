@@ -4,7 +4,7 @@ require_once '../vendor/autoload.php';
 require_once 'config.php';
 
 // Email para activar la cuenta
-function sendEmailNewUser($email, $urlActivationCode)
+function sendEmailNewUser($username, $email, $urlActivationCode)
 {
     try{
         $mailbody = file_get_contents('../web/mailbodyVerify.html');
@@ -15,8 +15,8 @@ function sendEmailNewUser($email, $urlActivationCode)
         
         sendMail($mailbody, $mail);
         $address = $email;
-        $mail->AddAddress($address, 'Verify your email');
-        $mail->Subject = 'Welcome new user!';
+        $mail->AddAddress($address, $username); 
+        $mail->Subject = 'Welcome ' . $username . '!';
     
         // Enviament
         $mail->Send();
@@ -37,7 +37,7 @@ function sendEmailResetPsw($email, $urlActivationCode)
     
         sendMail($mailbody, $mail);
         $address = $email;
-        $mail->AddAddress($address, 'Verify your email');
+        $mail->AddAddress($address);
         $mail->Subject = 'Password reset';
     
         // Enviament
@@ -57,7 +57,7 @@ function sendEmailResetPswSuccess($email) {
 
     sendMail($mailbody, $mail);
     $address = $email;
-    $mail->AddAddress($address, 'Verify your email');
+    $mail->AddAddress($address);
     $mail->Subject = 'Password has been changed';
 
     // Enviament

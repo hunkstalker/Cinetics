@@ -61,7 +61,7 @@ function registroUsuario($usuari, &$emailDuplicat, &$usuariDuplicat)
                 ':fname' => $fname, ':sname' => $sname, ':activationCode' => $activationCode));
             
             // Mandamos el mail con el TOKEN para que el usuario haga la verificación
-            sendEmailNewUser($mail, $urlActivationCode);
+            sendEmailNewUser($username, $mail, $urlActivationCode);
             return true;
         }
         return false;
