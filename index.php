@@ -6,8 +6,13 @@ require_once "./libdb/searchVideos.php";
 $err = null;
 $errUser = false;
 $errPass = false;
+$newmember = false;
 
 initialAuth();
+
+if (isset($_GET) && !empty($_GET) && count($_GET) == 1) {
+  $newmember = filter_input(INPUT_GET, 'nwmber');
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (isset($_POST['user']) && isset($_POST['psw'])) {
@@ -61,12 +66,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($err) {
               echo '<p class="text-warning bg-dark text-center fw-bold">Incorrect username, email or password</p>';
             } else if (isset($_COOKIE[session_name()])) {
-              if ($_SESSION['userStatusCode'] == 3) {
+              if ($newmember) {
                 echo '<p class="text-warning bg-dark text-center fw-bold">Account not verified, check your mailbox</p>';
-              } else if ($_SESSION['userStatusCode'] == 2) {
-                // Podríamos mandar al usuario a una página de bienvenida (y mostrar este mensaje) antes de llevarle a los vídeos
-                echo '<p class="text-success text-center fw-bold">The email has been verified, Welcome!</p>';
-                $_SESSION['userStatusCode'] = 0;
+                $newmember = false;
               }
             }
           ?>

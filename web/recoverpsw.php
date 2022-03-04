@@ -1,5 +1,18 @@
 <!DOCTYPE html>
-<?php include "../includes/generalHead.php"?>
+<?php
+include "../includes/generalHead.php";
+
+if (isset($_GET) && !empty($_GET) && count($_GET) == 1) {
+  $recoverpsw = filter_input(INPUT_GET, 'rcver');
+  if (!$recoverpsw) {
+    header("Location: ../index.php");
+    exit;
+  }
+} else {
+  header("Location: ../index.php");
+  exit;
+}
+?>
 
 <!-- Hay que controlar el acceso a esta página, que sólo se pueda cuando se viene del formulario de recuperación de contraseña. -->
 <body>

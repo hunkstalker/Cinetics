@@ -24,9 +24,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $usuari['fname'] = $fnamePOST;
     $usuari['sname'] = $snamePOST;
     $usuari['pss'] = $passPOST;
-
     if (registroUsuario($usuari, $emailDuplicat, $usuariDuplicat)) {
-      header("Location: newmember.php");
+      header("Location: newmember.php?nwmber=true");
       exit;
     }
   }
