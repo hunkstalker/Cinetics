@@ -4,9 +4,7 @@ include "../includes/generalHead.php";
 
 // userStatus: 0 (sesión no iniciada) | 1 (sesión iniciada) | 2 (mail verificado) | 3 (email sin verificar)
 if (isset($_COOKIE[session_name()])) {
-  $lifetime = 600;
   session_start();
-  setcookie(session_name(), session_id(), time() + $lifetime);
   if ($_SESSION['userStatusCode'] != 1) {
     header("Location: ../index.php");
     exit;

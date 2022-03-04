@@ -56,6 +56,8 @@ auth();
         <div class="embed-responsive embed-responsive-21by9">
             <video width="100%" height="auto" controls autoplay loop muted>
               <?php echo "<source src='". $selectedVideo . "' type='video/webm'>"?>
+              <!-- Más del 70% de los navegadores son compatibles con el formato .webm, en caso de no ser compatibles y en un caso 
+              real podríamos plantearnos poner un source alternativo a formato .mp4 a costa de requerir más espacio en disco. -->
             </video>
         </div>
         <form autocomplete="off" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" enctype="multipart/form-data">

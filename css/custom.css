@@ -32,16 +32,21 @@ a {
     text-decoration: none;
 }
 
-.satisfy {
-  font-family: "Satisfy";
-}
-
 div a:hover{ font-weight: bold; }
 nav div a .satisfy:hover
 {
   font-weight: bold;
   margin-left: 46px !important;
 }
+
+p.link:hover {
+  font-weight: bold;
+}
+
+.satisfy {
+  font-family: "Satisfy";
+}
+
 
 /* PANEL */
 #panel {

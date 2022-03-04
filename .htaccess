@@ -1,0 +1,15 @@
+<FilesMatch "\.(htaccess|htpasswd|ini|phps|fla|psd|log|txt|sh|gitignore|json|md)$">
+order allow,deny
+deny from all
+</FilesMatch>
+
+Options -Indexes
+
+ErrorDocument 404 http://localhost/404.php
+ErrorDocument 403 http://localhost/404.php
+
+RewriteEngine On
+RewriteBase /
+
+RewriteCond %{REQUEST_URI} \.html|\.htm
+RewriteRule ^(.*)$ ./404.php [R=301,NC,L]
