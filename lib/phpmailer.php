@@ -3,6 +3,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 require_once '../vendor/autoload.php';
 require_once 'config.php';
 
+// Email para activar la cuenta
 function sendEmailNewUser($email, $urlActivationCode)
 {
     try{
@@ -15,6 +16,7 @@ function sendEmailNewUser($email, $urlActivationCode)
         sendMail($mailbody, $mail);
         $address = $email;
         $mail->AddAddress($address, 'Verify your email');
+        $mail->Subject = 'Welcome new user!';
     
         // Enviament
         $mail->Send();
@@ -23,6 +25,7 @@ function sendEmailNewUser($email, $urlActivationCode)
     }
 }
 
+// Email con el enlace para cambiar contraseña
 function sendEmailResetPsw($email, $urlActivationCode)
 {
     try{
@@ -35,12 +38,33 @@ function sendEmailResetPsw($email, $urlActivationCode)
         sendMail($mailbody, $mail);
         $address = $email;
         $mail->AddAddress($address, 'Verify your email');
+        $mail->Subject = 'Password reset';
     
         // Enviament
         $mail->Send();
     }catch(PDOException $e){
         fatalError("Error sendEmailResetPass", $e->getMessage());
     }
+}
+
+// Email informatico para informar al usuario que se ha cambiado la contraseña
+function sendEmailResetPswSuccess($email) {
+  try {
+    $mailbody = file_get_contents('../web/mailbodyPswChange.html');
+    $mailbody = str_replace("{{PATH}}", PATH, $mailbody);
+
+    $mail = createMail();
+
+    sendMail($mailbody, $mail);
+    $address = $email;
+    $mail->AddAddress($address, 'Verify your email');
+    $mail->Subject = 'Password has been changed';
+
+    // Enviament
+    $mail->Send();
+  } catch (PDOException $e) {
+    fatalError("Error sendEmailResetPass", $e->getMessage());
+  }
 }
 
 function createMail(){
@@ -68,7 +92,6 @@ function sendMail($mailbody, $mail){
 
     // Dades del correu electrònic
     $mail->SetFrom('cinetics-info@cinetics.com', 'Cinetics');
-    $mail->Subject = 'Welcome new user!';
     $mail->MsgHTML($mailbody);
     //$mail->addAttachment("fitxer.pdf");
 }
