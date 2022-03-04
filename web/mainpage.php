@@ -55,7 +55,7 @@ auth();
     <div id="mainpage-panel">
         <div class="embed-responsive embed-responsive-21by9">
             <video width="100%" height="auto" controls autoplay loop muted>
-              <?php echo("<source src='". $selectedVideo . "' type='video/mp4'>") ?>                
+              <?php echo "<source src='". $selectedVideo . "' type='video/webm'>"?>
             </video>
         </div>
         <form autocomplete="off" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" enctype="multipart/form-data">
