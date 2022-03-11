@@ -1,5 +1,5 @@
 <?php
-require_once '../libdb/updateAccounts.php';
+require_once '../libdb/searchAccounts.php';
 require_once '../lib/phpmailer.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -14,11 +14,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       // Generar un Token en BBDD junto una fecha de caducidad
       $urlActivationCode = createGetValues($usuari['email'], $resetPassCode);
       // Verificar que existe una cuenta asociada al mail (BBDD) y actualizar ActivationCode
-      searchEmailAndUpdateCode($usuari['email'], $resetPassCode);
-      // Enviar el mail con un urlResetCode
-      sendEmailResetPsw($usuari['email'], $urlActivationCode);
-      header("Location: recoverpsw.php?rcver=true");
-      exit;
+      if(searchUserMail($usuari['email'], $resetPassCode)) { 
+        // Enviar el mail con un urlResetCode
+        sendEmailResetPsw($usuari['email'], $urlActivationCode);
+        header("Location: recoverpsw.php?rcver=true");
+        exit;
+      } else {
+        //TODO: mejora de hacer una página por si el email no está registrado
+        header("Location: recoverpsw.php?rcver=false");
+        exit;
+      }
+
     } catch (PDOException $e) {
       fatalError("Activ. Account", $e->getMessage());
     }
