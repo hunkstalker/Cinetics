@@ -1,4 +1,3 @@
-<?php
 <head>
   <html lang='en'>
   <meta charset='UTF-8'>
@@ -13,4 +12,3 @@
   <link rel='stylesheet' type='text/css' href='../css/clean.bootstrap.css'>
   <link rel='stylesheet' type='text/css' href='../css/custom.css'>
 </head>
-?>
