@@ -38,6 +38,7 @@ function searchUserMail($email, $resetPassCode) {
     $preparada->execute(array(':mail' => $email));
     if ($preparada->rowCount() > 0) {
       updateRecovery($db, $email, $resetPassCode);
+      return true;
     }
   } catch (PDOException $e) {
     fatalError("Search Mail", $e->getMessage());
