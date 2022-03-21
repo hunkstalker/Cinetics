@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           - d-flex te lo pone todo en línea (fila), entonces hay que poner el flex-column y hará que se coloque en columna.
           - Ojo! flex-column hará que align y justify se inviertan.
         -->
-        <div id="panel" class="p-4 p-sm-4 mt-4 mt-sm-5 ms-sm-4">
+        <div id="panel" class="login p-4 p-sm-4 mt-4 mt-sm-5 ms-sm-4">
           <div class="d-flex d-column justify-content-center">
             <h1 class="satisfy fw-bold mt-4 mb-4 mb-sm-2 display-1 display-md-1 text-white" href="index.php">Cinetics</h1>
           </div>
