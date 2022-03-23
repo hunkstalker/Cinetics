@@ -5,8 +5,24 @@ require_once "../libdb/videoUpload.php";
 require_once "../libdb/searchVideos.php";
 
 auth();
+$likeClass = "bi-hand-thumbs-up";
+$dislikeClass = "bi-hand-thumbs-down";
+$videoInfo;
 
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    
+    if(isset($_POST['reaction'])) {
+      $reactionPOST = filter_input(INPUT_POST, 'reaction');
+      $idvideoPOST = filter_input(INPUT_POST, 'lastvideo');
+      //TODO: posar videos de mostra i anar veient que tot rutlla
+      //First update user reaction with a check inside to avoid repetitive reactions
+      $iduserSession = $_SESSION['iduser'];
+      if(!sameUserReaction($reactionPOST, $iduserSession, $idvideoPOST)) {
+        updateUserReaction($reactionPOST, $iduserSession, $idvideoPOST);
+        updateScore($idvideoPOST, $reactionPOST);
+      } 
+    }
+
     $randomId = randomVideo();
     $videoInfo = selectVideoById($randomId);
     $description = $videoInfo['description'];
@@ -27,12 +43,24 @@ auth();
         $videoInfo = selectVideoById($randomId);
       }
     }
+  
 
     $description = $videoInfo['description'];
     $filename = $videoInfo['fileName'];
     $selectedVideo = "../videoUploads/" . $filename;
     $hashtagsVideo = getHashtags($videoInfo['idvideo']);
   }
+    $totalScore = getVideoScore($videoInfo['idvideo']);
+    //if we use boolean condition will end in error if the reaction of this video was dislike
+    //if getVideoReaction return a -1, it is like a error response
+    $reaction = getVideoReaction($videoInfo['idvideo'], $_SESSION['iduser']); 
+    if($reaction != -1) {
+      if($reaction) {
+        $likeClass = "bi-hand-thumbs-up-fill active-like";
+      } else {
+        $dislikeClass = "bi-hand-thumbs-down-fill active-dislike";
+      }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -64,14 +92,17 @@ auth();
           <div class="d-flex flex-column">
               <div class="d-flex justify-content-around thumbs-group">
                 <label class="checkbox">
-                  <input type="checkbox" value="1" style="display:none;" onChange="this.form.submit()"></inpu>
-                  <i class="bi-hand-thumbs-up thumbs-up"></i>
+                  <input type="checkbox" name='reaction' value="1" style="display:none;" onChange="this.form.submit()"></inpu>
+                  <!-- <i class="bi-hand-thumbs-up thumbs-up"></i> -->
+                  <?php echo "<i name='reaction' class='". $likeClass . " thumbs-up' ></i>"?>
                 </label>
-                <p>1200</p>
+                <?php echo "<p>" . $totalScore . "</p>"?>
                 <label class="checkbox">
-                  <input type="checkbox" value="-1" style="display:none;" onChange="this.form.submit()"></inpu>
-                  <i class="bi-hand-thumbs-down thumbs-down"></i>
+                  <input type="checkbox" name='reaction' value="0" style="display:none;" onChange="this.form.submit()"></inpu>
+                  <!-- <i class="bi-hand-thumbs-down thumbs-down"></i> -->
+                  <?php echo "<i class='". $dislikeClass . " thumbs-down'></i>"?>
                 </label> 
+                <?php echo "<input name='lastvideo' value='" . $videoInfo['idvideo'] . "' style='display:none;' />" ?>
               </div>
               <p class="px-3 video-description"><?php echo($description) ?></p>
               <p class="px-3 video-hashtag"><?php echo($hashtagsVideo) ?></p>

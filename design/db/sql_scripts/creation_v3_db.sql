@@ -48,3 +48,13 @@ CREATE TABLE IF NOT EXISTS `videohashtags`
   FOREIGN KEY (`idvideo`) REFERENCES `videos`(`idvideo`),
   FOREIGN KEY (`idhashtag`) REFERENCES `hashtags`(`idhashtag`)
 );
+
+CREATE TABLE IF NOT EXISTS `userreactions`
+(
+  `idvideo` INT NOT NULL,
+  `iduser` INT NOT NULL,
+  `reaction` TINYINT(1),
+  PRIMARY KEY (`idvideo`, `iduser`),
+  FOREIGN KEY (`idvideo`) REFERENCES `videos`(`idvideo`),
+  FOREIGN KEY (`iduser`) REFERENCES `users`(`iduser`)
+);

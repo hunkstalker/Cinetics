@@ -50,7 +50,8 @@ function updatePass($usuari)
     }
 }
 
-function updateRecovery($db, $email, $resetPassCode){
+function updateRecovery($db, $email, $resetPassCode)
+{
     try{
         // Le daremos al usuario 30 minutos de tiempo para poder cambiar el pass.
         $sqlinsert = 'UPDATE `users` SET `resetPassCode` = :resetPassCode, `resetPassExpiry` = DATE_ADD(NOW(), INTERVAL 30 MINUTE)  WHERE `mail` = :mail';
@@ -89,4 +90,132 @@ function searchEmailAndUpdateCode($email, $resetPassCode)
         fatalError("searchEmail", $e->getMessage());
     }
 }
-?>
+
+function selectTotalLikes($idvideo)
+{
+    $db;
+    try{
+        $db = conexionBBDD();
+        $sqlselect = 'SELECT `likes` FROM `videos` WHERE `idvideo` = :idvideo';
+        $preparada = $db->prepare($sqlselect);
+        $preparada->execute(array(':idvideo' => $idvideo));
+
+        if ($preparada->rowCount() > 0) {
+            $result = $preparada->fetch(PDO::FETCH_ASSOC);
+            return $result['likes'];
+        }
+
+    }catch(PDOException $e)
+    {
+        fatalError("Get likes", $e->getMessage());
+    }
+}
+
+function selectTotalDislikes($idvideo)
+{
+    $db;
+    try{
+        $db = conexionBBDD();
+        $sqlselect = 'SELECT `dislikes` FROM `videos` WHERE `idvideo` = :idvideo';
+        $preparada = $db->prepare($sqlselect);
+        $preparada->execute(array(':idvideo' => $idvideo));
+
+        if ($preparada->rowCount() > 0) {
+            $result = $preparada->fetch(PDO::FETCH_ASSOC);
+            return $result['dislikes'];
+        }
+
+    }catch(PDOException $e)
+    {
+        fatalError("Get dislikes", $e->getMessage());
+    }
+}
+
+function updateScore($idvideo, $reaction)
+{
+    $valueToIncrement;
+    if($reaction) {
+        $valueToIncrement = selectTotalLikes($idvideo);
+        $valueToIncrement++;
+        updateLikes($idvideo,$valueToIncrement);
+     } elseif(!$reaction) {
+        $valueToIncrement = selectTotalDislikes($idvideo);
+        $valueToIncrement++;
+        updateDislikes($idvideo,$valueToIncrement);
+     }
+}
+
+function updateLikes($idvideo, $newValue)
+{
+    $db;
+    try{
+        $db = conexionBBDD();
+        $sqlinsert = 'UPDATE `videos` SET `likes` = :newValue  WHERE `idvideo` = :idvideo';
+        $preparada = $db->prepare($sqlinsert);
+        $preparada->execute(array(':newValue' => $newValue,':idvideo' => $idvideo));
+
+    }catch(PDOException $e)
+    {
+        fatalError("Update likes", $e->getMessage());
+    }
+}
+
+function updateDislikes($idvideo, $newValue)
+{
+    $db;
+    try{
+        $db = conexionBBDD();
+        $sqlinsert = 'UPDATE `videos` SET `dislikes` = :newValue  WHERE `idvideo` = :idvideo';
+        $preparada = $db->prepare($sqlinsert);
+        $preparada->execute(array(':newValue' => $newValue,':idvideo' => $idvideo));
+
+    }catch(PDOException $e)
+    {
+        fatalError("Update dislikes", $e->getMessage());
+    }
+}
+
+function sameUserReaction($reaction, $iduser, $idvideo) {
+    $db;
+    try{
+        $db = conexionBBDD();
+        $sqlselect = 'SELECT `reaction` FROM `userreactions` WHERE `idvideo` = :idvideo AND `iduser` = :iduser';
+        $preparada = $db->prepare($sqlselect);
+        $preparada->execute(array(':idvideo' => $idvideo, ':iduser' => $iduser));
+
+        if ($preparada->rowCount() > 0) {
+            $result = $preparada->fetch(PDO::FETCH_ASSOC);
+            if($result['reaction'] == $reaction) {
+                return true;
+            }
+            return false;
+        }
+
+    }catch(PDOException $e) {
+        fatalError("Get dislikes", $e->getMessage());
+    }
+}
+
+function updateUserReaction($reaction, $iduser, $idvideo)
+{
+$db;
+    try {
+        $db = conexionBBDD();
+        // $sqlinsert = 'UPDATE `userreactions` SET `reaction` = :reaction  WHERE `iduser` = :iduser AND `idvideo` = :idvideo';
+        $sqlinsert = 'INSERT INTO `userreactions` (`idvideo`,`iduser`,`reaction`) VALUES (:idvideo, :iduser, :reaction) ON DUPLICATE KEY UPDATE `reaction` = :reaction';
+        $preparada = $db->prepare($sqlinsert);
+        $preparada->execute(array(':reaction' => $reaction, ':iduser' => $iduser, ':idvideo' => $idvideo));
+
+    } catch(PDOException $e) {
+        fatalError("Update user reaction", $e->getMessage());
+    }
+}
+
+function getVideoScore($idvideo) {
+    $likes = 0;
+    $dislikes = 0;
+    $likes = selectTotalLikes($idvideo);
+    $dislikes = selectTotalDislikes($idvideo);
+    //TODO: no coge bien los likes y dislikes (problema de id?)
+    return ($likes - $dislikes);
+}

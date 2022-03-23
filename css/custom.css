@@ -86,7 +86,7 @@ p.link:hover {
 #mainpage-panel {
   height: 100%;
   width: 50%;
-  color: white !important;
+  color: white;
   border-bottom: dashed white 10px;
   border-top: dashed white 10px;
   background-color: rgba(47, 48, 47, 0.753);
@@ -131,10 +131,20 @@ input.custom-btn {
 
 .thumbs-up:hover {
   color: greenyellow;
+  cursor: pointer;
 }
 
 .thumbs-down:hover {
   color: red;
+  cursor: pointer;
+}
+
+.active-like {
+  color: greenyellow !important;
+}
+
+.active-dislike {
+  color: red !important;
 }
 
 /* MEDIA QUERIES DE BOOTSTRAP ----------------- */
