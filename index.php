@@ -82,10 +82,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <input type="password" class="form-control" id="ipassword" name="psw" required>
             </div>
             <div class="d-flex align-items-center justify-content-between">
-              <div class="mt-1 mb-1 form-check">
-                <input type="checkbox" class="form-check-input" id="remember-me">
-                <label for="remember-me" class="text-white form-check-label">Remember me</label>
-              </div>
               <div class="mt-1 mb-1 d-flex">
                 <a class="text-white" href="./web/forgotpsw.php">Forgot password?</a>
               </div>
