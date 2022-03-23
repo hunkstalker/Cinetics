@@ -30,31 +30,33 @@ $videoInfo;
     $selectedVideo = "../videoUploads/" . $filename;
     $hashtagsVideo = getHashtags($videoInfo['idvideo']);
 
-} else {
-
-  if (firstCineticsVideo()) {
-    $videoInfo = selectVideoById(1);
   } else {
-    $idVideo = lastUserVideo($_SESSION['iduser']);
-    if ($idVideo) {
-      $videoInfo = selectVideoById($idVideo);
+
+    if(firstCineticsVideo()) {
+      $videoInfo = selectVideoById(1);
     } else {
-      $randomId = randomVideo();
-      $videoInfo = selectVideoById($randomId);
+      $idVideo = lastUserVideo($_SESSION['iduser']);
+      if($idVideo) {
+        $videoInfo = selectVideoById($idVideo);
+      } else {
+        $randomId = randomVideo();
+        $videoInfo = selectVideoById($randomId);
+      }
     }
+  
+
+    $description = $videoInfo['description'];
+    $filename = $videoInfo['fileName'];
+    $selectedVideo = "../videoUploads/" . $filename;
+    $hashtagsVideo = getHashtags($videoInfo['idvideo']);
   }
 
-  $description = $videoInfo['description'];
-  $filename = $videoInfo['fileName'];
-  $selectedVideo = "../videoUploads/" . $filename;
-  $hashtagsVideo = getHashtags($videoInfo['idvideo']);
-}
-
-
-  $explodeHashtags = explode("#", $hashtagsVideo);
-  foreach ($explodeHashtags as $value) {
-    if ($value != "") $hashtags[] = "#" . $value;
-  }
+  if($hashtagsVideo) {
+    $explodeHashtags = explode("#", $hashtagsVideo);
+    foreach ($explodeHashtags as $value) {
+      if ($value != "") $hashtags[] = "#" . $value;
+    }
+  } else { $hashtags = array("");}
 
   $totalScore = getVideoScore($videoInfo['idvideo']);
   //if we use boolean condition will end in error if the reaction of this video was dislike
@@ -76,64 +78,59 @@ $videoInfo;
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
 <body>
-  <div id="web-content">
-    <nav id="navbar" class="navbar d-none d-sm-flex navbar-dark bg-dark">
-      <div>
-        <a href="../index.php">
-          <h1 class="satisfy ms-5 mb-0 display-6 display-md-6 text-white">Cinetics</h1>
-        </a>
-      </div>
-      <div>
-        <a class="me-5" href="videoform.php"><img type="image" class="btn-nav" src="../media/uploadFile.webp" alt="Upload button"></a>
-        <a class="me-5" href="../lib/logout.php"><img type="image" class="btn-nav" src="../media/logout_icon.webp" alt="Profile button"></a>
-      </div>
-    </nav>
-    <div class="container p-0">
-      <div class="d-flex align-items-center justify-content-center">
-        <div id="panel" class="mainpage p-0 mt-4">
-          <div class="my-0 embed-responsive embed-responsive-21by9">
+  <nav id="navbar" class="navbar d-none d-sm-flex navbar-dark bg-dark">
+    <div>
+      <a href="../index.php"><h1 class="satisfy ms-5 mb-0 display-6 display-md-6 text-white">Cinetics</h1></a>
+    </div>
+    <div>
+      <a class="me-5" href="videoform.php"><img type="image" class="btn-nav" src="../media/uploadFile.webp" alt="Upload button"></a>
+      <a class="me-5" href="../lib/logout.php"><img type="image" class="btn-nav" src="../media/logout_icon.webp" alt="Profile button"></a>
+    </div>
+  </nav>
+
+  <div class="d-flex justify-content-center ">
+    <div id="mainpage-panel">
+        <div class="embed-responsive embed-responsive-21by9">
             <video width="100%" height="auto" controls autoplay loop muted>
-              <?php echo "<source src='" . $selectedVideo . "' type='video/webm'>" ?>
-              <!-- Más del 70% de los navegadores son compatibles con el formato .webm, en caso de no ser compatibles y en un caso
+              <?php echo "<source src='". $selectedVideo . "' type='video/webm'>"?>
+              <!-- Más del 70% de los navegadores son compatibles con el formato .webm, en caso de no ser compatibles y en un caso 
               real podríamos plantearnos poner un source alternativo a formato .mp4 a costa de requerir más espacio en disco. -->
             </video>
-          </div>
-          <div>
-            <div class="d-flex flex-column">
-              <div class="d-flex pt-2 justify-content-around thumbs-group">
+        </div>
+        <form autocomplete="off" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" enctype="multipart/form-data">
+          <div class="d-flex flex-column">
+              <div class="d-flex justify-content-around thumbs-group m-0">
                 <label class="checkbox">
-                  <input type="checkbox" name='reaction' value="1" style="display:none;" onChange="this.form.submit()"></input>
+                  <input type="checkbox" name='reaction' value="1" style="display:none;" onChange="this.form.submit()"></inpu>
                   <!-- <i class="bi-hand-thumbs-up thumbs-up"></i> -->
                   <?php echo "<i name='reaction' class='". $likeClass . " thumbs-up' ></i>"?>
                 </label>
                 <?php echo "<p>" . $totalScore . "</p>"?>
                 <label class="checkbox">
-                <input type="checkbox" name='reaction' value="0" style="display:none;" onChange="this.form.submit()"></input>
+                  <input type="checkbox" name='reaction' value="0" style="display:none;" onChange="this.form.submit()"></inpu>
                   <!-- <i class="bi-hand-thumbs-down thumbs-down"></i> -->
                   <?php echo "<i class='". $dislikeClass . " thumbs-down'></i>"?>
                 </label> 
                 <?php echo "<input name='lastvideo' value='" . $videoInfo['idvideo'] . "' style='display:none;' />" ?>
               </div>
+
               <div class="px-4">
-                <div class="ms-2 my-2 d-flex align-items-center justify-content-center">
+                <div class="d-flex align-items-center justify-content-center">
                   <?php foreach ($hashtags as $value) {
                       echo '<span class="badge rounded-pill bg-secondary mx-1">' . $value . '</span>';
                   } ?>
                 </div>
               </div>
-              <div class="description mt-sm-5">
+              <div class="description mt-sm-2">
                 <p class="my-0 video-description"><?php echo ($description) ?></p>
               </div>
-            </div>
+
+
           </div>
-        </div> <!-- Panel -->
-      </div>
-    </div><!-- Container -->
-  </div> <!-- Web-Content -->
-  <nav id="navbar" class="navbar fixed-bottom d-sm-none navbar-dark bg-dark justify-content-around">
-    <a href="../index.php"><img type="image" class="btn-nav" src="../media/home.webp" alt="Home button"></a>
-    <a href="videoform.php"><img type="image" class="btn-nav" src="../media/uploadFile.webp" alt="Upload button"></a>
-    <a href="../lib/logout.php"><img type="image" class="btn-nav" src="../media/logout_icon.webp" alt="Profile button"></a>
-  </nav>
+        </form>
+    </div>
+
+  </div>
+
   <script src="../js/style.js"></script>
 </body>

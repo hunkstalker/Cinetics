@@ -14,7 +14,7 @@ body{
   background-position-x: 10%;
 }
 
-#web-content>video {
+#web-content video {
   width: 100vw;
   height: 100vh;
   object-fit: cover;
@@ -54,7 +54,7 @@ p.link:hover {
 
 /* PANEL */
 #panel {
-  height: 80vh;
+  height: auto;
   width: 100%;
   border-top: dashed white 15px;
   border-bottom: dashed white 15px;
@@ -130,7 +130,7 @@ input.custom-btn {
 }
 
 .thumbs-group {
-  font-size: x-large;
+  font-size: large;
 }
 
 .thumbs-up:hover {
@@ -165,7 +165,7 @@ input.custom-btn {
 .description {
   margin: 0.5rem 1.5rem 1rem 1.5rem;
   padding: 1rem 1rem 1rem 1rem ;
-  background-color: white;
+  background-color: rgba(0, 0, 0, 0.205);
   border-radius: 15px;
   height: 200px;
 }
