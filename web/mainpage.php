@@ -87,19 +87,20 @@ $videoInfo;
       <a class="me-5" href="../lib/logout.php"><img type="image" class="btn-nav" src="../media/logout_icon.webp" alt="Profile button"></a>
     </div>
   </nav>
-
-  <div class="d-flex justify-content-center ">
-    <div id="mainpage-panel">
-        <div class="embed-responsive embed-responsive-21by9">
-            <video width="100%" height="auto" controls autoplay loop muted>
-              <?php echo "<source src='". $selectedVideo . "' type='video/webm'>"?>
-              <!-- Más del 70% de los navegadores son compatibles con el formato .webm, en caso de no ser compatibles y en un caso 
-              real podríamos plantearnos poner un source alternativo a formato .mp4 a costa de requerir más espacio en disco. -->
-            </video>
+  <div class="container p-0">
+    <div class="d-flex align-items-center justify-content-center">
+      <div id="panel" class="mainpage p-0 mt-4">
+        <div class="my-0 embed-responsive embed-responsive-21by9">
+          <video width="100%" height="auto" controls autoplay loop muted>
+            <?php echo "<source src='". $selectedVideo . "' type='video/webm'>"?>
+            <!-- Más del 70% de los navegadores son compatibles con el formato .webm, en caso de no ser compatibles y en un caso 
+            real podríamos plantearnos poner un source alternativo a formato .mp4 a costa de requerir más espacio en disco. -->
+          </video>
         </div>
+        <div>
         <form autocomplete="off" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" enctype="multipart/form-data">
           <div class="d-flex flex-column">
-              <div class="d-flex justify-content-around thumbs-group m-0">
+              <div class="d-flex justify-content-around thumbs-group pt-2 m-0">
                 <label class="checkbox">
                   <input type="checkbox" name='reaction' value="1" style="display:none;" onChange="this.form.submit()"></inpu>
                   <!-- <i class="bi-hand-thumbs-up thumbs-up"></i> -->
@@ -113,24 +114,22 @@ $videoInfo;
                 </label> 
                 <?php echo "<input name='lastvideo' value='" . $videoInfo['idvideo'] . "' style='display:none;' />" ?>
               </div>
-
               <div class="px-4">
                 <div class="d-flex align-items-center justify-content-center">
                   <?php foreach ($hashtags as $value) {
                       echo '<span class="badge rounded-pill bg-secondary mx-1">' . $value . '</span>';
-                  } ?>
+                    }
+                  ?>
                 </div>
               </div>
-              <div class="description mt-sm-2">
-                <p class="my-0 video-description"><?php echo ($description) ?></p>
+              <div class="description mt-4 mt-ms-2">
+                <p class="my-0 text-white"><?php echo ($description) ?></p>
               </div>
-
-
+            </div>
           </div>
         </form>
+      </div> <!-- Panel -->
     </div>
-
-  </div>
-
+  </div> <!-- Container -->
   <script src="../js/style.js"></script>
 </body>

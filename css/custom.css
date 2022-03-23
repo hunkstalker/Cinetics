@@ -14,7 +14,7 @@ body{
   background-position-x: 10%;
 }
 
-#web-content video {
+#web-content>video {
   width: 100vw;
   height: 100vh;
   object-fit: cover;
@@ -54,7 +54,7 @@ p.link:hover {
 
 /* PANEL */
 #panel {
-  height: auto;
+  height: 80vh;
   width: 100%;
   border-top: dashed white 15px;
   border-bottom: dashed white 15px;
@@ -90,7 +90,7 @@ p.link:hover {
 #mainpage-panel {
   height: 100%;
   width: 50%;
-  color: white;
+  color: white !important;
   border-bottom: dashed white 10px;
   border-top: dashed white 10px;
   background-color: rgba(47, 48, 47, 0.753);
@@ -130,7 +130,7 @@ input.custom-btn {
 }
 
 .thumbs-group {
-  font-size: large;
+  font-size: x-large;
 }
 
 .thumbs-up:hover {
@@ -263,6 +263,6 @@ input.custom-btn {
   }
 
   .login {
-    height: 70vh !important;
+    height: 75vh !important;
   }
 } 
