@@ -5,3 +5,4 @@ INSERT INTO `hashtags` (tag) VALUES ("welcome");
 INSERT INTO `hashtags` (tag) VALUES ("cinetics");
 INSERT INTO `videohashtags` VALUES (1, 1);
 INSERT INTO `videohashtags` VALUES (1, 2);
+INSERT INTO `userreactions` VALUES (1, 1, 1);

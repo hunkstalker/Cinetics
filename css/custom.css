@@ -14,7 +14,7 @@ body{
   background-position-x: 10%;
 }
 
-#web-content>video {
+#web-content video {
   width: 100vw;
   height: 100vh;
   object-fit: cover;
@@ -54,7 +54,7 @@ p.link:hover {
 
 /* PANEL */
 #panel {
-  height: 80vh;
+  height: auto;
   width: 100%;
   border-top: dashed white 15px;
   border-bottom: dashed white 15px;
@@ -90,7 +90,7 @@ p.link:hover {
 #mainpage-panel {
   height: 100%;
   width: 50%;
-  color: white !important;
+  color: white;
   border-bottom: dashed white 10px;
   border-top: dashed white 10px;
   background-color: rgba(47, 48, 47, 0.753);
@@ -130,16 +130,26 @@ input.custom-btn {
 }
 
 .thumbs-group {
-  font-size: x-large;
+  font-size: large;
 }
 
-/* .thumbs-up:hover {
+.thumbs-up:hover {
   color: greenyellow;
+  cursor: pointer;
 }
 
 .thumbs-down:hover {
   color: red;
-} */
+  cursor: pointer;
+}
+
+.active-like {
+  color: greenyellow !important;
+}
+
+.active-dislike {
+  color: red !important;
+} 
 
 .cercle {
   background-color: gray;
@@ -155,7 +165,7 @@ input.custom-btn {
 .description {
   margin: 0.5rem 1.5rem 1rem 1.5rem;
   padding: 1rem 1rem 1rem 1rem ;
-  background-color: white;
+  background-color: rgba(0, 0, 0, 0.205);
   border-radius: 15px;
   height: 200px;
 }

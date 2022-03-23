@@ -31,14 +31,15 @@ function randomVideo(){
   $maxRandom;
   try {
     $db = conexionBBDD();
-    $sql = 'SELECT count(*) FROM `videos`';
+    $sql = 'SELECT `idvideo` FROM `videos`';
     $prepare = $db->prepare($sql);
     $prepare->execute();
 
     if ($prepare && $prepare->rowCount() > 0) {
       $result = $prepare->fetchAll(PDO::FETCH_COLUMN);
-      $maxRandom = max($result);
-      $randomVideoNum = rand(1, $maxRandom);
+      $maxRandom = count($result) - 1;
+      usleep(100);
+      $randomVideoNum = $result[rand(0, $maxRandom)];
       return $randomVideoNum;   
     }
 
@@ -136,3 +137,27 @@ function selectVideoById($idVideo) {
   }
   return false;
  }
+
+ function getVideoReaction($idvideo, $iduser) {
+  $db;
+  try {
+    $db = conexionBBDD();
+    $sql = 'SELECT `reaction` FROM `userreactions` WHERE `idvideo` = :idvideo AND `iduser` = :iduser ';
+    $prepare = $db->prepare($sql);
+    $prepare->execute(array(':idvideo' => $idvideo, ':iduser' => $iduser));
+
+    if ($prepare && $prepare->rowCount() > 0) {
+      $result = $prepare->fetchAll(PDO::FETCH_ASSOC);
+      $finalResult = $result[0];
+      return $finalResult['reaction'];
+    }
+
+    } catch (PDOException $e) {
+    fatalError("videoNoTrobat", $e->getMessage());
+  }
+  //value no valid
+  //due to be 0 dislike and 1 like in DB
+  //we have to implement a non valid value as response
+  return -1;
+ }
+

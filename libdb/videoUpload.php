@@ -17,21 +17,50 @@ function guardarVideo($videoInfo, $id) {
   }
 }
 
-function guardarHashtags($hashtagsArray) {
+function distincNewHashtags($hashtagsArray) {
+  $db;
+  try
+  {
+    $idhashtags = array();
+    $db = conexionBBDD();
+    $sqlselect = "SELECT `idhashtag` FROM `hashtags` WHERE `tag` = :tag";
+    $preparada = $db->prepare($sqlselect);
+    foreach ($hashtagsArray as $k => $v) {
+      $preparada->execute(array(':tag' => $v));
+      if ($preparada && $preparada->rowCount() == 0) {
+        $idhashtags[] = insertHashtag($v);
+      } elseif($preparada && $preparada->rowCount() > 0) {
+        $result = $preparada->fetchAll(PDO::FETCH_ASSOC);
+        $hashtagToAdd = $result[0];
+        $idhashtags[] = $hashtagToAdd['idhashtag'];
+      }    
+    }
+    return $idhashtags;
+  } catch (PDOException $e) {
+    fatalError("guardarHashtagsError", $e->getMessage());
+  }
+}
+
+//TODO: function insert 1 hashtag
+function insertHashtag($tagValue) {
   $db;
   try
   {
     $db = conexionBBDD();
     $sqlinsert = "INSERT INTO `hashtags` (`tag`) VALUES (:tag)";
     $preparada = $db->prepare($sqlinsert);
-    foreach ($hashtagsArray as $k => $v) {
-      $preparada->execute(array(':tag' => $v));
-      $idhashtags[] = $db->lastInsertId();
-    }
-    return $idhashtags;
+    $preparada->execute(array(':tag' => $tagValue));
+    $hashtagId = $db->lastInsertId();
+    return $hashtagId;
   } catch (PDOException $e) {
     fatalError("guardarHashtagsError", $e->getMessage());
   }
+}
+
+//TODO: si un hastag està repetit, sha de tornar la id
+function guardarHashtags($hashtagsArray) {
+  $hashtagsIds = distincNewHashtags($hashtagsArray);
+  return $hashtagsIds;
 }
 
 function guardarVideoHashtags($idvideo, $idhashtags) {
