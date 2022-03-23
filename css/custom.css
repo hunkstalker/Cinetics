@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
 
+body{
+  background-color: gainsboro;
+}
+
 /* Vídeo e imagen de fondo */
 #web-content {
   position: relative;
@@ -10,7 +14,7 @@
   background-position-x: 10%;
 }
 
-#web-content video {
+#web-content>video {
   width: 100vw;
   height: 100vh;
   object-fit: cover;
@@ -50,7 +54,7 @@ p.link:hover {
 
 /* PANEL */
 #panel {
-  height: auto;
+  height: 80vh;
   width: 100%;
   border-top: dashed white 15px;
   border-bottom: dashed white 15px;
@@ -145,6 +149,25 @@ input.custom-btn {
 
 .active-dislike {
   color: red !important;
+} 
+
+.cercle {
+  background-color: gray;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+}
+
+.cercle:hover {
+  background-color: rgb(194, 194, 194);
+}
+
+.description {
+  margin: 0.5rem 1.5rem 1rem 1.5rem;
+  padding: 1rem 1rem 1rem 1rem ;
+  background-color: white;
+  border-radius: 15px;
+  height: 200px;
 }
 
 /* MEDIA QUERIES DE BOOTSTRAP ----------------- */
@@ -158,10 +181,18 @@ input.custom-btn {
     width: 80%;
   }
 
-  /* redimensión para las págs newmember & recoverpsw */
-  #panel.newmember, #panel.recoverpsw {
+  /* redimensión para las págs mainpage, newmember & recoverpsw  */
+  #panel.newmember, #panel.recoverpsw, #panel.mainpage {
     width: 85%;
     height: 60vh;
+  }
+
+  .mainpage {
+    height: 80vh !important;
+  }
+
+  .description {
+    height: 100px;
   }
 
   button.custom-btn {
@@ -174,6 +205,10 @@ input.custom-btn {
 
   #panel {
     width: 60%;
+  }
+
+  .login {
+    height: 85vh !important;
   }
 
   button.custom-btn {
@@ -189,7 +224,7 @@ input.custom-btn {
   }
 
   /* redimensión para las págs newmember & recoverpsw */
-  #panel.newmember, #panel.recoverpsw {
+  #panel.newmember, #panel.recoverpsw, #panel.mainpage{
     width: 60%;
     height: 60vh;
   }
@@ -210,6 +245,14 @@ input.custom-btn {
   #panel.signup {
     width: 50%;
   }
+
+  .mainpage {
+    height: 85vh !important;
+  }
+
+  .login {
+    height: 85vh !important;
+  }
 }
 
 /* RESOLUCIÓN EXTRA */
@@ -217,5 +260,9 @@ input.custom-btn {
 
   #panel {
     width: 25%;
+  }
+
+  .login {
+    height: 70vh !important;
   }
 } 

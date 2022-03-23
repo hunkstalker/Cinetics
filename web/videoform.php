@@ -76,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </div>
       <div>
         <a class="me-5" href="videoform.php"><img type="image" class="btn-nav" src="../media/uploadFile.webp" alt="Upload button"></a>
-        <a class="me-5" href="../lib/logout.php"><img type="image" class="btn-nav" src="../media/user.webp" alt="Profile button"></a>
+        <a class="me-5" href="../lib/logout.php"><img type="image" class="btn-nav" src="../media/logout_icon.webp" alt="Profile button"></a>
       </div>
     </nav>
     <!-- Navbar superior tablet/desktop -->
@@ -112,7 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <nav id="navbar" class="navbar fixed-bottom d-sm-none navbar-dark bg-dark justify-content-around">
     <a href="../index.php"><img type="image" class="btn-nav" src="../media/home.webp" alt="Home button"></a>
     <a href="videoform.php"><img type="image" class="btn-nav" src="../media/uploadFile.webp" alt="Upload button"></a>
-    <a href="../lib/logout.php"><img type="image" class="btn-nav" src="../media/user.webp" alt="Profile button"></a>
+    <a href="../lib/logout.php"><img type="image" class="btn-nav" src="../media/logout_icon.webp" alt="Profile button"></a>
   </nav>
   <!-- Navbar inferior móvil -->
 </body>
