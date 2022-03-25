@@ -131,5 +131,10 @@ $videoInfo;
       </div> <!-- Panel -->
     </div>
   </div> <!-- Container -->
+  <nav id="navbar" class="navbar fixed-bottom d-sm-none navbar-dark bg-dark justify-content-around">
+    <a href="../index.php"><img type="image" class="btn-nav" src="../media/home.webp" alt="Home button"></a>
+    <a href="videoform.php"><img type="image" class="btn-nav" src="../media/uploadFile.webp" alt="Upload button"></a>
+    <a href="../lib/logout.php"><img type="image" class="btn-nav" src="../media/logout_icon.webp" alt="Profile button"></a>
+  </nav>
   <script src="../js/style.js"></script>
 </body>
